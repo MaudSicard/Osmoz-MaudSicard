@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures\Provider;
 
-class MovieDbProvider
+class OsmozProvider
 {
     private $movies = [
       'Fright Night 2',
@@ -56,9 +56,32 @@ class MovieDbProvider
       'Ce que savait la nuit',
       'La valse du diable',
       'Double miroir',
-      'Simplissime - Le livre de cuisine le + facile du monde : Simplissime',
-      'Simplissime - : SIMPLISSIME Les recettes asiatiques les + faciles du monde',
+      'Simplissime Le livre de cuisine le + facile du monde : Simplissime',
+      'Simplissime : SIMPLISSIME Les recettes asiatiques les + faciles du monde',
       'Mortelle Adèle',
+    ];
+
+    private $author_book = [
+      'Marie Sélène',
+      'Julia Quinn',
+      'Jane Austen',
+      'Eiichiro Oda',
+      'John Beckett',
+      'Olivier Andrieu',
+      'Eleone Thuillier',
+      'Hal Elrod',
+      'Katerine Pancol',
+      'Anna Llenas',
+      'Erwann Menthéour',
+      'Haraps',
+      'Dan Brown',
+      'Dan Brown',
+      'Arnaldur Indridason',
+      'Jonathan Kellerman',
+      'Jonathan Kellerman',
+      'Jean-François Mallet',
+      'Jean-François Mallet',
+      'Mr Tan',
     ];
 
     private $music = [
@@ -74,6 +97,18 @@ class MovieDbProvider
       'Dark & Wild',
     ];
 
+    private $artist_music = [
+      'Kaiser Chiefs',
+      'Jay-Z',
+      'Cassius',
+      'Grand Corps Malade',
+      'Red Hot Chili Pepers',
+      'Madame Monsieur',
+      'Kyo',
+      'Falling in Reverse',
+      'Fall Out Boy',
+      'BTS',
+    ];
   
     private $book_gender = [
       'Historique',
@@ -175,12 +210,28 @@ class MovieDbProvider
         return $this->books[array_rand($this->books)];
     }
 
+       /**
+     * Return book author
+     */
+    public function bookAuthor()
+    {
+        return $this->author_book[array_rand($this->author_book)];
+    }
+
     /**
      * Return music album name
      */
     public function musicName()
     {
         return $this->music[array_rand($this->music)];
+    }
+
+       /**
+     * Return music artist
+     */
+    public function musicArtist()
+    {
+        return $this->artist_music[array_rand($this->artist_music)];
     }
 
     /**
