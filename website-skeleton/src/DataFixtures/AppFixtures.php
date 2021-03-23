@@ -10,6 +10,7 @@ use App\Entity\User;
 use App\Entity\Movie;
 use App\Entity\Music;
 use App\Entity\Gender;
+use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\Provider\OsmozProvider;
@@ -20,12 +21,15 @@ class AppFixtures extends Fixture
      // Password encoder
      private $passwordEncoder;
 
+     private $connection;
+
      /**
       * On injecte les dépendances (les objets utiles au fonctionnement de nos Fixtures) dans le constructeur car AppFixtures est elle aussi un service
       */
-     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+     public function __construct(UserPasswordEncoderInterface $passwordEncoder, Connection $connection)
      {
          $this->passwordEncoder = $passwordEncoder;
+         $this->connection = $connection;
      }
      
     const NB_BOOK = 20;
@@ -39,8 +43,30 @@ class AppFixtures extends Fixture
     const NB_MUSIC_GENDER = 14;
     const NB_MAIL = 10;
 
+    private function truncate()
+    {
+        $users = $this->connection->query('SET foreign_key_checks = 0');
+
+        $users = $this->connection->query('TRUNCATE TABLE movie');
+        $users = $this->connection->query('TRUNCATE TABLE movie_gender');
+        $users = $this->connection->query('TRUNCATE TABLE book');
+        $users = $this->connection->query('TRUNCATE TABLE book_gender');
+        $users = $this->connection->query('TRUNCATE TABLE music');
+        $users = $this->connection->query('TRUNCATE TABLE music_gender');
+        $users = $this->connection->query('TRUNCATE TABLE gender');
+        $users = $this->connection->query('TRUNCATE TABLE type');
+        $users = $this->connection->query('TRUNCATE TABLE user');
+        $users = $this->connection->query('TRUNCATE TABLE user_mail');
+        $users = $this->connection->query('TRUNCATE TABLE mail');
+
+
+    }
+
+
     public function load(ObjectManager $manager)
     {
+        $this->truncate();
+        
         $faker = Faker\Factory::create('fr_FR');
 
         $faker->addProvider(new OsmozProvider());
