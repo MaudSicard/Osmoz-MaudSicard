@@ -194,91 +194,135 @@ class OsmozProvider
       'Vinyle'
     ];
 
+    private $status = [
+      'dispo',
+      'pas dispo',
+      'réservé'
+    ];
+
+    private $state = [
+      'bon',
+      'très bon',
+      'bof'
+    ];
+
+    private $user = [
+      'chloe@chloe.com',
+      'charlotte@charlotte.com',
+      'clem@clem.com',
+      'micka@micka.com',
+      'maud@maud.com'
+    ];
+
+    /**
+     * Return a user
+     */
+    public function user()
+    {
+        return $this->user[[array_rand($this->user)]];
+    }
+
+    /**
+     * Return a status
+     */
+    public function status()
+    {
+        return $this->status[[array_rand($this->status)]];
+    }
+
+    /**
+     * Return a state
+     */
+    public function state()
+    {
+        return $this->state[[array_rand($this->state)]];
+    }
+
     /**
      * Return movie name
      */
-    public function movieName()
+    public function movieName($i)
     {
-        return $this->movies[array_rand($this->movies)];
+        return $this->movies[$i];
     }
 
     /**
      * Return book name
      */
-    public function bookName()
+    public function bookName($i)
     {
-        return $this->books[array_rand($this->books)];
+        return $this->books[$i];
     }
 
        /**
      * Return book author
      */
-    public function bookAuthor()
+    public function bookAuthor($i)
     {
-        return $this->author_book[array_rand($this->author_book)];
+        return $this->author_book[$i];
     }
 
     /**
      * Return music album name
      */
-    public function musicName()
+    public function musicName($i)
     {
-        return $this->music[array_rand($this->music)];
+        return $this->music[$i];
     }
 
        /**
      * Return music artist
      */
-    public function musicArtist()
+    public function musicArtist($i)
     {
-        return $this->artist_music[array_rand($this->artist_music)];
+        return $this->artist_music[$i];
     }
 
     /**
      * Return movie gender
      */
-    public function movieGender()
+    public function movieGender($i)
     {
-        return $this->movie_gender[array_rand($this->movie_gender)];
+        return $this->movie_gender[$i];
     }
 
     /**
      * Return book gender
      */
-    public function bookGender()
+    public function bookGender($i)
     {
-        return $this->book_gender[array_rand($this->book_gender)];
+        return $this->book_gender[$i];
     }
 
     /**
      * Return movie gender
      */
-    public function musicGender()
+    public function musicGender($i)
     {
-        return $this->music_gender[array_rand($this->music_gender)];
+        return $this->music_gender[$i];
     }
     /**
      * Return movie type
      */
-    public function movieType()
+    public function movieType($i)
     {
-        return $this->movie_type[array_rand($this->movie_type)];
+        return $this->movie_type[$i];
     }
 
     /**
      * Return book type
      */
-    public function bookType ()
+    public function bookType($i)
     {
-        return $this->book_type[array_rand($this->book_type)];
+        return $this->book_type[$i];
     }
 
     /**
      * Return music type
      */
-    public function musicType()
+    public function musicType($i)
     {
-        return $this->music_type[array_rand($this->music_type)];
+        return $this->music_type[$i];
     }
     
 }

@@ -41,9 +41,37 @@ class User implements UserInterface
      */
     private $mail;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="user")
+     */
+    private $movies;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user")
+     */
+    private $books;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user")
+     */
+    private $music;
+
     public function __construct()
     {
         $this->mail = new ArrayCollection();
+        $this->movies = new ArrayCollection();
+        $this->books = new ArrayCollection();
+        $this->music = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,6 +175,120 @@ class User implements UserInterface
     public function removeMail(Mail $mail): self
     {
         $this->mail->removeElement($mail);
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Movie[]
+     */
+    public function getMovies(): Collection
+    {
+        return $this->movies;
+    }
+
+    public function addMovie(Movie $movie): self
+    {
+        if (!$this->movies->contains($movie)) {
+            $this->movies[] = $movie;
+            $movie->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMovie(Movie $movie): self
+    {
+        if ($this->movies->removeElement($movie)) {
+            // set the owning side to null (unless already changed)
+            if ($movie->getUser() === $this) {
+                $movie->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Book[]
+     */
+    public function getBooks(): Collection
+    {
+        return $this->books;
+    }
+
+    public function addBook(Book $book): self
+    {
+        if (!$this->books->contains($book)) {
+            $this->books[] = $book;
+            $book->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBook(Book $book): self
+    {
+        if ($this->books->removeElement($book)) {
+            // set the owning side to null (unless already changed)
+            if ($book->getUser() === $this) {
+                $book->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Music[]
+     */
+    public function getMusic(): Collection
+    {
+        return $this->music;
+    }
+
+    public function addMusic(Music $music): self
+    {
+        if (!$this->music->contains($music)) {
+            $this->music[] = $music;
+            $music->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMusic(Music $music): self
+    {
+        if ($this->music->removeElement($music)) {
+            // set the owning side to null (unless already changed)
+            if ($music->getUser() === $this) {
+                $music->setUser(null);
+            }
+        }
 
         return $this;
     }

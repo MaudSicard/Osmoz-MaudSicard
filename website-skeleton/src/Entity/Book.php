@@ -40,7 +40,7 @@ class Book
     private $status;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=128)
      */
     private $state;
 
@@ -64,6 +64,12 @@ class Book
      * @ORM\JoinColumn(nullable=false)
      */
     private $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="books")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __construct()
     {
@@ -123,12 +129,12 @@ class Book
         return $this;
     }
 
-    public function getState(): ?int
+    public function getState(): ?string
     {
         return $this->state;
     }
 
-    public function setState(int $state): self
+    public function setState(string $state): self
     {
         $this->state = $state;
 
@@ -191,6 +197,18 @@ class Book
     public function setType(?Type $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
