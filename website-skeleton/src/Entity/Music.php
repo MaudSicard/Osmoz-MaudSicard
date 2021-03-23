@@ -40,7 +40,7 @@ class Music
     private $status;
 
     /**
-     * @ORM\Column(type="string", length=128)
+     * @ORM\Column(type="integer")
      */
     private $state;
 
@@ -129,12 +129,12 @@ class Music
         return $this;
     }
 
-    public function getState(): ?string
+    public function getState(): ?int
     {
         return $this->state;
     }
 
-    public function setState(string $state): self
+    public function setState(int $state): self
     {
         $this->state = $state;
 

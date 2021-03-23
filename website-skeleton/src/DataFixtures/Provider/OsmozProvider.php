@@ -56,8 +56,8 @@ class OsmozProvider
       'Ce que savait la nuit',
       'La valse du diable',
       'Double miroir',
-      'Simplissime Le livre de cuisine le + facile du monde : Simplissime',
-      'Simplissime : SIMPLISSIME Les recettes asiatiques les + faciles du monde',
+      'Simplissime Le livre de cuisine le + facile du monde ',
+      'Simplissime Les recettes asiatiques les plus faciles du monde',
       'Mortelle Adèle',
     ];
 
@@ -201,9 +201,9 @@ class OsmozProvider
     ];
 
     private $state = [
-      'bon',
-      'très bon',
-      'bof'
+      1 ,
+      2 ,
+      3
     ];
 
     private $user = [
@@ -219,7 +219,7 @@ class OsmozProvider
      */
     public function user()
     {
-        return $this->user[[array_rand($this->user)]];
+        return $this->user[array_rand($this->user)];
     }
 
     /**
@@ -227,7 +227,7 @@ class OsmozProvider
      */
     public function status()
     {
-        return $this->status[[array_rand($this->status)]];
+        return $this->status[array_rand($this->status)];
     }
 
     /**
@@ -235,7 +235,7 @@ class OsmozProvider
      */
     public function state()
     {
-        return $this->state[[array_rand($this->state)]];
+        return $this->state[array_rand($this->state)];
     }
 
     /**

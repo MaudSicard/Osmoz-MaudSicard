@@ -48,13 +48,15 @@ class AppFixtures extends Fixture
         $bookGenderList = [];
         $movieGenderList = [];
         $musicGenderList = [];
-
+        $userList = [];
 
         $user = new User();
         $user->setEmail('admin@admin.com');
         $encodedPassword = $this->passwordEncoder->encodePassword($user, 'admin');
         $user->setPassword($encodedPassword);
         $user->setRoles(['ROLE_ADMIN']);
+        $user->setCreatedAt(new \DateTime());
+        $userList[] = $user;
         $manager->persist($user);
 
         $userChloe = new User();
@@ -62,6 +64,8 @@ class AppFixtures extends Fixture
         $encodedPassword = $this->passwordEncoder->encodePassword($user, 'chloe');
         $userChloe->setPassword($encodedPassword);
         $userChloe->setRoles(['ROLE_ADMIN']);
+        $userChloe->setCreatedAt(new \DateTime());
+        $userList[] = $userChloe;
         $manager->persist($userChloe);
 
         $userCharlotte = new User();
@@ -69,6 +73,8 @@ class AppFixtures extends Fixture
         $encodedPassword = $this->passwordEncoder->encodePassword($user, 'charlotte');
         $userCharlotte->setPassword($encodedPassword);
         $userCharlotte->setRoles(['ROLE_ADMIN']);
+        $userCharlotte->setCreatedAt(new \DateTime());
+        $userList[] = $userCharlotte;
         $manager->persist($userCharlotte);
 
         $userClem = new User();
@@ -76,13 +82,17 @@ class AppFixtures extends Fixture
         $encodedPassword = $this->passwordEncoder->encodePassword($user, 'clem');
         $userClem->setPassword($encodedPassword);
         $userClem->setRoles(['ROLE_ADMIN']);
+        $userClem->setCreatedAt(new \DateTime());
+        $userList[] = $userClem;
         $manager->persist($userClem);
 
         $userMicka = new User();
-        $userMicka->setEmail('clem@clem.com');
+        $userMicka->setEmail('micka@micka.com');
         $encodedPassword = $this->passwordEncoder->encodePassword($user, 'micka');
         $userMicka->setPassword($encodedPassword);
         $userMicka->setRoles(['ROLE_ADMIN']);
+        $userMicka->setCreatedAt(new \DateTime());
+        $userList[] = $userMicka;
         $manager->persist($userMicka);
 
         $userMaud = new User();
@@ -90,7 +100,11 @@ class AppFixtures extends Fixture
         $encodedPassword = $this->passwordEncoder->encodePassword($user, 'maud');
         $userMaud->setPassword($encodedPassword);
         $userMaud->setRoles(['ROLE_ADMIN']);
+        $userMaud->setCreatedAt(new \DateTime());
+        $userList[] = $userMaud;
         $manager->persist($userMaud);
+
+
 
         for ($i = 0; $i < self::NB_BOOK_TYPE; $i++) {
             $type = new Type();
@@ -172,7 +186,8 @@ class AppFixtures extends Fixture
             $bookGender = $bookGenderList[array_rand($bookGenderList)];
             $book->addGender($bookGender);
 
-            $book->setUser($faker->user());
+            $user = $userList[array_rand($userList)];
+            $book->setUser($user);
 
             $manager->persist($book);
         }
