@@ -6,6 +6,7 @@ use App\Repository\MovieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=MovieRepository::class)
@@ -16,31 +17,37 @@ class Movie
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("movies_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups("movies_read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
+     * @Groups("movies_read") 
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Groups("movies_read")
      */
     private $status;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("movies_read")
      */
     private $state;
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Groups("movies_read")
      */
     private $support;
 
@@ -55,19 +62,22 @@ class Movie
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="movies")
+     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="movies", cascade={"persist"}))
+     * @Groups("movies_read")
      */
     private $gender;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="movies")
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="movies", cascade={"persist"}))
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("movies_read")
      */
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="movies")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="movies", cascade={"persist"}))
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("movies_read")
      */
     private $user;
 

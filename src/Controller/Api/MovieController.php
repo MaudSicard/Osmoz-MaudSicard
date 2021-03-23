@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Controller\Api;
+
+use App\Entity\Movie;
+use App\Repository\MovieRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+class MovieController extends AbstractController
+{
+    /**
+     * Read all movies
+     * 
+     * @Route("/api/movies/read", name="api_movies_read", methods="GET")
+     */
+    public function read(MovieRepository $movieRepository, SerializerInterface $serializer): Response
+    {
+        $movies = $movieRepository->findAllOrderedByCreatedAtAsc();
+
+        return $this->json($movies, 200, [], ['groups' => 'movies_read']);
+    }
+
+}
+

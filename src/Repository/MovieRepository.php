@@ -19,6 +19,27 @@ class MovieRepository extends ServiceEntityRepository
         parent::__construct($registry, Movie::class);
     }
 
+    /**
+     * Find all movies ordered by createdAt
+     * 
+     * @return Movie[] Returns an array of Movie objects
+     */
+    public function findAllOrderedByCreatedAtAsc()
+    {
+        // Requête de base
+        $qb = $this->createQueryBuilder('m')
+            ->setMaxResults(5)
+            ->orderBy('m.createdAt', 'ASC')
+            ->innerJoin('m.gender', 'g')
+            ->innerJoin('m.type', 't')
+            ->innerJoin('m.user', 'u')
+            ->addSelect('g')
+            ->addSelect('t')
+            ->addSelect('u');
+
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Movie[] Returns an array of Movie objects
     //  */
