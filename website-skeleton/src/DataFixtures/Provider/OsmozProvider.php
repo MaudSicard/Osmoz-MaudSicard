@@ -214,6 +214,16 @@ class OsmozProvider
       'maud@maud.com'
     ];
 
+    private $support_music = [
+      'cd',
+      'vinyle'
+    ];
+
+    private $support_movie = [
+      'dvd',
+      'blue-ray'
+    ];
+
     /**
      * Return a user
      */
@@ -236,6 +246,22 @@ class OsmozProvider
     public function state()
     {
         return $this->state[array_rand($this->state)];
+    }
+
+     /**
+     * Return a music support
+     */
+    public function musicSupport()
+    {
+        return $this->support_music[array_rand($this->support_music)];
+    }
+
+     /**
+     * Return a movie support
+     */
+    public function movieSupport()
+    {
+        return $this->support_movie[array_rand($this->support_movie)];
     }
 
     /**

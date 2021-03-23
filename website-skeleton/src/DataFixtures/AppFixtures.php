@@ -4,9 +4,11 @@ namespace App\DataFixtures;
 
 use Faker;
 use App\Entity\Book;
+use App\Entity\Mail;
 use App\Entity\Type;
 use App\Entity\User;
 use App\Entity\Movie;
+use App\Entity\Music;
 use App\Entity\Gender;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -35,6 +37,7 @@ class AppFixtures extends Fixture
     const NB_MOVIE_GENDER = 15;
     const NB_MUSIC_TYPE = 2;
     const NB_MUSIC_GENDER = 14;
+    const NB_MAIL = 10;
 
     public function load(ObjectManager $manager)
     {
@@ -49,6 +52,7 @@ class AppFixtures extends Fixture
         $movieGenderList = [];
         $musicGenderList = [];
         $userList = [];
+        $mailList = [];
 
         $user = new User();
         $user->setEmail('admin@admin.com');
@@ -183,8 +187,12 @@ class AppFixtures extends Fixture
             $bookType = $bookTypeList[array_rand($bookTypeList)];
             $book->setType($bookType);
 
+            shuffle($bookGenderList);
+
+            for ($r = 0; $r < mt_rand(1, 2); $r++) {
             $bookGender = $bookGenderList[array_rand($bookGenderList)];
             $book->addGender($bookGender);
+            }
 
             $user = $userList[array_rand($userList)];
             $book->setUser($user);
@@ -192,7 +200,72 @@ class AppFixtures extends Fixture
             $manager->persist($book);
         }
 
+
+        for ($i = 0; $i < self::NB_MUSIC; $i++) {
+            $music = new Music();
+            $music->setName($faker->musicName($i));
+            $music->setArtist($faker->musicArtist($i));
+            $music->setState($faker->state());
+            $music->setStatus($faker->status());
+            $music->setCreatedAt(new \DateTime());
+            $music->setSupport($faker->musicSupport());
+
+            $musicType = $musicTypeList[array_rand($musicTypeList)];
+            $music->setType($musicType);
+
+            shuffle($musicGenderList);
+
+            for ($r = 0; $r < mt_rand(1, 2); $r++) {
+            $musicGender = $musicGenderList[array_rand($musicGenderList)];
+            $music->addGender($musicGender);
+            }
+
+            $user = $userList[array_rand($userList)];
+            $music->setUser($user);
+
+            $manager->persist($music);
+        }
+
+
+        for ($i = 0; $i < self::NB_MOVIE; $i++) {
+            $movie = new Movie();
+            $movie->setName($faker->movieName($i));
+            $movie->setState($faker->state());
+            $movie->setStatus($faker->status());
+            $movie->setCreatedAt(new \DateTime());
+            $movie->setSupport($faker->movieSupport());
+
+            $movieType = $movieTypeList[array_rand($movieTypeList)];
+            $movie->setType($movieType);
+
+            shuffle($musicGenderList);
+
+            for ($r = 0; $r < mt_rand(1, 2); $r++) {
+            $movieGender = $movieGenderList[array_rand($movieGenderList)];
+            $movie->addGender($movieGender);
+            }
+
+            $user = $userList[array_rand($userList)];
+            $movie->setUser($user);
+
+            $manager->persist($movie);
+        }
        
+        for ($i = 0; $i < self::NB_MAIL; $i++) {
+            $mail = new Mail();
+            $mail->setContent($faker->unique->paragraph());
+            $mail->setCreatedAt(new \DateTime());
+
+            shuffle($userList);
+
+            for ($r = 0; $r < mt_rand(1, 2); $r++) {
+            $user = $userList[array_rand($userList)];
+            $mail->addUser($user);
+            }
+
+            $manager->persist($mail);
+        }
+
 
         $manager->flush();
     }

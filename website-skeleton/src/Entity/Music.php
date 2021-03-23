@@ -71,6 +71,11 @@ class Music
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $support;
+
     public function __construct()
     {
         $this->gender = new ArrayCollection();
@@ -209,6 +214,18 @@ class Music
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSupport(): ?string
+    {
+        return $this->support;
+    }
+
+    public function setSupport(string $support): self
+    {
+        $this->support = $support;
 
         return $this;
     }
