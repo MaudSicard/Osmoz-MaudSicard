@@ -33,7 +33,7 @@ class UserController extends AbstractController
     /**
      * Read one user
      * 
-     * @Route("/api/users/{id<\d+>}", name="api_movies_read_item", methods="GET")
+     * @Route("/api/users/{id<\d+>}", name="api_users_read_item", methods="GET")
      */
     public function readItem(User $user = null): Response
     {
@@ -54,4 +54,59 @@ class UserController extends AbstractController
     ]);
     }
 
+    /** Create user
+    * 
+    * @Route("/api/users/create", name="api_users_create", methods="POST")
+    */
+   public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator)
+   {      
+
+       $jsonContent = $request->getContent();
+       // dd($jsonContent);
+
+       $user = $serializer->deserialize($jsonContent, User::class, 'json');
+       // dd($movie);
+
+       $errors = $validator->validate($user);
+
+       if (count($errors) > 0) {
+   
+           return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+       }
+
+       $entityManager->persist($user);
+       $entityManager->flush();
+
+       return $this->redirectToRoute(
+           'api_users_read_item',
+           ['id' => $user->getId()],
+           Response::HTTP_CREATED
+       );
+   }
+
+    /**
+     * Delete movie
+     * 
+     * @Route("/api/users/{id<\d+>}", name="api_users_delete", methods="DELETE")
+     */
+    public function delete(User $user = null, EntityManagerInterface $entityManager)
+    {
+
+        if ($user === null) {
+
+            $message = [
+                'status' => Response::HTTP_NOT_FOUND,
+                'error' => 'User non trouvé.',
+            ];
+
+            return $this->json($message, Response::HTTP_NOT_FOUND);
+        }
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->json(
+            ['message' => 'Le user ' . $user->getEmail() . ' a été supprimé !'],
+            Response::HTTP_OK);
+    }
 }
