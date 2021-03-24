@@ -23,13 +23,13 @@ class Movie
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups("movies_read")
+     * @Groups("movies_read", "users_read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
-     * @Groups("movies_read") 
+     * @Groups("movies_read")
      */
     private $picture;
 
@@ -62,13 +62,13 @@ class Movie
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="movies", cascade={"persist"}))
+     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="movies", cascade={"persist"})
      * @Groups("movies_read")
      */
     private $gender;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="movies", cascade={"persist"}))
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="movies", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("movies_read")
      */

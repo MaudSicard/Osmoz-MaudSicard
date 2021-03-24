@@ -55,17 +55,17 @@ class User implements UserInterface
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="user",  cascade={"remove"})
      */
     private $movies;
 
     /**
-     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user", cascade={"remove"})
      */
     private $books;
 
     /**
-     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user",  cascade={"remove"})
      */
     private $music;
 
@@ -110,7 +110,6 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-  
 
         return array_unique($roles);
     }

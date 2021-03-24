@@ -28,21 +28,14 @@ class MovieRepository extends ServiceEntityRepository
     {
         // Requête de base
         $qb = $this->createQueryBuilder('m')
-            ->setMaxResults(5)
-            ->orderBy('m.createdAt', 'ASC')
-            ->innerJoin('m.gender', 'g')
-            ->innerJoin('m.type', 't')
-            ->innerJoin('m.user', 'u')
-            ->addSelect('g')
-            ->addSelect('t')
-            ->addSelect('u');
+            ->setMaxResults(10)
+            ->orderBy('m.createdAt', 'DESC');
 
         return $qb->getQuery()->getResult();
     }
 
-    // /**
-    //  * @return Movie[] Returns an array of Movie objects
-    //  */
+    /*
+
     /*
     public function findByExampleField($value)
     {
