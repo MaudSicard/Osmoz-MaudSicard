@@ -64,16 +64,19 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user", cascade={"remove"})
+     * @Groups("users_read")
      */
     private $books;
 
     /**
      * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user",  cascade={"remove"})
+     * @Groups("users_read")
      */
     private $music;
 
     public function __construct()
     {
+        $this->createdAt = new \datetime();
         $this->mail = new ArrayCollection();
         $this->movies = new ArrayCollection();
         $this->books = new ArrayCollection();
