@@ -47,4 +47,29 @@ class BookRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findAllBookByUserGenderType()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT b, u, t, g
+            FROM App\Entity\Book
+            INNER JOIN b.user u
+            INNER JOIN b.type t
+            INNER JOIN g.gender g
+            ORDER BY b.createdAt');
+
+        return $query->getResult();
+    }
+
+    public function findAllByCreatedAt()
+    {
+        return $this->createQueryBuilder('b')
+            ->orderBy('b.createdAt', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 }

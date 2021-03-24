@@ -47,4 +47,14 @@ class MusicRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAllByCreatedAt()
+    {
+        return $this->createQueryBuilder('m')
+            ->orderBy('m.createdAt', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

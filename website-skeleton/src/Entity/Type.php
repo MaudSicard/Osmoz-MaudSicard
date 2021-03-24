@@ -6,6 +6,7 @@ use App\Repository\TypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TypeRepository::class)
@@ -16,11 +17,15 @@ class Type
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("book_read")
+     * @Groups("music_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("book_read")
+     * @Groups("music_read")
      */
     private $name;
 
@@ -40,17 +45,17 @@ class Type
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="type")
+     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="type", cascade={"remove"})
      */
     private $movies;
 
     /**
-     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="type")
+     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="type", cascade={"persist"})
      */
     private $books;
 
     /**
-     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="type")
+     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="type", cascade={"persist"})
      */
     private $music;
 

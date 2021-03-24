@@ -25,8 +25,29 @@ security:
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+
+            # 2ème façon de se connecter à l'appli
+            # Login en API/JSON
+            # @see https://symfony.com/doc/current/security/json_login_setup.html
+            json_login:
+                check_path: /api/login
+                username_path: security.credentials.login
+                password_path: security.credentials.password
+                # Déconnexion
+            logout:
+                # Soit un chemin (endpoint, /logout), soit un nom de route
+                path: app_logout
+
+
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/api/book/read, roles: ROLE_ADMIN }
+         - { path: ^/api/book/patch, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER

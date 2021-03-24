@@ -6,6 +6,7 @@ use App\Repository\MusicRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=MusicRepository::class)
@@ -16,36 +17,43 @@ class Music
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("music_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups("music_read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups("music_read")
      */
     private $artist;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
+     * @Groups("music_read")
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Groups("music_read")
      */
     private $status;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("music_read")
      */
     private $state;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("music_read")
      */
     private $createdAt;
 
@@ -56,23 +64,27 @@ class Music
 
     /**
      * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="music")
+     * @Groups("music_read")
      */
     private $gender;
 
     /**
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="music")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("music_read")
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="music")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("music_read")
      */
     private $user;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups("music_read")
      */
     private $support;
 
