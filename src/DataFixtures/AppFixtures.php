@@ -78,58 +78,53 @@ class AppFixtures extends Fixture
         $movieGenderList = [];
         $musicGenderList = [];
         $userList = [];
-        $mailList = [];
-
-        $user = new User();
-        $user->setEmail('admin@admin.com');
-        $encodedPassword = $this->passwordEncoder->encodePassword($user, 'admin');
-        $user->setPassword($encodedPassword);
-        $user->setRoles(['ROLE_ADMIN']);
-        $user->setCreatedAt(new \DateTime());
-        $userList[] = $user;
-        $manager->persist($user);
 
         $userChloe = new User();
         $userChloe->setEmail('chloe@chloe.com');
-        $encodedPassword = $this->passwordEncoder->encodePassword($user, 'chloe');
+        $encodedPassword = $this->passwordEncoder->encodePassword($userChloe, 'chloe');
         $userChloe->setPassword($encodedPassword);
         $userChloe->setRoles(['ROLE_ADMIN']);
+        $userChloe->setNickname('Chloé');
         $userChloe->setCreatedAt(new \DateTime());
         $userList[] = $userChloe;
         $manager->persist($userChloe);
 
         $userCharlotte = new User();
         $userCharlotte->setEmail('charlotte@charlotte.com');
-        $encodedPassword = $this->passwordEncoder->encodePassword($user, 'charlotte');
+        $encodedPassword = $this->passwordEncoder->encodePassword($userCharlotte, 'charlotte');
         $userCharlotte->setPassword($encodedPassword);
         $userCharlotte->setRoles(['ROLE_ADMIN']);
+        $userCharlotte->setNickname('Charlotte');
         $userCharlotte->setCreatedAt(new \DateTime());
         $userList[] = $userCharlotte;
         $manager->persist($userCharlotte);
 
         $userClem = new User();
         $userClem->setEmail('clem@clem.com');
-        $encodedPassword = $this->passwordEncoder->encodePassword($user, 'clem');
+        $encodedPassword = $this->passwordEncoder->encodePassword($userClem, 'clem');
         $userClem->setPassword($encodedPassword);
         $userClem->setRoles(['ROLE_ADMIN']);
+        $userClem->setNickname('Clem');
         $userClem->setCreatedAt(new \DateTime());
         $userList[] = $userClem;
         $manager->persist($userClem);
 
         $userMicka = new User();
         $userMicka->setEmail('micka@micka.com');
-        $encodedPassword = $this->passwordEncoder->encodePassword($user, 'micka');
+        $encodedPassword = $this->passwordEncoder->encodePassword($userMicka, 'micka');
         $userMicka->setPassword($encodedPassword);
         $userMicka->setRoles(['ROLE_ADMIN']);
+        $userMicka->setNickname('Micka');
         $userMicka->setCreatedAt(new \DateTime());
         $userList[] = $userMicka;
         $manager->persist($userMicka);
 
         $userMaud = new User();
         $userMaud->setEmail('maud@maud.com');
-        $encodedPassword = $this->passwordEncoder->encodePassword($user, 'maud');
+        $encodedPassword = $this->passwordEncoder->encodePassword($userMaud, 'maud');
         $userMaud->setPassword($encodedPassword);
         $userMaud->setRoles(['ROLE_ADMIN']);
+        $userMaud->setNickname('Maud');
         $userMaud->setCreatedAt(new \DateTime());
         $userList[] = $userMaud;
         $manager->persist($userMaud);

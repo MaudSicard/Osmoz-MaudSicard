@@ -18,13 +18,19 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("book_read")
+     * @Groups("music_read")
      * @Groups("movies_read", "users_read")
+
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups("book_read")
+     * @Groups("music_read")
      * @Groups("movies_read", "users_read")
+
      */
     private $email;
 
@@ -63,16 +69,23 @@ class User implements UserInterface
     private $movies;
 
     /**
-     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user", cascade={"persist"})
      * @Groups("users_read")
      */
     private $books;
 
     /**
-     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user",  cascade={"remove"})
+     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user",  cascade={"persist"})
      * @Groups("users_read")
      */
     private $music;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     * @Groups("book_read")
+     * @Groups("music_read")
+     */
+    private $nickname;
 
     public function __construct()
     {
@@ -299,4 +312,19 @@ class User implements UserInterface
 
         return $this;
     }
+
+
+    public function getNickname(): ?string
+    {
+        return $this->nickname;
+    }
+
+    public function setNickname(string $nickname): self
+    {
+        $this->nickname = $nickname;
+
+        return $this;
+    }
 }
+
+

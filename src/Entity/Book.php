@@ -17,60 +17,69 @@ class Book
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("users_read")
+     * @Groups("book_read","users_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups("users_read")
+     * @Groups("book_read", "users_read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups("book_read")
      */
     private $author;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
+     * @Groups("book_read")
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Groups("book_read")
      */
     private $status;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("book_read")
      */
     private $state;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("book_read")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("book_read")
      */
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="books")
+     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="books", cascade={"persist"})
+     * @Groups("book_read")
      */
     private $gender;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="books")
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="books", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+    * @Groups("book_read")
      */
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="books")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="books", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("book_read")
      */
     private $user;
 
