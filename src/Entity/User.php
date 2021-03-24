@@ -69,13 +69,14 @@ class User implements UserInterface
     private $movies;
 
     /**
-
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user", cascade={"persist"})
+     * @Groups("users_read")
      */
     private $books;
 
     /**
-     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user", cascade={"persist"} )
+     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user",  cascade={"persist"})
+     * @Groups("users_read")
      */
     private $music;
 
@@ -88,6 +89,7 @@ class User implements UserInterface
 
     public function __construct()
     {
+        $this->createdAt = new \datetime();
         $this->mail = new ArrayCollection();
         $this->movies = new ArrayCollection();
         $this->books = new ArrayCollection();

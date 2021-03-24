@@ -17,13 +17,13 @@ class Book
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("book_read")
+     * @Groups("book_read","users_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups("book_read")
+     * @Groups("book_read", "users_read")
      */
     private $name;
 
