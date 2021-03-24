@@ -17,7 +17,7 @@ class Movie
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("movies_read")
+     * @Groups("movies_read", "users_read")
      */
     private $id;
 

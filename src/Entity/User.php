@@ -18,18 +18,19 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("movies_read")
+     * @Groups("movies_read", "users_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups("movies_read")
+     * @Groups("movies_read", "users_read")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups("users_read")
      */
     private $roles = [];
 
@@ -41,6 +42,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity=Mail::class, inversedBy="users")
+     * @Groups("users_read")
      */
     private $mail;
 
@@ -56,6 +58,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="user",  cascade={"remove"})
+     * @Groups("users_read")
      */
     private $movies;
 

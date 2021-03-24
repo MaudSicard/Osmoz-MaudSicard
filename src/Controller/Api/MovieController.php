@@ -56,6 +56,72 @@ class MovieController extends AbstractController
     }
 
     /**
+     * Create movie
+     * 
+     * @Route("/api/movies/create", name="api_movies_create", methods="POST")
+     */
+    public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator)
+    {      
+
+        $jsonContent = $request->getContent();
+        // dd($jsonContent);
+
+        $movie = $serializer->deserialize($jsonContent, Movie::class, 'json');
+        // dd($movie);
+
+        $errors = $validator->validate($movie);
+
+        if (count($errors) > 0) {
+    
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $entityManager->persist($movie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute(
+            'api_movies_read_item',
+            ['id' => $movie->getId()],
+            Response::HTTP_CREATED
+        );
+    }
+
+    /**
+     * Edit movie (PUT et PATCH)
+     * 
+     * @Route("/api/movies/{id<\d+>}", name="api_movies_put", methods={"PUT"})
+     * @Route("/api/movies/{id<\d+>}", name="api_movies_patch", methods={"PATCH"})
+     */
+    public function putAndPatch(Movie $movie = null, EntityManagerInterface $entityManager, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
+    {
+
+        if ($movie === null) {
+
+            return $this->json(['error' => 'Film non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $jsonContent = $request->getContent();
+
+        $serializer->deserialize(
+            $jsonContent,
+            Movie::class,
+            'json',
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $movie]
+        );
+
+        $errors = $validator->validate($movie);
+
+        if (count($errors) > 0) {
+
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Film modifié.'], Response::HTTP_OK);
+    }
+
+    /**
      * Delete movie
      * 
      * @Route("/api/movies/{id<\d+>}", name="api_movies_delete", methods="DELETE")
