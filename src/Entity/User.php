@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -17,16 +18,19 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("movies_read", "users_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups("movies_read", "users_read")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups("users_read")
      */
     private $roles = [];
 
@@ -38,6 +42,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity=Mail::class, inversedBy="users")
+     * @Groups("users_read")
      */
     private $mail;
 
@@ -52,17 +57,18 @@ class User implements UserInterface
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="user",  cascade={"remove"})
+     * @Groups("users_read")
      */
     private $movies;
 
     /**
-     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user", cascade={"remove"})
      */
     private $books;
 
     /**
-     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user",  cascade={"remove"})
      */
     private $music;
 
@@ -107,8 +113,6 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
