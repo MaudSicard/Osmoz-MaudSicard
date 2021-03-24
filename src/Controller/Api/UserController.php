@@ -30,4 +30,28 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * Read one user
+     * 
+     * @Route("/api/users/{id<\d+>}", name="api_movies_read_item", methods="GET")
+     */
+    public function readItem(User $user = null): Response
+    {
+
+        if ($user === null) {
+
+            $message = [
+                'status' => Response::HTTP_NOT_FOUND,
+                'error' => 'User non trouvé.',
+            ];
+
+            return $this->json($message, Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->json($user, 200, ['Access-Control-Allow-Origin' =>'*'], ['groups' => [
+            'users_read',
+        ]
+    ]);
+    }
+
 }
