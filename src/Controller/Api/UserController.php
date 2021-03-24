@@ -65,7 +65,7 @@ class UserController extends AbstractController
        // dd($jsonContent);
 
        $user = $serializer->deserialize($jsonContent, User::class, 'json');
-       // dd($movie);
+       // dd($user);
 
        $errors = $validator->validate($user);
 
@@ -109,4 +109,5 @@ class UserController extends AbstractController
             ['message' => 'Le user ' . $user->getEmail() . ' a été supprimé !'],
             Response::HTTP_OK);
     }
+
 }
