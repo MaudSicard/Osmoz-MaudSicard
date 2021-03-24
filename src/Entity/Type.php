@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\GenderRepository;
+use App\Repository\TypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass=GenderRepository::class)
+ * @ORM\Entity(repositoryClass=TypeRepository::class)
  */
-class Gender
+class Type
 {
     /**
      * @ORM\Id
@@ -26,6 +26,7 @@ class Gender
      * @ORM\Column(type="string", length=255)
      * @Groups("book_read")
      * @Groups("music_read")
+     * @Groups("movies_read")
      */
     private $name;
 
@@ -45,17 +46,17 @@ class Gender
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Movie::class, mappedBy="gender")
+     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="type", cascade={"remove"})
      */
     private $movies;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="gender", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="type", cascade={"persist"})
      */
     private $books;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Music::class, mappedBy="gender", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="type", cascade={"persist"})
      */
     private $music;
 
@@ -131,7 +132,7 @@ class Gender
     {
         if (!$this->movies->contains($movie)) {
             $this->movies[] = $movie;
-            $movie->addGender($this);
+            $movie->setType($this);
         }
 
         return $this;
@@ -140,7 +141,10 @@ class Gender
     public function removeMovie(Movie $movie): self
     {
         if ($this->movies->removeElement($movie)) {
-            $movie->removeGender($this);
+            // set the owning side to null (unless already changed)
+            if ($movie->getType() === $this) {
+                $movie->setType(null);
+            }
         }
 
         return $this;
@@ -158,7 +162,7 @@ class Gender
     {
         if (!$this->books->contains($book)) {
             $this->books[] = $book;
-            $book->addGender($this);
+            $book->setType($this);
         }
 
         return $this;
@@ -167,7 +171,10 @@ class Gender
     public function removeBook(Book $book): self
     {
         if ($this->books->removeElement($book)) {
-            $book->removeGender($this);
+            // set the owning side to null (unless already changed)
+            if ($book->getType() === $this) {
+                $book->setType(null);
+            }
         }
 
         return $this;
@@ -185,7 +192,7 @@ class Gender
     {
         if (!$this->music->contains($music)) {
             $this->music[] = $music;
-            $music->addGender($this);
+            $music->setType($this);
         }
 
         return $this;
@@ -194,7 +201,10 @@ class Gender
     public function removeMusic(Music $music): self
     {
         if ($this->music->removeElement($music)) {
-            $music->removeGender($this);
+            // set the owning side to null (unless already changed)
+            if ($music->getType() === $this) {
+                $music->setType(null);
+            }
         }
 
         return $this;
