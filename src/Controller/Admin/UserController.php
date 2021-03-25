@@ -16,7 +16,7 @@ class UserController extends AbstractController
     /**
      * @Route("back/users/read", name="back_user_read", methods={"GET"})
      */
-    public function browse(UserRepository $userRepository): Response
+    public function read(UserRepository $userRepository): Response
     {
         $users = $userRepository->findAll();
 
@@ -28,7 +28,7 @@ class UserController extends AbstractController
     /**
      * @Route("back/user/add", name="back_user_add", methods={"GET","POST"})
      */
-    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function create(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {    
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -48,6 +48,35 @@ class UserController extends AbstractController
         }
 
         return $this->render('admin/user/add.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("back/user/edit/{id}", name="back_user_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($form->get('password')->getData() !== '') {
+             
+                $hashedPassword = $passwordEncoder->encodePassword($user, $form->get('password')->getData());
+
+                $user->setPassword($hashedPassword);
+            }
+
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('back_user_read');
+        }
+
+        return $this->render('admin/user/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);

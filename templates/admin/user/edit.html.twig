@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Modifier un film
+{% endblock %}
+
+{% block body %}
+
+<h1>Modifier un utilisateur</h1>
+<h2>{{ user.nickname }}</h2>
+
+{{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-success">Enregistrer</button>
+{{ form_end(form) }}
+
+{% endblock %}
