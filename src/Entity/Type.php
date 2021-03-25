@@ -19,6 +19,8 @@ class Type
      * @ORM\Column(type="integer")
      * @Groups("book_read")
      * @Groups("music_read")
+     * @Groups("type_read")
+     * 
      */
     private $id;
 
@@ -26,12 +28,13 @@ class Type
      * @ORM\Column(type="string", length=255)
      * @Groups("book_read")
      * @Groups("music_read")
-     * @Groups("movies_read")
+     * @Groups("type_read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups("type_read")
      */
     private $media = [];
 
@@ -47,16 +50,19 @@ class Type
 
     /**
      * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="type", cascade={"remove"})
+     * @Groups("type_read")
      */
     private $movies;
 
     /**
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="type", cascade={"persist"})
+     * @Groups("type_read")
      */
     private $books;
 
     /**
      * @ORM\OneToMany(targetEntity=Music::class, mappedBy="type", cascade={"persist"})
+     * @Groups("type_read")
      */
     private $music;
 

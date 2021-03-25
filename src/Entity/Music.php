@@ -24,6 +24,7 @@ class Music
     /**
      * @ORM\Column(type="string", length=64)
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $name;
 
@@ -63,20 +64,20 @@ class Music
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="music")
+     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="music", cascade={"persist"})
      * @Groups("music_read")
      */
     private $gender;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="music")
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="music", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("music_read")
      */
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="music")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="music", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("music_read")
      */

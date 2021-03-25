@@ -25,7 +25,7 @@ class MusicController extends AbstractController
      */
     public function read(musicRepository $musicRepository): Response
     {
-        $musicList = $musicRepository->findAllByCreatedAt();
+        $musicList = $musicRepository->findAllMusicByCreatedAt();
         return $this->json($musicList, 200, ['Access-Control-Allow-Origin' =>'*'], ['groups' => 'music_read']);
     }
 
@@ -79,7 +79,6 @@ class MusicController extends AbstractController
     }
 
     /**
-   
      * @Route("/api/music/put/{id<\d+>}", name="api_music_put", methods={"PUT"})
      * @Route("/api/music/patch/{id<\d+>}", name="api_music_patch", methods={"PATCH"})
      */

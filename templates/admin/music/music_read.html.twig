@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Musique{% endblock %}
+
+{% block body %}
+    <h1>Liste des musiques</h1>
+
+    <table class="table">
+    <div class="table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre de l'album</th>
+                <th>Artiste</th>
+                <th>Type</th>
+                <th>Genre</th>
+                <th>Utilisateur<th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for music in musics %}
+            <tr>
+                <td>{{ music.id }}</td>
+                <td>{{ music.name }}</td>
+                <td>{{ music.artist }}</td>
+                <td>{{ music.type.name }}</td>
+                <td>{{ music.user.email }}</td>
+                <td>
+                    <a href="{{ path('admin_music_delete', {'id': music.id}) }}">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucune musique trouvée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+      </div>
+    </table>
+
+{% endblock %}

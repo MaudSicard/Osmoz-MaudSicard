@@ -20,8 +20,7 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      * @Groups("book_read")
      * @Groups("music_read")
-     * @Groups("movies_read", "users_read")
-
+     * @Groups("type_read")
      */
     private $id;
 
@@ -29,14 +28,12 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups("book_read")
      * @Groups("music_read")
-     * @Groups("movies_read", "users_read")
-
+     * @Groups("type_read")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups("users_read")
      */
     private $roles = [];
 
@@ -48,7 +45,6 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity=Mail::class, inversedBy="users")
-     * @Groups("users_read")
      */
     private $mail;
 
@@ -63,13 +59,11 @@ class User implements UserInterface
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="user",  cascade={"remove"})
-     * @Groups("users_read")
+     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="user")
      */
     private $movies;
 
     /**
-
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user", cascade={"persist"})
      */
     private $books;
@@ -127,6 +121,8 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -311,7 +307,6 @@ class User implements UserInterface
         return $this;
     }
 
-
     public function getNickname(): ?string
     {
         return $this->nickname;
@@ -324,5 +319,3 @@ class User implements UserInterface
         return $this;
     }
 }
-
-

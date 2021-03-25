@@ -4,7 +4,9 @@ namespace App\Controller\Api;
 
 use App\Entity\Book;
 use App\Repository\BookRepository;
+use Doctrine\DBAL\Types\StringType;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Expr\Cast\String_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,6 +15,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * API BookController
@@ -48,6 +52,23 @@ class BookController extends AbstractController
         return $this->json($book, 200, ['Access-Control-Allow-Origin' =>'*'],
         ['groups' => 'book_read']);
     }
+
+    /**
+     * Read one book by keyWord
+     * @Route("/api/book/keyWord", name="api_book_read_keyWord", methods={"GET"})
+     */
+    public function readByKeyWord(BookRepository $bookRepository, Request $request, SerializerInterface $serializer): Response
+    {
+        $jsonContent = $request->getContent();
+
+        $keyWord = $serializer->deserialize($jsonContent, StringType::class, 'json');
+
+        $book = $bookRepository->findOneBookByKeyWord($jsonContent);
+
+        return $this->json($book, 200, ['Access-Control-Allow-Origin' =>'*'],
+        ['groups' => 'book_read']);
+    }
+
 
     /**
      *

@@ -18,12 +18,14 @@ class Movie
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups("movies_read", "users_read")
+     * @Groups("type_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Groups("movies_read", "users_read")
+     * @Groups("type_read")
      */
     private $name;
 

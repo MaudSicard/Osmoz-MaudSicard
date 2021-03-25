@@ -18,36 +18,42 @@ class Book
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups("book_read")
+     * @Groups("type_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Groups("book_read")
+     * @Groups("type_read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Groups("book_read")
+     * @Groups("type_read")
      */
     private $author;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
      * @Groups("book_read")
+     * @Groups("type_read")
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=128)
      * @Groups("book_read")
+     * @Groups("type_read")
      */
     private $status;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups("book_read")
+     * @Groups("type_read")
      */
     private $state;
 
@@ -80,6 +86,8 @@ class Book
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="books", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("book_read")
+     * @Groups("type_read")
+     * 
      */
     private $user;
 
