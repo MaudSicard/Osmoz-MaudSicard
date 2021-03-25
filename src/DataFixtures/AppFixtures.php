@@ -111,7 +111,7 @@ class AppFixtures extends Fixture
 
         $userMicka = new User();
         $userMicka->setEmail('micka@micka.com');
-        $encodedPassword = $this->passwordEncoder->encodePassword($userMicka, 'micka');
+        $encodedPassword = $this->passwordEncoder->encodePassword($userMicka, $userMicka->getPassword());
         $userMicka->setPassword($encodedPassword);
         $userMicka->setRoles(['ROLE_ADMIN']);
         $userMicka->setNickname('Micka');

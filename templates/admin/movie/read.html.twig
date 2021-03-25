@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MovieController!{% endblock %}
+
+{% block body %}
+
+<h1>Liste des films</h1>
+
+<table class="table table-striped">
+  {# En-têtes #}
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Status</th>
+      <th scope="col">State</th>
+      <th scope="col">CreatedAt</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {# Film #}
+    {% for movie in movies %}
+    <tr>
+      <th scope="row">{{ movie.id }}</th>
+      <td>{{ movie.name }}</td>
+      <td>{{ movie.status }}</td>
+      <td>{{ movie.state }}</td>
+      <td>{{ movie.createdAt|date('d-m-Y') }}</td>
+      <td><form action="{{ path('back_movie_delete', {id: movie.id}) }}" onsubmit="return confirm('Supprimer le film #{{ movie.id }} ?')" method="POST">
+        {# Fake HTTP Method, see https://symfony.com/doc/current/routing.html#matching-http-methods #}
+        <input type="hidden" name="_method" value="DELETE"/>
+        {# CSRF Token manuel see https://symfony.com/doc/current/security/csrf.html#generating-and-checking-csrf-tokens-manually #}
+        <input type="hidden" name="token" value="{{ csrf_token('delete-movie') }}"/>
+        <a class="btn btn-sm btn-primary" href="{{ path('back_movie_edit', {id: movie.id}) }}">Modifier</a>
+        <button class="btn btn-sm btn-danger" type="submit">Supprimer</button>
+      </form></td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock %}
