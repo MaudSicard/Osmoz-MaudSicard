@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Modifier un film
+{% endblock %}
+
+{% block body %}
+
+<h1>Modifier un film</h1>
+<h2>{{ movie.title }}</h2>
+
+{{ include('back/movie/_form.html.twig') }}
+
+{% endblock %}
