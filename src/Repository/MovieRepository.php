@@ -26,7 +26,6 @@ class MovieRepository extends ServiceEntityRepository
      */
     public function findAllOrderedByCreatedAtAsc()
     {
-        // Requête de base
         $qb = $this->createQueryBuilder('m')
             ->orderBy('m.createdAt', 'ASC')
             ->setMaxResults(10);
@@ -41,7 +40,6 @@ class MovieRepository extends ServiceEntityRepository
      */
     public function findAllOrderedByCreatedAT()
     {
-        // Requête de base
         $qb = $this->createQueryBuilder('m')
             ->orderBy('m.createdAt', 'ASC');
             

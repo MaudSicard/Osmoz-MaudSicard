@@ -26,7 +26,7 @@ class Gender
      * @ORM\Column(type="string", length=255)
      * @Groups("book_read")
      * @Groups("music_read")
-     * @Groups("movies_read")
+     * @Groups("movies_read", "back_movie_read"))
      */
     private $name;
 

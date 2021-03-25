@@ -3,17 +3,21 @@
 namespace App\Form;
 
 use App\Entity\Type;
+use App\Entity\Movie;
 use App\Entity\Gender;
 use App\Repository\TypeRepository;
+use Doctrine\ORM\EntityRepository;
 use App\Repository\GenderRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 
 class MovieType extends AbstractType
@@ -21,7 +25,7 @@ class MovieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class, [
+            ->add('name', TextType::class, [
                 'label' => 'Nom',
                 'constraints' => [
                     new NotBlank(),
@@ -40,35 +44,23 @@ class MovieType extends AbstractType
                         ]),
                     ]
             ])
-            ->add('genres', EntityType::class, [
+            ->add('gender', EntityType::class, [
                 'class' => Gender::class,
-                'choice_label' => 'genre',
-                // Order by
-                // @see https://symfony.com/doc/current/reference/forms/types/entity.html#using-a-custom-query-for-the-entities
+                'choice_label' => 'name',
                 'query_builder' => function (GenderRepository $er) {
                     return $er->createQueryBuilder('g')
                         ->orderBy('g.name', 'ASC');
                 },        
                 'multiple' => true,
-
                 'expanded' => true,
-                'constraints' => [
-                    new NotBlank(),
-                ],
             ])
             ->add('type', EntityType::class, [
                 'class' => Type::class,
-                'choice_label' => 'type',
+                'choice_label' => 'name',
                 'query_builder' => function (TypeRepository $er) {
                     return $er->createQueryBuilder('t')
                         ->orderBy('t.name', 'ASC');
                 },        
-                'multiple' => true,
-
-                'expanded' => true,
-                'constraints' => [
-                    new NotBlank(),
-                ],
             ])
             ->add('status', ChoiceType::class, [
                 'label' =>'statuts',
@@ -78,7 +70,7 @@ class MovieType extends AbstractType
                     'pas dispo' => 3,
                 ],
                 'constraints' => [
-                    new NotBlank(),  
+                    new NotBlank(),
                 ],
             ])
             ->add('state', ChoiceType::class, [
@@ -89,7 +81,7 @@ class MovieType extends AbstractType
                     'moyen' => 3,
                 ],
                 'constraints' => [
-                    new NotBlank(),  
+                    new NotBlank(),
                 ],
             ]);
     }

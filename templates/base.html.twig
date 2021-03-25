@@ -26,7 +26,13 @@
                         <a class="nav-link" href="">Accueil <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Admin</a>
+                        <a class="nav-link" href="{{ path('back_movie_read') }}">Film</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="">Livres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Musiques</a>
                     </li>
                     {# Est-on connecté ? #}
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -43,8 +49,6 @@
                             Administrateur
                         {% elseif is_granted('ROLE_MANAGER') %}
                             Manager
-                        {% elseif is_granted('ROLE_USER') %}
-                            Membre
                         {% endif %}
                         </span>
                     </li>
@@ -65,7 +69,6 @@
             </div>
         </nav>
 
-        {# Sous-nav possible #}
         {% block subnav %}{% endblock %}
 
         <div class="container">

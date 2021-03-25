@@ -7,8 +7,11 @@
 {% block body %}
 
 <h1>Modifier un film</h1>
-<h2>{{ movie.title }}</h2>
+<h2>{{ movie.name }}</h2>
 
-{{ include('back/movie/_form.html.twig') }}
+{{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-success">Enregistrer</button>
+{{ form_end(form) }}
 
 {% endblock %}

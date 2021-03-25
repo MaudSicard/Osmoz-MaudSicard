@@ -12,8 +12,8 @@
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Name</th>
-      <th scope="col">Status</th>
       <th scope="col">State</th>
+      <th scope="col">Status</th>
       <th scope="col">CreatedAt</th>
     </tr>
   </thead>
@@ -24,8 +24,8 @@
     <tr>
       <th scope="row">{{ movie.id }}</th>
       <td>{{ movie.name }}</td>
-      <td>{{ movie.status }}</td>
       <td>{{ movie.state }}</td>
+      <td>{{ movie.status }}</td>
       <td>{{ movie.createdAt|date('d-m-Y') }}</td>
       <td><form action="{{ path('back_movie_delete', {id: movie.id}) }}" onsubmit="return confirm('Supprimer le film #{{ movie.id }} ?')" method="POST">
         {# Fake HTTP Method, see https://symfony.com/doc/current/routing.html#matching-http-methods #}
