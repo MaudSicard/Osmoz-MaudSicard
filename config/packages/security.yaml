@@ -34,7 +34,7 @@ security:
             # @see https://symfony.com/doc/current/security/json_login_setup.html
             json_login:
                 check_path: /api/login
-                username_path: security.credentials.login
+                username_path: security.credentials.email
                 password_path: security.credentials.password
                 # Déconnexion
             logout:

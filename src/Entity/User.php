@@ -18,18 +18,14 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("book_read")
-     * @Groups("music_read")
-     * @Groups("movies_read", "users_read")
+     * @Groups("movies_read", "users_read", "music_read", "book_read")
 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups("book_read")
-     * @Groups("music_read")
-     * @Groups("movies_read", "users_read")
+     * @Groups("movies_read", "users_read", "music_read", "book_read")
 
      */
     private $email;
@@ -82,8 +78,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups("book_read")
-     * @Groups("music_read")
+     * @Groups("music_read", "book_read", "movies_read", "users_read")
      */
     private $nickname;
 

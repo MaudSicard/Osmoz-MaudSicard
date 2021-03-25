@@ -34,7 +34,7 @@ class MovieController extends AbstractController
     /**
      * Read one movie
      * 
-     * @Route("/api/movies/{id<\d+>}", name="api_movies_read_item", methods="GET")
+     * @Route("/api/movies/read/{id<\d+>}", name="api_movies_read_item", methods="GET")
      */
     public function readItem(Movie $movie = null): Response
     {
@@ -124,7 +124,7 @@ class MovieController extends AbstractController
     /**
      * Delete movie
      * 
-     * @Route("/api/movies/{id<\d+>}", name="api_movies_delete", methods="DELETE")
+     * @Route("/api/movies/delete/{id<\d+>}", name="api_movies_delete", methods="DELETE")
      */
     public function delete(Movie $movie = null, EntityManagerInterface $entityManager)
     {

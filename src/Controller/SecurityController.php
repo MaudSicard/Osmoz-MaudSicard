@@ -15,14 +15,10 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
         // POST
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
+        // last email entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
         // Affiche le formulaire de login
@@ -36,10 +32,6 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * Déconnexion, utile pour le logout
-     * Cette méthode ne sera jamais appelée
-     * car route interceptée par un événement de Symfony
-     * 
      * @Route("/logout", name="app_logout")
      */
     public function logout()

@@ -20,19 +20,32 @@ class MovieRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find all movies ordered by createdAt
+     * Find 10 movies ordered by createdAt
      * 
      * @return Movie[] Returns an array of Movie objects
      */
     public function findAllOrderedByCreatedAtAsc()
     {
-        // Requête de base
         $qb = $this->createQueryBuilder('m')
-            ->setMaxResults(10)
-            ->orderBy('m.createdAt', 'DESC');
-
+            ->orderBy('m.createdAt', 'ASC')
+            ->setMaxResults(10);
+            
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * Find all movies ordered by createdAt
+     * 
+     * @return Movie[] Returns an array of Movie objects
+     */
+    public function findAllOrderedByCreatedAT()
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->orderBy('m.createdAt', 'ASC');
+            
+        return $qb->getQuery()->getResult();
+    }
+
 
     /*
 
