@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Type{% endblock %}
+
+{% block body %}
+    <h1>Liste des genres</h1>
+    <a class="btn btn-sm btn-primary" href="{{ path('admin_gender_create') }}">Créer</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nom du genre</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for gender in genders %}
+            <tr>
+                <th scope="row">{{ gender.id }}</th>
+                <td>{{ gender.name }}</td>
+                <<td>
+                    <form action="{{ path('admin_gender_delete', {id: gender.id}) }}" onsubmit="return confirm('Supprimer le type #{{ gender.id }} ?')" method="POST">
+                        {# Fake HTTP Method, see https://symfony.com/doc/current/routing.html#matching-http-methods #}
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        {# CSRF Token manuel see https://symfony.com/doc/current/security/csrf.html#generating-and-checking-csrf-tokens-manually #}
+                        <input type="hidden" name="token" value="{{ csrf_token('delete-gender') }}"/>
+                        <a class="btn btn-sm btn-primary" href="{{ path('admin_type_update', {id: gender.id}) }}">Modifier</a>
+                        <button class="btn btn-sm btn-danger" type="submit">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucune genre trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -5,8 +5,10 @@ namespace App\Controller\Api;
 use App\Entity\Book;
 use App\Repository\BookRepository;
 use Doctrine\DBAL\Types\StringType;
-use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Expr\Cast\String_;
+use Doctrine\ORM\EntityManagerInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,9 +16,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security;
-
+use Symfony\Component\Serializer\Encoder\JsonDecode;
 
 /**
  * API BookController
@@ -49,7 +49,7 @@ class BookController extends AbstractController
             return $this->json($message, Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($book, 200, ['Access-Control-Allow-Origin' =>'*'],
+        return $this->json($book, 200, [],
         ['groups' => 'book_read']);
     }
 
@@ -61,11 +61,11 @@ class BookController extends AbstractController
     {
         $jsonContent = $request->getContent();
 
-        $keyWord = $serializer->deserialize($jsonContent, StringType::class, 'json');
+        $keyWord = json_decode($jsonContent);
 
-        $book = $bookRepository->findOneBookByKeyWord($jsonContent);
+        $book = $bookRepository->findOneBookByKeyWord($keyWord);
 
-        return $this->json($book, 200, ['Access-Control-Allow-Origin' =>'*'],
+        return $this->json($book, 200, [],
         ['groups' => 'book_read']);
     }
 

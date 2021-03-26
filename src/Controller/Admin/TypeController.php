@@ -50,7 +50,7 @@ class TypeController extends AbstractController
             $entityManager->persist($type);
             $entityManager->flush();
 
-            return $this->redirectToRoute('admin_book_read');
+            return $this->redirectToRoute('admin_type_read');
         }
 
         return $this->render('admin/type/type_add.html.twig', [
@@ -74,7 +74,7 @@ class TypeController extends AbstractController
             
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_book_read');
+            return $this->redirectToRoute('admin_type_read');
         }
 
         return $this->render('admin/type/type_edit.html.twig', [
