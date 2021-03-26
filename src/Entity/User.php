@@ -18,17 +18,13 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("book_read")
-     * @Groups("music_read")
-     * @Groups("type_read")
+     * @Groups("movies_read", "users_read", "music_read", "book_read", "type_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups("book_read")
-     * @Groups("music_read")
-     * @Groups("type_read")
+     * @Groups("movies_read", "users_read", "music_read", "book_read", "type_read")
      */
     private $email;
 
@@ -65,23 +61,25 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user", cascade={"persist"})
+     * @Groups("users_read")
      */
     private $books;
 
     /**
-     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user", cascade={"persist"} )
+     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user",  cascade={"persist"})
+     * @Groups("users_read")
      */
     private $music;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups("book_read")
-     * @Groups("music_read")
+     * @Groups("music_read", "book_read", "movies_read", "users_read")
      */
     private $nickname;
 
     public function __construct()
     {
+        $this->createdAt = new \datetime();
         $this->mail = new ArrayCollection();
         $this->movies = new ArrayCollection();
         $this->books = new ArrayCollection();

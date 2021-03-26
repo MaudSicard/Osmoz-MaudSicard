@@ -17,15 +17,23 @@ class Book
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+<<<<<<< HEAD
      * @Groups("book_read")
      * @Groups("type_read")
+=======
+     * @Groups("book_read","users_read")
+>>>>>>> 26453bb6290b4a8a404f374e4bbb706a57bcad66
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+<<<<<<< HEAD
      * @Groups("book_read")
      * @Groups("type_read")
+=======
+     * @Groups("book_read", "users_read")
+>>>>>>> 26453bb6290b4a8a404f374e4bbb706a57bcad66
      */
     private $name;
 

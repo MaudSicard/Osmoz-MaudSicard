@@ -82,7 +82,7 @@ class Movie
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="movies", cascade={"persist"}))
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="movies", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("movies_read")
      * @Groups("type_read")

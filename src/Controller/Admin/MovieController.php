@@ -82,4 +82,6 @@ class MovieController extends AbstractController
 
         return $this->redirectToRoute('back_movie_read');
     }
+
 }
+

@@ -17,15 +17,13 @@ class Music
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("music_read")
-     * @Groups("type_read")
+     * @Groups("music_read", "users_read", "type_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups("music_read")
-     * @Groups("type_read")
+     * @Groups("music_read", "users_read", "type_read")
      */
     private $name;
 

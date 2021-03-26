@@ -29,6 +29,8 @@ class Type
      * @Groups("book_read")
      * @Groups("music_read")
      * @Groups("type_read")
+     * @Groups("movies_read", "back_movie_read")
+
      */
     private $name;
 
