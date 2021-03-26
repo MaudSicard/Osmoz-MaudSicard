@@ -18,7 +18,8 @@ class MusicController extends AbstractController
 {
     /**
        *
-       *
+       * Read all musics
+       * 
        * @Route("/admin/music/read", name="admin_music_read", methods={"GET"})
        */
     public function read(MusicRepository $musicRepository): Response
@@ -32,6 +33,8 @@ class MusicController extends AbstractController
 
 
     /**
+     * Update a music
+     * 
      * @Route("/admin/music/update/{id<\d+>}", name="admin_music_update", methods={"GET","POST"})
      */
     public function update(Music $music, Request $request)
@@ -55,7 +58,8 @@ class MusicController extends AbstractController
 
 
     /**
-     *
+     * Delete a music
+     * 
      * @Route("/admin/music/delete/{id<\d+>}", name="admin_music_delete", methods={"GET"})
      */
     public function delete(Music $music = null, EntityManagerInterface $entityManager, Request $request)

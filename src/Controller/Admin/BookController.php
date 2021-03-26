@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class BookController extends AbstractController
 {
   /**
+     * Read all books
      * 
      * @Route("/admin/book/read", name="admin_book_read", methods={"GET"})
      */
@@ -32,6 +33,8 @@ class BookController extends AbstractController
 
 
     /**
+     * Update a book
+     * 
      * @Route("/admin/book/update/{id<\d+>}", name="admin_book_update", methods={"GET","POST"})
      */
     public function update (Request $request, Book $book)
@@ -53,7 +56,8 @@ class BookController extends AbstractController
         ]);
     }
 
-      /**
+    /**
+     * Delete a book
      * 
      * @Route("/admin/book/delete/{id<\d+>}", name="admin_book_delete", methods={"DELETE"})
      */

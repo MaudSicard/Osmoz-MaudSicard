@@ -10,13 +10,13 @@ use PhpParser\Node\Expr\Cast\String_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
+
 
 /**
  * API BookController
@@ -71,7 +71,7 @@ class BookController extends AbstractController
 
 
     /**
-     *
+     * Add a book in the data base
      * @Route("/api/book/create", name="api_book_create", methods={"POST"})
      */
     public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator)
@@ -100,7 +100,8 @@ class BookController extends AbstractController
     }
 
     /**
-   
+     * Update a book
+     * 
      * @Route("/api/book/put/{id<\d+>}", name="api_book_put", methods={"PUT"})
      * @Route("/api/book/patch/{id<\d+>}", name="api_book_patch", methods={"PATCH"})
      */
@@ -111,7 +112,6 @@ class BookController extends AbstractController
             return $this->json(['error' => 'Livre non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
-        // Notre JSON qui se trouve dans le body
         $jsonContent = $request->getContent();
 
         $serializer->deserialize(
@@ -135,6 +135,7 @@ class BookController extends AbstractController
     }
 
     /**
+     * Delete a book
      * 
      * @Route("/api/book/delete/{id<\d+>}", name="api_book_delete", methods="DELETE")
      */

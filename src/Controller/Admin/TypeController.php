@@ -12,12 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * Admin BookController
+ * Admin TypeController
  */
 class TypeController extends AbstractController
 {
   /**
-     * 
+     * Read all types
      *
      * @Route("/admin/type/read", name="admin_type_read", methods={"GET"})
      */
@@ -30,24 +30,39 @@ class TypeController extends AbstractController
         ]);
     }
 
-      /**
-     * @Route("/admin/type/read/{id<\d+>}", name="admin_type_update", methods={"GET"})
-     */
-    public function readById ()
-    {
-        // to do
-    }
 
     /**
-     * @Route("/admin/type/create/", name="admin_type_create", methods={"GET"})
+     * Add a new type in the data base
+     * 
+     * @Route("/admin/type/create/", name="admin_type_create", methods={"GET","POST"})
      */
-    public function create ()
+    public function create (Request $request)
     {
-        // to do
+        $type = new Type();
+
+        $form = $this->createForm(TypeType::class, $type);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($type);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_book_read');
+        }
+
+        return $this->render('admin/type/type_add.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
-      /**
-     * @Route("/admin/type/update/{id<\d+>}", name="admin_type_update", methods={"GET"})
+      
+    /**
+     * Update a type
+     * 
+     * @Route("/admin/type/update/{id<\d+>}", name="admin_type_update", methods={"GET","POST"})
      */
     public function update (Request $request, Type $type)
     {
@@ -69,6 +84,7 @@ class TypeController extends AbstractController
     }
 
     /**
+     * Delete a type
      * 
      * @Route("/admin/type/delete/{id<\d+>}", name="admin_type_delete", methods={"GET"})
      */

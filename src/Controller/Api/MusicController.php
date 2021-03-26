@@ -50,7 +50,8 @@ class MusicController extends AbstractController
     }
 
     /**
-     *
+     * Add a music in the data base
+     * 
      * @Route("/api/music/create", name="api_music_create", methods={"POST"})
      */
     public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator)
@@ -79,6 +80,8 @@ class MusicController extends AbstractController
     }
 
     /**
+     * Update a music
+     * 
      * @Route("/api/music/put/{id<\d+>}", name="api_music_put", methods={"PUT"})
      * @Route("/api/music/patch/{id<\d+>}", name="api_music_patch", methods={"PATCH"})
      */
@@ -113,6 +116,7 @@ class MusicController extends AbstractController
     }
 
     /**
+     * Delete a music
      * 
      * @Route("/api/music/delete/{id<\d+>}", name="api_music_delete", methods="DELETE")
      */
