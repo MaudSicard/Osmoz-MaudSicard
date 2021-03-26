@@ -18,6 +18,7 @@ class Music
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $id;
 
@@ -31,24 +32,28 @@ class Music
     /**
      * @ORM\Column(type="string", length=64)
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $artist;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=128)
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $status;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $state;
 
@@ -66,6 +71,7 @@ class Music
     /**
      * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="music", cascade={"persist"})
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $gender;
 
@@ -80,12 +86,14 @@ class Music
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="music", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $user;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $support;
 

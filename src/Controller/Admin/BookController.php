@@ -3,12 +3,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Book;
+use App\Form\BookType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
+
 
 /**
  * Admin BookController
@@ -30,13 +32,42 @@ class BookController extends AbstractController
 
 
     /**
-     * 
-     * @Route("/admin/book/delete/{id<\d+>}", name="admin_book_delete", methods={"GET"})
+     * @Route("/admin/book/update/{id<\d+>}", name="admin_book_update", methods={"GET","POST"})
      */
-    public function delete(Book $book = null, EntityManagerInterface $entityManager)
+    public function update (Request $request, Book $book)
+    {
+        $form = $this->createForm(BookType::class, $book);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('admin_book_read');
+        }
+
+        return $this->render('admin/book/book_edit.html.twig', [
+            'book' => $book,
+            'form' => $form->createView(),
+        ]);
+    }
+
+      /**
+     * 
+     * @Route("/admin/book/delete/{id<\d+>}", name="admin_book_delete", methods={"DELETE"})
+     */
+    public function delete(Book $book = null, Request $request, EntityManagerInterface $entityManager)
     {
         if ($book === null) {
             throw $this->createNotFoundException('livre non trouvé.');
+        }
+
+        $submittedToken = $request->request->get('token');
+
+        if (! $this->isCsrfTokenValid('delete-book', $submittedToken)) {
+            
+            throw $this->createAccessDeniedException('non autorisé');
         }
 
         $entityManager->remove($book);
@@ -44,15 +75,5 @@ class BookController extends AbstractController
 
         return $this->redirectToRoute('admin_book_read');
     }
-
-
-    /**
-     * @Route("/admin/book/update/{id<\d+>}", name="admin_book_update", methods={"GET"})
-     */
-    public function update (Request $request, BookRepository $bookRepository)
-    {
-       
-    }
-
 
 }

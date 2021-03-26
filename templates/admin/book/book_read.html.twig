@@ -5,28 +5,34 @@
 {% block body %}
     <h1>Liste des livres</h1>
 
-    <table class="table">
-    <div class="table-responsive">
+    <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Titre du livre</th>
-                <th>Auteur</th>
-                <th>Type</th>
-                <th>Genre</th>
-                <th>Utilisateur<th>
+                <th  scope="col">Id</th>
+                <th  scope="col">Titre du livre</th>
+                <th  scope="col">Auteur</th>
+                <th  scope="col">Type</th>
+                <th  scope="col">Genre</th>
+                <th  scope="col">Utilisateur<th>
             </tr>
         </thead>
         <tbody>
         {% for book in books %}
             <tr>
-                <td>{{ book.id }}</td>
+                <th scope="row">{{ book.id }}</th>
                 <td>{{ book.name }}</td>
                 <td>{{ book.author }}</td>
                 <td>{{ book.type.name }}</td>
                 <td>{{ book.user.email }}</td>
                 <td>
-                    <a href="{{ path('admin_book_delete', {'id': book.id}) }}">Supprimer</a>
+                    <form action="{{ path('admin_book_delete', {id: book.id}) }}" onsubmit="return confirm('Supprimer le livre #{{ book.id }} ?')" method="POST">
+                        {# Fake HTTP Method, see https://symfony.com/doc/current/routing.html#matching-http-methods #}
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        {# CSRF Token manuel see https://symfony.com/doc/current/security/csrf.html#generating-and-checking-csrf-tokens-manually #}
+                        <input type="hidden" name="token" value="{{ csrf_token('delete-book') }}"/>
+                        <a class="btn btn-sm btn-primary" href="{{ path('admin_book_update', {id: book.id}) }}">Modifier</a>
+                        <button class="btn btn-sm btn-danger" type="submit">Supprimer</button>
+                    </form>
                 </td>
             </tr>
         {% else %}
@@ -35,7 +41,6 @@
             </tr>
         {% endfor %}
         </tbody>
-      </div>
     </table>
 
 {% endblock %}

@@ -3,8 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Type;
+use App\Form\TypeType;
 use App\Repository\TypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,7 +31,7 @@ class TypeController extends AbstractController
     }
 
       /**
-     * @Route("/admin/book/read/{id<\d+>}", name="admin_book_update", methods={"GET"})
+     * @Route("/admin/type/read/{id<\d+>}", name="admin_type_update", methods={"GET"})
      */
     public function readById ()
     {
@@ -37,7 +39,7 @@ class TypeController extends AbstractController
     }
 
     /**
-     * @Route("/admin/book/create/", name="admin_book_create", methods={"GET"})
+     * @Route("/admin/type/create/", name="admin_type_create", methods={"GET"})
      */
     public function create ()
     {
@@ -45,21 +47,42 @@ class TypeController extends AbstractController
     }
 
       /**
-     * @Route("/admin/book/update/{id<\d+>}", name="admin_book_update", methods={"GET"})
+     * @Route("/admin/type/update/{id<\d+>}", name="admin_type_update", methods={"GET"})
      */
-    public function update ()
+    public function update (Request $request, Type $type)
     {
-        // to do
+        $form = $this->createForm(TypeType::class, $type);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('admin_book_read');
+        }
+
+        return $this->render('admin/type/type_edit.html.twig', [
+            'type' => $type,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
      * 
      * @Route("/admin/type/delete/{id<\d+>}", name="admin_type_delete", methods={"GET"})
      */
-    public function delete(Type $type = null, EntityManagerInterface $entityManager)
+    public function delete(Type $type = null, EntityManagerInterface $entityManager, Request $request)
     {
         if ($type === null) {
             throw $this->createNotFoundException('type non trouvé.');
+        }
+
+        $submittedToken = $request->request->get('token');
+
+        if (! $this->isCsrfTokenValid('delete-type', $submittedToken)) {
+            
+            throw $this->createAccessDeniedException('non autorisé');
         }
 
         $entityManager->remove($type);

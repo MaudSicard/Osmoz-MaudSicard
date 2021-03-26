@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Modifier un livre
+{% endblock %}
+
+{% block body %}
+
+<h1>Modifier un livre</h1>
+<h2>{{ book.name }}</h2>
+
+{{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-success">Enregistrer</button>
+{{ form_end(form) }}
+
+{% endblock %}

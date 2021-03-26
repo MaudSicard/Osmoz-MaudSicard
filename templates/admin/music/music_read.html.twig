@@ -5,28 +5,35 @@
 {% block body %}
     <h1>Liste des musiques</h1>
 
-    <table class="table">
+    <table class="table table-striped">
     <div class="table-responsive">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Titre de l'album</th>
-                <th>Artiste</th>
-                <th>Type</th>
-                <th>Genre</th>
-                <th>Utilisateur<th>
+                <th scope="col">Id</th>
+                <th scope="col">Titre de l'album</th>
+                <th scope="col">Artiste</th>
+                <th scope="col">Type</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Utilisateur<th>
             </tr>
         </thead>
         <tbody>
         {% for music in musics %}
             <tr>
-                <td>{{ music.id }}</td>
+                <th scope="row">{{ music.id }}</th>
                 <td>{{ music.name }}</td>
                 <td>{{ music.artist }}</td>
                 <td>{{ music.type.name }}</td>
                 <td>{{ music.user.email }}</td>
                 <td>
-                    <a href="{{ path('admin_music_delete', {'id': music.id}) }}">Supprimer</a>
+                    <form action="{{ path('admin_music_delete', {id: music.id}) }}" onsubmit="return confirm('Supprimer le livre #{{ music.id }} ?')" method="POST">
+                        {# Fake HTTP Method, see https://symfony.com/doc/current/routing.html#matching-http-methods #}
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        {# CSRF Token manuel see https://symfony.com/doc/current/security/csrf.html#generating-and-checking-csrf-tokens-manually #}
+                        <input type="hidden" name="token" value="{{ csrf_token('delete-music') }}"/>
+                        <a class="btn btn-sm btn-primary" href="{{ path('admin_music_update', {id: music.id}) }}">Modifier</a>
+                        <button class="btn btn-sm btn-danger" type="submit">Supprimer</button>
+                    </form>
                 </td>
             </tr>
         {% else %}

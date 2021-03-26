@@ -3,8 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Music;
+use App\Form\MusicType;
 use App\Repository\MusicRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,13 +32,43 @@ class MusicController extends AbstractController
 
 
     /**
+     * @Route("/admin/music/update/{id<\d+>}", name="admin_music_update", methods={"GET","POST"})
+     */
+    public function update(Music $music, Request $request)
+    { 
+        $form = $this->createForm(MusicType::class, $music);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('admin_music_read');
+        }
+
+        return $this->render('admin/music/music_edit.html.twig', [
+            'music' => $music,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
      *
      * @Route("/admin/music/delete/{id<\d+>}", name="admin_music_delete", methods={"GET"})
      */
-    public function delete(Music $music = null, EntityManagerInterface $entityManager)
+    public function delete(Music $music = null, EntityManagerInterface $entityManager, Request $request)
     {
         if ($music === null) {
             throw $this->createNotFoundException('musique non trouvés');
+        }
+
+        $submittedToken = $request->request->get('token');
+
+        if (! $this->isCsrfTokenValid('delete-music', $submittedToken)) {
+            
+            throw $this->createAccessDeniedException('non autorisé');
         }
 
         $entityManager->remove($music);
@@ -45,10 +77,4 @@ class MusicController extends AbstractController
         return $this->redirectToRoute('admin_music_read');
     }
 
-    /**
-     * @Route("/admin/music/update/{id<\d+>}", name="admin_book_update", methods={"GET"})
-     */
-    public function update()
-    { // to do
-    }
 }

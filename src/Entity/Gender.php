@@ -19,6 +19,7 @@ class Gender
      * @ORM\Column(type="integer")
      * @Groups("book_read")
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $id;
 
@@ -26,6 +27,7 @@ class Gender
      * @ORM\Column(type="string", length=255)
      * @Groups("book_read")
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $name;
 
@@ -50,12 +52,12 @@ class Gender
     private $movies;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="gender", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="gender", cascade={"remove"})
      */
     private $books;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Music::class, mappedBy="gender", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=Music::class, mappedBy="gender", cascade={"remove"})
      */
     private $music;
 

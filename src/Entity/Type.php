@@ -55,13 +55,13 @@ class Type
     private $movies;
 
     /**
-     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="type", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="type", cascade={"remove"})
      * @Groups("type_read")
      */
     private $books;
 
     /**
-     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="type", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="type", cascade={"remove"})
      * @Groups("type_read")
      */
     private $music;

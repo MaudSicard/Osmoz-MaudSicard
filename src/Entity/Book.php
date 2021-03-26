@@ -72,6 +72,7 @@ class Book
     /**
      * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="books", cascade={"persist"})
      * @Groups("book_read")
+     * @Groups("type_read")
      */
     private $gender;
 

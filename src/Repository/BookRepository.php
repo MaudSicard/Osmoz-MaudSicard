@@ -62,7 +62,7 @@ class BookRepository extends ServiceEntityRepository
             FROM App\Entity\Book b
             INNER JOIN b.user u
             INNER JOIN b.type t
-            ORDER BY b.createdAt');
+            ORDER BY b.id');
 
         return $query->getResult();
     }
