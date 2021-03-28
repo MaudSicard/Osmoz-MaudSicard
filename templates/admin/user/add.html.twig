@@ -3,18 +3,9 @@
 {% block title %}New User{% endblock %}
 
 {% block body %}
-    <h1>Create new User</h1>
+    <h1>Créer un nouvel utilisateur</h1>
 
-   {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+{{ include('admin/user/_form.html.twig') }}
 
-    {{ form_row(form.email) }}
-    {{ form_row(form.password) }}
-    {{ form_row(form.roles) }}
-
-    <button class="btn">{{ button_label|default('Save') }}</button>
-
-{{ form_end(form) }}
-
-
-    <a href="{{ path('back_user_read') }}">back to list</a>
+    <a href="{{ path('back_user_read') }}">Retour à la liste</a>
 {% endblock %}

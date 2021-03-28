@@ -12,6 +12,9 @@
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Name</th>
+      <th scope="col">Picture</th>
+      <th scope="col">Type</th>
+      <th scope="col">Genre</th>
       <th scope="col">State</th>
       <th scope="col">Status</th>
       <th scope="col">CreatedAt</th>
@@ -23,6 +26,16 @@
     <tr>
       <th scope="row">{{ movie.id }}</th>
       <td>{{ movie.name }}</td>
+      <td>{{ movie.picture }}
+      {% for type in movie.type %}
+      <td>{{ type.name }}</td>
+      {% endfor %}
+      {% for gender in movie.gender %}
+      <td>{{ gender.name }}</td>
+      {% endfor %}
+      {% for type in movie.type %}
+      <td>{{ type.name }}</td>
+      {% endfor %}
       <td>{{ movie.state }}</td>
       <td>{{ movie.status }}</td>
       <td>{{ movie.createdAt|date('d-m-Y') }}</td>

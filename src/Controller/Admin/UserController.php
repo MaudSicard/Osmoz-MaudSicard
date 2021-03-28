@@ -18,10 +18,19 @@ class UserController extends AbstractController
      */
     public function read(UserRepository $userRepository): Response
     {
-        $users = $userRepository->findAll();
-
         return $this->render('admin/user/read.html.twig', [
             'users' => $userRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("back/read/{id}", name="back_user_read_item", methods={"GET"})
+     */
+    public function readItem(User $user, UserRepository $userRepository): Response
+    {
+        
+        return $this->render('admin/user/readItem.html.twig', [
+            'user' => $user,
         ]);
     }
 

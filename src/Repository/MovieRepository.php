@@ -46,7 +46,6 @@ class MovieRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-
     /*
 
     /*

@@ -21,16 +21,14 @@ class MovieController extends AbstractController
      *
      * @Route("/back/movie/read", name="back_movie_read", methods={"GET"})
      */
-    public function read(MovieRepository $movieRepository, GenderRepository $genderRepository): Response
+    public function read(MovieRepository $movieRepository): Response
     {
-        $genders = $genderRepository->findAll();
-        $movies = $movieRepository->findAllOrderedByCreatedAT();
+        $movies = $movieRepository->findAllOrderedByCreatedAtAsc();
 
-        // dump($movies);
+         dump($movies);
 
         return $this->render('admin/movie/read.html.twig', [
             'movies' => $movies,
-            'genders' => $genders
         ]);
     }
 

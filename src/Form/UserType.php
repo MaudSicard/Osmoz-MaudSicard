@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,21 +40,25 @@ class UserType extends AbstractType
                     $form->add('password', PasswordType::class, [
                         'empty_data' => '',
                         'constraints' => [
-                            new NotBlank(),
-                            new Length([
-                                'min' => 4,
-                            ])
-                        ]
+                            new Regex('/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,16})$/'),
+                        ],
+                        'label' => 'Mot de passe *',
+                        'help' => 'Entre 8 et 16 caractères, une majuscule, une minuscule, un chiffre, $@%*+-_!',
                     ]);
                 } else {
-                $form->add('password', PasswordType::class, [
-                    'empty_data' => '',
-                    'attr' => [
-                        'placeholder' => 'Laissez vide si inchangé',
+                    $form->add('password', PasswordType::class, [
+                        'empty_data' => '',
+                        'attr' => [
+                            'placeholder' => 'Laissez vide si inchangé',
+                        ],
+                        'constraints' => [
+                        new Regex('/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,16})$/'),
                     ],
-                    'mapped' => false,
-                    ]);
-            }
+                        'label' => 'Mot de passe *',
+                        'help' => 'Entre 8 et 16 caractères, une majuscule, une minuscule, un chiffre, $@%*+-_!',
+                            'mapped' => false,
+                        ]);
+                }
         })
     ;        
     }

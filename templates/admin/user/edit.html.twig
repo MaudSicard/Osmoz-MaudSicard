@@ -9,19 +9,8 @@
 <h1>Modifier un utilisateur</h1>
 <h2>{{ user.nickname }}</h2>
 
-{{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+{{ include('admin/user/_form.html.twig') }}
 
-    {#
-        Pour ordonner les champs, notamment avec un Form Listener
-        on utilise form_row pour les rendre 1 par 1
-    #}
-
-    {{ form_row(form.email) }}
-    {{ form_row(form.password) }}
-    {{ form_row(form.roles) }}
-
-    <button class="btn">{{ button_label|default('Save') }}</button>
-
-{{ form_end(form) }}
+<a href="{{ path('back_user_read') }}">Retour à la liste</a>
 
 {% endblock %}
