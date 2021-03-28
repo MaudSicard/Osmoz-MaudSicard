@@ -18,36 +18,42 @@ class Movie
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups("movies_read", "users_read")
+     * @Groups("type_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Groups("movies_read", "users_read")
+     * @Groups("type_read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
      * @Groups("movies_read")
+     * @Groups("type_read")
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=128)
      * @Groups("movies_read")
+     * @Groups("type_read")
      */
     private $status;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups("movies_read")
+     * @Groups("type_read")
      */
     private $state;
 
     /**
      * @ORM\Column(type="string", length=128)
      * @Groups("movies_read")
+     * @Groups("type_read")
      */
     private $support;
 
@@ -64,6 +70,7 @@ class Movie
     /**
      * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="movies", cascade={"persist"})
      * @Groups("movies_read")
+     * @Groups("type_read")
      */
     private $gender;
 
@@ -78,6 +85,7 @@ class Movie
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="movies", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("movies_read")
+     * @Groups("type_read")
      */
     private $user;
 

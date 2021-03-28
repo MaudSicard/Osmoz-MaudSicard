@@ -32,10 +32,16 @@
                         <a class="nav-link" href="{{ path('back_movie_read') }}">Film</a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="">Livres</a>
+                        <a class="nav-link" href="{{ path('admin_book_read') }}">Livres</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Musiques</a>
+                        <a class="nav-link" href="{{ path('admin_music_read') }}">Musiques</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin_type_read') }}">Types</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin_gender_read') }}">Genres</a>
                     </li>
                     {# Est-on connecté ? #}
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}

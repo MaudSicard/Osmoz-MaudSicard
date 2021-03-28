@@ -47,4 +47,18 @@ class TypeRepository extends ServiceEntityRepository
         ;
     }
     */
+
+      /**
+     * All types order by created_at
+     *
+     * @return void
+     */
+    public function findAllTypeByCreatedAt()
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.createdAt', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

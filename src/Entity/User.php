@@ -18,21 +18,18 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("movies_read", "users_read", "music_read", "book_read")
-
+     * @Groups("movies_read", "users_read", "music_read", "book_read", "type_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups("movies_read", "users_read", "music_read", "book_read")
-
+     * @Groups("movies_read", "users_read", "music_read", "book_read", "type_read")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups("users_read")
      */
     private $roles = [];
 
@@ -44,7 +41,6 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity=Mail::class, inversedBy="users")
-     * @Groups("users_read")
      */
     private $mail;
 
@@ -124,6 +120,8 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -308,7 +306,6 @@ class User implements UserInterface
         return $this;
     }
 
-
     public function getNickname(): ?string
     {
         return $this->nickname;
@@ -321,5 +318,3 @@ class User implements UserInterface
         return $this;
     }
 }
-
-

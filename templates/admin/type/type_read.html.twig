@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Type{% endblock %}
+
+{% block body %}
+    <h1>Liste des types</h1>
+    <a class="btn btn-sm btn-primary" href="{{ path('admin_type_create') }}">Créer</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nom du type</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for type in types %}
+            <tr>
+                <th scope="row">{{ type.id }}</th>
+                <td>{{ type.name }}</td>
+                <<td>
+                    <form action="{{ path('admin_type_delete', {id: type.id}) }}" onsubmit="return confirm('Supprimer le type #{{ type.id }} ?')" method="POST">
+                        {# Fake HTTP Method, see https://symfony.com/doc/current/routing.html#matching-http-methods #}
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        {# CSRF Token manuel see https://symfony.com/doc/current/security/csrf.html#generating-and-checking-csrf-tokens-manually #}
+                        <input type="hidden" name="token" value="{{ csrf_token('delete-type') }}"/>
+                        <a class="btn btn-sm btn-primary" href="{{ path('admin_type_update', {id: type.id}) }}">Modifier</a>
+                        <button class="btn btn-sm btn-danger" type="submit">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucune type trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

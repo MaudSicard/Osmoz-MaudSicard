@@ -17,37 +17,41 @@ class Music
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("music_read", "users_read")
+     * @Groups("music_read", "users_read", "type_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups("music_read", "users_read")
+     * @Groups("music_read", "users_read", "type_read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $artist;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=128)
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $status;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $state;
 
@@ -63,28 +67,31 @@ class Music
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="music")
+     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="music", cascade={"persist"})
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $gender;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="music")
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="music", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("music_read")
      */
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="music")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="music", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $user;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Groups("music_read")
+     * @Groups("type_read")
      */
     private $support;
 

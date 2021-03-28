@@ -46,26 +46,52 @@ class BookRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
-    public function findAllBookByUserGenderType()
+
+  
+    /**
+     * All books order by created_at
+     *
+     * @return void
+     */
+    public function findAllBookByUserType()
     {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT b, u, t, g
-            FROM App\Entity\Book
+            'SELECT b, u, t
+            FROM App\Entity\Book b
             INNER JOIN b.user u
             INNER JOIN b.type t
-            INNER JOIN g.gender g
-            ORDER BY b.createdAt');
+            ORDER BY b.id');
 
         return $query->getResult();
     }
 
+    /**
+     * All books with their type and user
+     *
+     * @return void
+     */
     public function findAllByCreatedAt()
     {
         return $this->createQueryBuilder('b')
             ->orderBy('b.createdAt', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * All books with their type and user
+     *
+     * @return void
+     */
+    public function findOneBookByKeyWord($keyWord)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.name LIKE :keyWord')
+            ->setParameter('keyWord', '%'.$keyWord.'%')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()

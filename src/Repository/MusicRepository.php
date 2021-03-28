@@ -48,7 +48,12 @@ class MusicRepository extends ServiceEntityRepository
     }
     */
 
-    public function findAllByCreatedAt()
+    /**
+     * All musics order by created_at
+     *
+     * @return void
+     */
+    public function findAllMusicByCreatedAt()
     {
         return $this->createQueryBuilder('m')
             ->orderBy('m.createdAt', 'ASC')
@@ -56,5 +61,24 @@ class MusicRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+     /**
+     * All musics with their type and user
+     *
+     * @return void
+     */
+    public function findAllMusicByUserType()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT m, u, t
+            FROM App\Entity\Music m
+            INNER JOIN m.user u
+            INNER JOIN m.type t
+            ORDER BY m.createdAt');
+
+        return $query->getResult();
     }
 }
