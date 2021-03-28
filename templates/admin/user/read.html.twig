@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+
+<h1>Liste des Utilisateurs</h1>
+
+<p><a href="{{ path('back_user_add') }}" class="btn btn-success">Ajouter un Utilisateur</a></p>
+
+<table class="table table-striped">
+  {# En-têtes #}
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Email</th>
+      <th scope="col">Nickname</th>
+      <th scope="col">CreatedAt</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {# Film #}
+    {% for user in users %}
+    <tr>
+      <th scope="row">{{ user.id }}</th>
+      <td>{{ user.email }}</td>
+      <td>{{ user.nickname }}</td>
+      <td>{{ user.createdAt|date('d-m-Y') }}</td>
+      <td>
+      <a class="btn btn-sm btn-primary" href="{{ path('back_user_read_item', {id: user.id}) }}">Voir</a>
+      <a class="btn btn-sm btn-primary" href="{{ path('back_user_edit', {id: user.id}) }}">Modifier</a>
+      {{ include('admin/user/_delete_form.html.twig') }}
+    </td>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock %}

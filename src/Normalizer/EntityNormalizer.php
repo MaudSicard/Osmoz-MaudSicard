@@ -42,3 +42,4 @@ class EntityNormalizer implements DenormalizerInterface
         return $this->em->find($class, $data);
     }
 }
+

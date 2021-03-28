@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Movie;
 use App\Entity\Gender;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Gender|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,39 +19,6 @@ class GenderRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Gender::class);
     }
-
-    /**
-     * Find all gender in movie
-     * 
-     * @return Movie[] Returns an array of Movie objects
-     */
-    public function findAllGenderMovie()
-    {   
-        $entityManager = $this->getEntityManager();
-
-        $query = 
-        $entityManager->createQuery(
-            'SELECT * FROM `gender`
-            WHERE media = movie'
-        );
-                
-
-        return $query->getResult();
-    }
-
-       /**
-     * Find all gender in movie
-     * 
-     * @return Movie[] Returns an array of Movie objects
-     */
-    public function findAllGenderMovie2()
-    {
-        $qb = $this->createQueryBuilder('gender')
-                   ->where('gender.media = movie');
-            
-        return $qb->getQuery()->getResult();
-    }
-
 
     // /**
     //  * @return Gender[] Returns an array of Gender objects

@@ -55,18 +55,19 @@ class User implements UserInterface
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="user", cascade={"remove"})
+     * @Groups("users_read")
      */
     private $movies;
 
     /**
-     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user", cascade={"remove"})
      * @Groups("users_read")
      */
     private $books;
 
     /**
-     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user",  cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Music::class, mappedBy="user", cascade={"remove"})
      * @Groups("users_read")
      */
     private $music;

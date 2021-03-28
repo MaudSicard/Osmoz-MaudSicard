@@ -35,8 +35,10 @@ class UserController extends AbstractController
      * 
      * @Route("/api/users/{id<\d+>}", name="api_users_read_item", methods="GET")
      */
-    public function readItem(User $user = null): Response
+    public function readItem(User $user = null, UserRepository $userRepository): Response
     {
+
+        $user = $userRepository->find();
 
         if ($user === null) {
 
