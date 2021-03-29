@@ -32,8 +32,7 @@ security:
             # 2ème façon de se connecter à l'appli
             # Login en API/JSON
             # @see https://symfony.com/doc/current/security/json_login_setup.html
-            json_login:
-                check_path: /api/login
+           
 
                 # username_path: security.credentials.login
                 # password_path: security.credentials.password
@@ -42,13 +41,30 @@ security:
             logout:
                 # Soit un chemin (endpoint, /logout), soit un nom de route
                 path: app_logout
+                
 
-
+        login:
+            pattern:  ^/api/login
+            stateless: true
+            anonymous: true
+            json_login: # or form_login
+                check_path:               /api/login  #same as the configured route
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+        api:
+            pattern:   ^/api              # protected path
+            stateless: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+    
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/api/book/read, roles: ROLE_ADMIN }
-         - { path: ^/api/book/patch, roles: ROLE_ADMIN }
+          - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+          - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # - { path: ^/profile, roles: ROLE_USER }
 
     role_hierarchy:

@@ -20,6 +20,7 @@ class Gender
      * @Groups("book_read")
      * @Groups("music_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      */
     private $id;
 
@@ -28,12 +29,14 @@ class Gender
      * @Groups("book_read")
      * @Groups("music_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      * @Groups("movies_read", "back_movie_read"))
      */
     private $name;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups("gender_read")
      */
     private $media = [];
 
@@ -49,16 +52,19 @@ class Gender
 
     /**
      * @ORM\ManyToMany(targetEntity=Movie::class, mappedBy="gender")
+     * @Groups("gender_read")
      */
     private $movies;
 
     /**
      * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="gender", cascade={"remove"})
+     * @Groups("gender_read")
      */
     private $books;
 
     /**
      * @ORM\ManyToMany(targetEntity=Music::class, mappedBy="gender", cascade={"remove"})
+     * @Groups("gender_read")
      */
     private $music;
 

@@ -17,23 +17,17 @@ class Book
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-<<<<<<< HEAD
-     * @Groups("book_read")
      * @Groups("type_read")
-=======
      * @Groups("book_read","users_read")
->>>>>>> 26453bb6290b4a8a404f374e4bbb706a57bcad66
+     * @Groups("gender_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-<<<<<<< HEAD
-     * @Groups("book_read")
      * @Groups("type_read")
-=======
      * @Groups("book_read", "users_read")
->>>>>>> 26453bb6290b4a8a404f374e4bbb706a57bcad66
+     * @Groups("gender_read")
      */
     private $name;
 
@@ -41,6 +35,7 @@ class Book
      * @ORM\Column(type="string", length=64)
      * @Groups("book_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      */
     private $author;
 
@@ -48,6 +43,7 @@ class Book
      * @ORM\Column(type="string", length=128, nullable=true)
      * @Groups("book_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      */
     private $picture;
 
@@ -55,6 +51,7 @@ class Book
      * @ORM\Column(type="string", length=128)
      * @Groups("book_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      */
     private $status;
 
@@ -62,6 +59,7 @@ class Book
      * @ORM\Column(type="integer")
      * @Groups("book_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      */
     private $state;
 
@@ -87,7 +85,8 @@ class Book
     /**
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="books", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-    * @Groups("book_read")
+     * @Groups("book_read")
+     * @Groups("gender_read")
      */
     private $type;
 
@@ -96,6 +95,7 @@ class Book
      * @ORM\JoinColumn(nullable=false)
      * @Groups("book_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      * 
      */
     private $user;

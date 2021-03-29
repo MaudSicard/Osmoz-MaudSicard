@@ -20,6 +20,7 @@ class Type
      * @Groups("book_read")
      * @Groups("music_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      * 
      */
     private $id;
@@ -29,6 +30,7 @@ class Type
      * @Groups("book_read")
      * @Groups("music_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      * @Groups("movies_read", "back_movie_read")
 
      */

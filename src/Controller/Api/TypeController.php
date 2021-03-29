@@ -26,7 +26,7 @@ class TypeController extends AbstractController
     public function read(TypeRepository $typeRepository): Response
     {
         $typeList = $typeRepository->findAllTypeByCreatedAt();
-        return $this->json($typeList, 200, ['Access-Control-Allow-Origin' =>'*'], ['groups' => 'type_read']);
+        return $this->json($typeList, 200, [], ['groups' => 'type_read']);
     }
 
     /**
@@ -39,7 +39,7 @@ class TypeController extends AbstractController
 
             $message = [
                 'status' => Response::HTTP_NOT_FOUND,
-                'error' => 'Livre non trouvé.',
+                'error' => 'Type non trouvé.',
             ];
 
             return $this->json($message, Response::HTTP_NOT_FOUND);

@@ -19,12 +19,14 @@ class User implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups("movies_read", "users_read", "music_read", "book_read", "type_read")
+     * @Groups("gender_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups("movies_read", "users_read", "music_read", "book_read", "type_read")
+     * @Groups("gender_read")
      */
     private $email;
 
@@ -75,6 +77,8 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=64)
      * @Groups("music_read", "book_read", "movies_read", "users_read")
+     * @Groups("type_read")
+     * @Groups("gender_read")
      */
     private $nickname;
 

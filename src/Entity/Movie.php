@@ -19,6 +19,7 @@ class Movie
      * @ORM\Column(type="integer")
      * @Groups("movies_read", "users_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      */
     private $id;
 
@@ -26,6 +27,7 @@ class Movie
      * @ORM\Column(type="string", length=64)
      * @Groups("movies_read", "users_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      */
     private $name;
 
@@ -33,6 +35,7 @@ class Movie
      * @ORM\Column(type="string", length=128, nullable=true)
      * @Groups("movies_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      */
     private $picture;
 
@@ -47,6 +50,7 @@ class Movie
      * @ORM\Column(type="integer")
      * @Groups("movies_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      */
     private $state;
 
@@ -54,6 +58,7 @@ class Movie
      * @ORM\Column(type="string", length=128)
      * @Groups("movies_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      */
     private $support;
 
@@ -78,6 +83,7 @@ class Movie
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="movies", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("movies_read")
+     * @Groups("gender_read")
      */
     private $type;
 
@@ -86,6 +92,7 @@ class Movie
      * @ORM\JoinColumn(nullable=false)
      * @Groups("movies_read")
      * @Groups("type_read")
+     * @Groups("gender_read")
      */
     private $user;
 
