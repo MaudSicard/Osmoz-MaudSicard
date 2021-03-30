@@ -96,8 +96,15 @@ class Movie
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=150)
+     * @Groups("movies_read")
+     */
+    private $slug;
+
     public function __construct()
     {
+        $this->createdAt = new \datetime();
         $this->gender = new ArrayCollection();
     }
 
@@ -234,6 +241,18 @@ class Movie
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

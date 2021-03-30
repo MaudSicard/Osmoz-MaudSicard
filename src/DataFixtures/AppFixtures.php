@@ -59,7 +59,6 @@ class AppFixtures extends Fixture
         $users = $this->connection->query('TRUNCATE TABLE user_mail');
         $users = $this->connection->query('TRUNCATE TABLE mail');
 
-
     }
 
 

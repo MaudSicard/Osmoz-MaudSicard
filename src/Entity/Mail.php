@@ -18,12 +18,14 @@ class Mail
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups("users_read")
+     * @Groups("mails_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("users_read")
+     * @Groups("mails_read")
      */
     private $content;
 
@@ -39,11 +41,13 @@ class Mail
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="mail")
+     * @Groups("mails_read")
      */
     private $users;
 
     public function __construct()
     {
+        $this->createdAt = new \datetime();
         $this->users = new ArrayCollection();
     }
 

@@ -87,6 +87,7 @@ class BookController extends AbstractController
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
+        $book->setCreatedAt(new \DateTime());
         $entityManager->persist($book);
         $entityManager->flush();
 

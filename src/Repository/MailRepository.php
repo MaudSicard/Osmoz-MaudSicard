@@ -44,6 +44,19 @@ class MailRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+      /**
+     * Find all mails ordered by createdAt
+     * 
+     * @return Mail[] Returns an array of Mail objects
+     */
+    public function findAllOrderedByCreatedAT()
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->orderBy('m.createdAt', 'ASC');
+            
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Mail[] Returns an array of Mail objects
     //  */

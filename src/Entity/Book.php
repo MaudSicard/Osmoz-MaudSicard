@@ -100,6 +100,12 @@ class Book
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=150)
+     * @Groups("book_read")
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->gender = new ArrayCollection();
@@ -238,6 +244,18 @@ class Book
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

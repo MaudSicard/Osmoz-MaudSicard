@@ -76,7 +76,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups("music_read", "book_read", "movies_read", "users_read")
+     * @Groups("music_read", "book_read", "movies_read", "users_read", "mails_read")
      * @Groups("type_read")
      * @Groups("gender_read")
      */
