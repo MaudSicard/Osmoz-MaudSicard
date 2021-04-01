@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MusicController extends AbstractController
 {
     /**
-     * Read 10 album of music order by created_at
+     * Read 10 albums of music order by created_at
      * @Route("/api/music/read", name="api_music_read", methods={"GET"})
      */
     public function read(musicRepository $musicRepository): Response
@@ -50,7 +50,26 @@ class MusicController extends AbstractController
     }
 
     /**
-     * Add a music in the data base
+     * Read musics by keyword
+     * @Route("/api/music/keyword", name="api_music_keyword", methods={"GET"})
+     */
+    public function readByKeyword(MusicRepository $musicRepository, Request $request, SerializerInterface $serializer): Response
+    {
+        $jsonContent = $request->getContent();
+
+        $json = json_decode($jsonContent);
+
+        $keyword = $json->keyword;
+        $departement = $json->departement;
+
+        $music = $musicRepository->findMusicsByKeyWord($keyword, $departement);
+
+        return $this->json($music, 200, [],
+        ['groups' => 'music_read']);
+    }
+
+    /**
+     * Add a music 
      * 
      * @Route("/api/music/create", name="api_music_create", methods={"POST"})
      */

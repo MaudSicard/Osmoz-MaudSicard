@@ -32,7 +32,7 @@ class GenderController extends AbstractController
 
 
     /**
-     * Add a new gender in the data base
+     * Add a new gender in the database
      * 
      * @Route("/admin/gender/create", name="admin_gender_create", methods={"GET","POST"})
      */

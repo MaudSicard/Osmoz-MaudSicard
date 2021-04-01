@@ -17,21 +17,14 @@ class Type
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("book_read")
-     * @Groups("music_read")
-     * @Groups("type_read")
-     * @Groups("gender_read")
-     * 
+     * @Groups("music_read", "users_read", "type_read", "book_read", "movies_read", "gender_read")
+
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("book_read")
-     * @Groups("music_read")
-     * @Groups("type_read")
-     * @Groups("gender_read")
-     * @Groups("movies_read", "back_movie_read")
+     * @Groups("music_read", "users_read", "type_read", "book_read", "movies_read", "gender_read")
 
      */
     private $name;
@@ -72,6 +65,7 @@ class Type
 
     public function __construct()
     {
+        $this->createdAt = new \datetime();
         $this->movies = new ArrayCollection();
         $this->books = new ArrayCollection();
         $this->music = new ArrayCollection();

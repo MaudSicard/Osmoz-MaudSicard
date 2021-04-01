@@ -3,9 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\BookRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -17,49 +17,46 @@ class Book
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+<<<<<<< HEAD
      * @Groups("type_read")
      * @Groups("book_read","users_read")
      * @Groups("gender_read")
+=======
+     * @Groups("book_read", "users_read", "type_read", "gender_read")
+>>>>>>> keyword
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups("type_read")
-     * @Groups("book_read", "users_read")
-     * @Groups("gender_read")
+     * @Groups("book_read", "users_read", "type_read", "gender_read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups("book_read")
-     * @Groups("type_read")
-     * @Groups("gender_read")
+     * @Groups("book_read", "users_read", "type_read", "gender_read")
+
      */
     private $author;
 
     /**
-     * @ORM\Column(type="string", length=128, nullable=true)
-     * @Groups("book_read")
-     * @Groups("type_read")
-     * @Groups("gender_read")
+     * @ORM\Column(type="text", nullable=true)
+     * @Groups("book_read", "users_read", "type_read", "gender_read")
+
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=128)
-     * @Groups("book_read")
-     * @Groups("type_read")
-     * @Groups("gender_read")
+     * @Groups("book_read", "users_read", "type_read", "gender_read")
      */
     private $status;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("book_read")
-     * @Groups("type_read")
-     * @Groups("gender_read")
+     * @Groups("book_read", "users_read", "type_read", "gender_read")
+
      */
     private $state;
 
@@ -77,26 +74,33 @@ class Book
 
     /**
      * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="books", cascade={"persist"})
-     * @Groups("book_read")
-     * @Groups("type_read")
+     * @Groups("book_read", "type_read", "users_read")
      */
     private $gender;
 
     /**
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="books", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+<<<<<<< HEAD
      * @Groups("book_read")
      * @Groups("gender_read")
+=======
+     * @Groups("book_read", "gender_read", "users_read")
+>>>>>>> keyword
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="books", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+<<<<<<< HEAD
      * @Groups("book_read")
      * @Groups("type_read")
      * @Groups("gender_read")
      * 
+=======
+     * @Groups("book_read", "type_read", "gender_read")
+>>>>>>> keyword
      */
     private $user;
 

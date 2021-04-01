@@ -81,4 +81,39 @@ class MusicRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * Return all musics where title and/or artist correspond at the keyword
+     *
+     * @return void
+     */
+    public function findMusicsByKeyWord($keyWord, $departement)
+    {
+        return $this->createQueryBuilder('m')
+            ->innerJoin('b.user', 'u')
+            ->andWhere('u.departement LIKE :departement')
+            ->setParameter('departement', $departement)
+            ->andWhere('m.name LIKE :keyWord')
+            ->orWhere('m.artist LIKE :keyWord')
+            ->setParameter('keyWord', '%'.$keyWord.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * Find 5 musics ordered by createdAt for home
+     * 
+     * @return Music[] Returns an array of Movie objects
+     */
+    public function findMusicsHome()
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->orderBy('m.createdAt', 'ASC')
+            ->setMaxResults(5);
+            
+        return $qb->getQuery()->getResult();
+    }
+
+    
 }

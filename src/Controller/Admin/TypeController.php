@@ -32,7 +32,7 @@ class TypeController extends AbstractController
 
 
     /**
-     * Add a new type in the data base
+     * Add a new type in the database
      * 
      * @Route("/admin/type/create/", name="admin_type_create", methods={"GET","POST"})
      */

@@ -67,6 +67,7 @@ class BookRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+
     /**
      * All books with their type and user
      *
@@ -83,20 +84,36 @@ class BookRepository extends ServiceEntityRepository
     }
 
     /**
-     * All books with their type and user
+     * Return all books where title and/or author correspond at the keyword
      *
      * @return void
      */
-    public function findOneBookByKeyWord($keyWord)
+    public function findBooksByKeyWord($keyWord, $departement)
     {
         return $this->createQueryBuilder('b')
+            ->innerJoin('b.user', 'u')
+            ->andWhere('u.departement = :departement')
+            ->setParameter('departement', $departement)
             ->andWhere('b.name LIKE :keyWord')
-            
             ->setParameter('keyWord', '%'.$keyWord.'%')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
+    }
+
+
+        /**
+     * Find 5 books ordered by createdAt for home
+     * 
+     * @return Book[] Returns an array of Movie objects
+     */
+    public function findBooksHome()
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->orderBy('b.createdAt', 'ASC')
+            ->setMaxResults(5);
+            
+        return $qb->getQuery()->getResult();
     }
 
     

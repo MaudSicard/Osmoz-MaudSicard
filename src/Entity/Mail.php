@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\MailRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,15 +16,23 @@ class Mail
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+<<<<<<< HEAD
      * @Groups("users_read")
      * @Groups("mails_read")
+=======
+     * @Groups("users_read", "mails_read")
+>>>>>>> keyword
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+<<<<<<< HEAD
      * @Groups("users_read")
      * @Groups("mails_read")
+=======
+     * @Groups("users_read", "mails_read")
+>>>>>>> keyword
      */
     private $content;
 
@@ -44,6 +51,18 @@ class Mail
      * @Groups("mails_read")
      */
     private $users;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups("users_read", "mails_read")
+     */
+    private $sender_id;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups("users_read", "mails_read")
+     */
+    private $recipient_id;
 
     public function __construct()
     {
@@ -118,4 +137,30 @@ class Mail
 
         return $this;
     }
+
+
+    public function getSenderId(): ?int
+    {
+        return $this->sender_id;
+    }
+
+    public function setSenderId(?int $sender_id): self
+    {
+        $this->sender_id = $sender_id;
+
+        return $this;
+    }
+
+    public function getRecipientId(): ?int
+    {
+        return $this->recipient_id;
+    }
+
+    public function setRecipientId(?int $recipient_id): self
+    {
+        $this->recipient_id = $recipient_id;
+
+        return $this;
+    }
+
 }

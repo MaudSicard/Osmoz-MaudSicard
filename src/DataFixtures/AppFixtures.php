@@ -10,6 +10,7 @@ use App\Entity\User;
 use App\Entity\Movie;
 use App\Entity\Music;
 use App\Entity\Gender;
+use App\Service\MySlugger;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -23,11 +24,14 @@ class AppFixtures extends Fixture
 
      private $connection;
 
+     private $slugger;
+
      /**
-      * On injecte les dépendances (les objets utiles au fonctionnement de nos Fixtures) dans le constructeur car AppFixtures est elle aussi un service
+      * construc function to generate password object, slugger object and connection object
       */
-     public function __construct(UserPasswordEncoderInterface $passwordEncoder, Connection $connection)
+     public function __construct(UserPasswordEncoderInterface $passwordEncoder, Connection $connection, MySlugger $slugger)
      {
+         $this->slugger = $slugger;
          $this->passwordEncoder = $passwordEncoder;
          $this->connection = $connection;
      }
@@ -62,6 +66,12 @@ class AppFixtures extends Fixture
     }
 
 
+    /**
+     * Function to create fixtures for database
+     *
+     * @param ObjectManager $manager
+     * @return void
+     */
     public function load(ObjectManager $manager)
     {
         $this->truncate();
@@ -85,6 +95,7 @@ class AppFixtures extends Fixture
         $userChloe->setRoles(['ROLE_ADMIN']);
         $userChloe->setNickname('Chloé');
         $userChloe->setCreatedAt(new \DateTime());
+        $userChloe->setZipcode(27730);
         $userList[] = $userChloe;
         $manager->persist($userChloe);
 
@@ -94,6 +105,7 @@ class AppFixtures extends Fixture
         $userCharlotte->setPassword($encodedPassword);
         $userCharlotte->setRoles(['ROLE_ADMIN']);
         $userCharlotte->setNickname('Charlotte');
+        $userCharlotte->setZipcode(51500);
         $userCharlotte->setCreatedAt(new \DateTime());
         $userList[] = $userCharlotte;
         $manager->persist($userCharlotte);
@@ -105,6 +117,7 @@ class AppFixtures extends Fixture
         $userClem->setRoles(['ROLE_ADMIN']);
         $userClem->setNickname('Clem');
         $userClem->setCreatedAt(new \DateTime());
+        $userClem->setZipcode(33310);
         $userList[] = $userClem;
         $manager->persist($userClem);
 
@@ -114,6 +127,7 @@ class AppFixtures extends Fixture
         $userMicka->setPassword($encodedPassword);
         $userMicka->setRoles(['ROLE_ADMIN']);
         $userMicka->setNickname('Micka');
+        $userMicka->setZipcode(01120);
         $userMicka->setCreatedAt(new \DateTime());
         $userList[] = $userMicka;
         $manager->persist($userMicka);
@@ -124,6 +138,7 @@ class AppFixtures extends Fixture
         $userMaud->setPassword($encodedPassword);
         $userMaud->setRoles(['ROLE_ADMIN']);
         $userMaud->setNickname('Maud');
+        $userMaud->setZipcode(13200);
         $userMaud->setCreatedAt(new \DateTime());
         $userList[] = $userMaud;
         $manager->persist($userMaud);
@@ -198,10 +213,13 @@ class AppFixtures extends Fixture
 
         for ($i = 0; $i < self::NB_BOOK; $i++) {
             $book = new Book();
-            $book->setName($faker->bookName($i));
+            $name = $faker->bookName($i);
+            $book->setName($name);
             $book->setAuthor($faker->bookAuthor($i));
             $book->setState($faker->state());
             $book->setStatus($faker->status());
+            $book->setSlug($this->slugger->slugify($name));
+            $book->setPicture('https://picsum.photos/200/300');
             $book->setCreatedAt(new \DateTime());
 
             $bookType = $bookTypeList[array_rand($bookTypeList)];
@@ -223,10 +241,13 @@ class AppFixtures extends Fixture
 
         for ($i = 0; $i < self::NB_MUSIC; $i++) {
             $music = new Music();
-            $music->setName($faker->musicName($i));
+            $name = $faker->musicName($i);
+            $music->setName($name);
             $music->setArtist($faker->musicArtist($i));
             $music->setState($faker->state());
             $music->setStatus($faker->status());
+            $music->setSlug($this->slugger->slugify($name));
+            $music->setPicture('https://picsum.photos/200/300');
             $music->setCreatedAt(new \DateTime());
             $music->setSupport($faker->musicSupport());
 
@@ -249,9 +270,12 @@ class AppFixtures extends Fixture
 
         for ($i = 0; $i < self::NB_MOVIE; $i++) {
             $movie = new Movie();
-            $movie->setName($faker->movieName($i));
+            $name = $faker->movieName($i);
+            $movie->setName($name);
             $movie->setState($faker->state());
             $movie->setStatus($faker->status());
+            $movie->setSlug($this->slugger->slugify($name));
+            $movie->setPicture('https://picsum.photos/200/300');
             $movie->setCreatedAt(new \DateTime());
             $movie->setSupport($faker->movieSupport());
 

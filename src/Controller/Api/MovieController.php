@@ -56,6 +56,25 @@ class MovieController extends AbstractController
     }
 
     /**
+     * Read movies by keyword
+     * @Route("/api/movies/keyword", name="api_movies_keyword", methods={"GET"})
+     */
+    public function readByKeyword(MovieRepository $movieRepository, Request $request, SerializerInterface $serializer): Response
+    {
+        $jsonContent = $request->getContent();
+
+        $json = json_decode($jsonContent);
+
+        $keyWord = $json->keyword;
+        $departement = $json->departement;
+
+        $movie = $movieRepository->findMoviesByKeyWord($keyWord, $departement);
+
+        return $this->json($movie, 200, [],
+        ['groups' => 'movies_read']);
+    }
+
+    /**
      * Create movie
      * 
      * @Route("/api/movies/create", name="api_movies_create", methods="POST")

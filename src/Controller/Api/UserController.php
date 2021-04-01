@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
@@ -38,8 +39,6 @@ class UserController extends AbstractController
     public function readItem(User $user = null, UserRepository $userRepository): Response
     {
 
-        $user = $userRepository->find();
-
         if ($user === null) {
 
             $message = [
@@ -56,18 +55,46 @@ class UserController extends AbstractController
     ]);
     }
 
+        /**
+     * Read users by departement
+     * 
+     * @Route("/api/users/read/departement/{departement}", name="api_users_read_departement", methods="GET")
+     */
+    public function readByDepartement($departement, User $user = null, UserRepository $userRepository): Response
+    {
+
+        $users = $userRepository->findUsersByDepartement($departement);
+
+        if ($user === null) {
+
+            $message = [
+                'status' => Response::HTTP_NOT_FOUND,
+                'error' => 'User non trouvé.',
+            ];
+
+            return $this->json($message, Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->json($users, 200, ['Access-Control-Allow-Origin' =>'*'], ['groups' => [
+            'users_read',
+        ]
+    ]);
+    }
+
     /** Create user
     * 
     * @Route("/api/users/create", name="api_users_create", methods="POST")
     */
-   public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator)
+   public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator, UserPasswordEncoderInterface $passwordEncoder)
    {      
 
        $jsonContent = $request->getContent();
-       // dd($jsonContent);
 
        $user = $serializer->deserialize($jsonContent, User::class, 'json');
-       // dd($user);
+       
+       $hashedPassword = $passwordEncoder->encodePassword($user, $user->getPassword());
+      
+       $user->setPassword($hashedPassword);
 
        $errors = $validator->validate($user);
 
@@ -75,7 +102,7 @@ class UserController extends AbstractController
    
            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
        }
-
+       
        $entityManager->persist($user);
        $entityManager->flush();
 

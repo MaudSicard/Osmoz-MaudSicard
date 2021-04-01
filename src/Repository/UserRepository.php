@@ -3,11 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Symfony\Component\DependencyInjection\Loader\Configurator\string;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -36,9 +37,36 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
+     /**
+     * Find 5 users ordered by createdAt for home
+     * 
+     * @return User[] Returns an array of Movie objects
+     */
+    public function findUsersHome()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->orderBy('u.createdAt', 'DESC')
+            ->setMaxResults(5);
+            
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Find users by departement
+     * 
+     * @return User[] 
+     */
+    public function findUsersByDepartement($departement)
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->andWhere ('u.departement = :departement')
+            ->setParameter('departement', $departement)
+            ->orderBy('u.createdAt', 'DESC');
+            
+        return $qb->getQuery()->getResult();
+    }
+
+
     /*
     public function findByExampleField($value)
     {

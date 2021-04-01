@@ -4,6 +4,7 @@ namespace App\Controller\Api;
 
 use App\Entity\Book;
 use App\Repository\BookRepository;
+use ArrayObject;
 use Doctrine\DBAL\Types\StringType;
 use PhpParser\Node\Expr\Cast\String_;
 use Doctrine\ORM\EntityManagerInterface;
@@ -54,16 +55,19 @@ class BookController extends AbstractController
     }
 
     /**
-     * Read one book by keyWord
-     * @Route("/api/book/keyWord", name="api_book_read_keyWord", methods={"GET"})
+     * Read books by keyWord and localisation
+     * @Route("/api/book/keyword", name="api_book_read_keyword", methods={"GET"})
      */
-    public function readByKeyWord(BookRepository $bookRepository, Request $request, SerializerInterface $serializer): Response
+    public function readByKeyword(BookRepository $bookRepository, Request $request, SerializerInterface $serializer): Response
     {
         $jsonContent = $request->getContent();
 
-        $keyWord = json_decode($jsonContent);
+        $json = json_decode($jsonContent);
 
-        $book = $bookRepository->findOneBookByKeyWord($keyWord);
+        $keyword = $json->keyword;
+        $departement = $json->departement;
+
+        $book = $bookRepository->findBooksByKeyWord($keyword, $departement);
 
         return $this->json($book, 200, [],
         ['groups' => 'book_read']);
@@ -71,7 +75,7 @@ class BookController extends AbstractController
 
 
     /**
-     * Add a book in the data base
+     * Add a book 
      * @Route("/api/book/create", name="api_book_create", methods={"POST"})
      */
     public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator)

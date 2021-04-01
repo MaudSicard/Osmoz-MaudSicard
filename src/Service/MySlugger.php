@@ -24,10 +24,14 @@ class MySlugger
 
     public function slugify(string $string)
     {
+
         // on slugifie
         $slug = $this->slugger->slug($string);
 
         // on lower ou pas ?
+
+        $slug = $this->slugger->slug($string);
+
         if($this->toLower) {
             return $slug->lower();
         }

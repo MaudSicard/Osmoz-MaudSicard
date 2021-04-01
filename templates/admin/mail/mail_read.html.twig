@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block body %}
+
+<h1>Liste des messages</h1>
+
+<table class="table table-striped">
+ 
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Utilisateur</th>
+      <th scope="col">Message</th>
+      <th scope="col">Date de création</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for mail in mails %}
+    <tr>
+      <th scope="row">{{ mail.id }}</th>
+      <td>{% for user in mail.users %}{{ user.nickname }}{% if not loop.last %} / {% endif %}{% endfor %}</td>
+      <td>{{mail.content }}</td>
+      <td> {{ mail.createdAt|date('d-m-Y') }}</td>
+      <td><form action="{{ path('admin_mail_delete', {id: mail.id}) }}" onsubmit="return confirm('Supprimer le message #{{ mail.id }} ?')" method="POST">
+        <input type="hidden" name="_method" value="DELETE"/>
+        <input type="hidden" name="token" value="{{ csrf_token('delete-mail') }}"/>
+        <a class="btn btn-sm btn-primary" href="{{ path('admin_mail_edit', {id: mail.id}) }}">Modifier</a>
+        <button class="btn btn-sm btn-danger" type="submit">Supprimer</button>
+      </form></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+
+
+{% endblock %}

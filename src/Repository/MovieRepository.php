@@ -45,7 +45,37 @@ class MovieRepository extends ServiceEntityRepository
             
         return $qb->getQuery()->getResult();
     }
+  /**
+     * Return all movies where title correspond at the keyword
+     *
+     * @return void
+     */
+    public function findMoviesByKeyWord($keyWord, $departement)
+    {
+        return $this->createQueryBuilder('m')
+            ->innerJoin('b.user', 'u')
+            ->andWhere('u.departement LIKE :departement')
+            ->setParameter('departement', $departement)
+            ->andWhere('m.name LIKE :keyWord')
+            ->setParameter('keyWord', '%'.$keyWord.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
+       /**
+     * Find 5 movies ordered by createdAt for home
+     * 
+     * @return Movie[] Returns an array of Movie objects
+     */
+    public function findMoviesHome()
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->orderBy('m.createdAt', 'ASC')
+            ->setMaxResults(5);
+            
+        return $qb->getQuery()->getResult();
+    }
     /*
 
     /*

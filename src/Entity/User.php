@@ -82,6 +82,21 @@ class User implements UserInterface
      */
     private $nickname;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $departement;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $zipcode;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->createdAt = new \datetime();
@@ -89,6 +104,7 @@ class User implements UserInterface
         $this->movies = new ArrayCollection();
         $this->books = new ArrayCollection();
         $this->music = new ArrayCollection();
+        $this->roles = ['ROLE_USER'];
     }
 
     public function getId(): ?int
@@ -318,6 +334,42 @@ class User implements UserInterface
     public function setNickname(string $nickname): self
     {
         $this->nickname = $nickname;
+
+        return $this;
+    }
+
+    public function getDepartement(): ?int
+    {
+        return $this->departement;
+    }
+
+    public function setDepartement(int $departement): self
+    {
+        $this->departement = $departement;
+
+        return $this;
+    }
+
+    public function getZipcode(): ?int
+    {
+        return $this->zipcode;
+    }
+
+    public function setZipcode(int $zipcode): self
+    {
+        $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

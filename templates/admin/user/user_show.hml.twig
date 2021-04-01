@@ -17,18 +17,23 @@
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Nickname</th>
+                <th>Surnom</th>
                 <td>{{ user.nickname }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ user.picture }}</td>
             </tr>
             <tr>
                 <th>Roles</th>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
             </tr>
             <tr>
-                <th>Messages</th>
-    {% for mail in user.mail %}<td>{{ user.mail.content }}</td>{% endfor %}</p
-                <td>{{ user.mail }}</td>
+            {% for mail in user.mail %}
+                <th>Message</th>
+                <td> {{  mail.content }} </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 

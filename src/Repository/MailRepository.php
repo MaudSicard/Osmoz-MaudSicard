@@ -7,6 +7,7 @@ use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
+
 /**
  * @method Mail|null find($id, $lockMode = null, $lockVersion = null)
  * @method Mail|null findOneBy(array $criteria, array $orderBy = null)
@@ -21,27 +22,36 @@ class MailRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère les castings d'un film donné
-     * et les (acteurs) personnes associées
+     * Find all mails ordered by createdAt
      * 
-     * Requête SQL correspondante, pour info
-     * 
-     * SELECT *
-     * FROM `casting`
-     * JOIN person ON casting.person_id=person.id
-     * WHERE casting.movie_id=1
+     * @return Mail[] Returns an array of Mail objects
      */
-    public function findAllByMovieJoinedToPerson(User $user)
+    public function findAllOrderedByCreatedAT()
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->orderBy('m.createdAt', 'ASC');
+            
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Find all mails by id ordered by createdAt
+     * 
+     * @return Mail[] Returns an array of Mail objects
+     */
+    public function findAllByIdOrderedByCreatedAT(User $user)
     {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
             'SELECT m
             FROM App\Entity\Mail m
-            WHERE m.user = :user'
-        )->setParameter('user', $user);
-
-        return $query->getResult();
+            INNER JOIN m.users u
+            WHERE m.users = :user
+            ORDER BY m.createdAt DESC'
+        );
+        
+        return $query.setParameter("user", $user)->getResult();
     }
 
       /**
@@ -56,6 +66,7 @@ class MailRepository extends ServiceEntityRepository
             
         return $qb->getQuery()->getResult();
     }
+
 
     // /**
     //  * @return Mail[] Returns an array of Mail objects

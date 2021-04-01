@@ -2,8 +2,10 @@
 
 namespace App\Controller\Admin;
 
+
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\MailRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,27 +16,32 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
+     * Read all users
+     * 
      * @Route("back/users/read", name="back_user_read", methods={"GET"})
      */
     public function read(UserRepository $userRepository): Response
     {
-        return $this->render('admin/user/read.html.twig', [
+        return $this->render('admin/user/user_read.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("back/read/{id}", name="back_user_read_item", methods={"GET"})
+     * Read  one user
+     * 
+     * @Route("back/read/{id}", name="back_user_show", methods={"GET"})
      */
-    public function readItem(User $user, UserRepository $userRepository): Response
+    public function show(User $user): Response
     {
-        
-        return $this->render('admin/user/readItem.html.twig', [
+        return $this->render('admin/user/user_show.html.twig', [
             'user' => $user,
         ]);
     }
 
     /**
+     * 
+     * 
      * @Route("back/user/add", name="back_user_add", methods={"GET","POST"})
      */
     public function create(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
@@ -56,13 +63,15 @@ class UserController extends AbstractController
             return $this->redirectToRoute('back_user_read');
         }
 
-        return $this->render('admin/user/add.html.twig', [
+        return $this->render('admin/user/user_add.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
     }
 
     /**
+     *  Edit user
+     * 
      * @Route("back/user/edit/{id}", name="back_user_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
@@ -85,13 +94,15 @@ class UserController extends AbstractController
             return $this->redirectToRoute('back_user_read');
         }
 
-        return $this->render('admin/user/edit.html.twig', [
+        return $this->render('admin/user/user_edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
     }
 
     /**
+     * Delete user
+     * 
      * @Route("back/user/delete/{id}", name="back_user_delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
