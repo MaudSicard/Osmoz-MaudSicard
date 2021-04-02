@@ -74,37 +74,23 @@ class Music
     /**
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="music", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-<<<<<<< HEAD
-     * @Groups("music_read")
-     * @Groups("gender_read")
-=======
      * @Groups("music_read", "users_read", "gender_read")
->>>>>>> keyword
+
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="music", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-<<<<<<< HEAD
-     * @Groups("music_read")
-     * @Groups("type_read")
-     * @Groups("gender_read")
-=======
      * @Groups("music_read", "type_read", "gender_read")
->>>>>>> keyword
      */
     private $user;
 
     /**
      * @ORM\Column(type="string", length=64)
-<<<<<<< HEAD
-     * @Groups("music_read")
-     * @Groups("type_read")
-     * @Groups("gender_read")
-=======
+
      * @Groups("music_read", "users_read", "type_read", "gender_read")
->>>>>>> keyword
+
      */
     private $support;
 
@@ -279,8 +265,5 @@ class Music
 
         return $this;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> keyword
+

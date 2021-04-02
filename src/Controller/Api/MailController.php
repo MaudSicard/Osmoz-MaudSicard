@@ -40,6 +40,36 @@ class MailController extends AbstractController
         );
     }
 
+        /**
+     * Create mails
+     * 
+     * @Route("/api/mail/create", name="api_mail_create", methods="POST")
+     */
+    public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator)
+    {      
+
+        $jsonContent = $request->getContent();
+
+        $mail = $serializer->deserialize($jsonContent, Mail::class, 'json');
+        // dd($mails);
+
+        $errors = $validator->validate($mail);
+
+        if (count($errors) > 0) {
+    
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $entityManager->persist($mail);
+        $entityManager->flush();
+
+        return $this->redirectToRoute(
+            'api_mail_read_id',
+            ['id' => $mail->getId()],
+            Response::HTTP_CREATED
+        );
+    }
+
     /**
      * Delete movie
      * 

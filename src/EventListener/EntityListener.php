@@ -3,17 +3,12 @@
 namespace App\EventListener;
 
 use App\Entity\Book;
-<<<<<<< HEAD
-use App\Entity\Movie;
-use App\Entity\Music;
-use App\Service\MySlugger;
-=======
 use App\Entity\User;
 use App\Entity\Movie;
 use App\Entity\Music;
 use App\Service\MySlugger;
 use App\Service\Localisation;
->>>>>>> keyword
+
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 
 /**
@@ -26,13 +21,8 @@ use Doctrine\Persistence\Event\LifecycleEventArgs;
 class EntityListener
 {
     private $mySlugger;
-
-
-    public function __construct(MySlugger $mySlugger)
-    {
-        $this->mySlugger = $mySlugger;
-
     private $localisation;
+
 
     public function __construct(MySlugger $mySlugger, Localisation $localisation)
     {
@@ -64,13 +54,10 @@ class EntityListener
         $music->setSlug($slug);
     }
 
-<<<<<<< HEAD
-=======
     public function updateDepartementUser(User $user)
     {
         $departement = $this->localisation->truncate($user->getZipcode());
         $user->setDepartement($departement);
     }
 
->>>>>>> keyword
 }

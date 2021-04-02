@@ -43,25 +43,15 @@ class Movie
 
     /**
      * @ORM\Column(type="integer")
-<<<<<<< HEAD
-     * @Groups("movies_read")
-     * @Groups("type_read")
-     * @Groups("gender_read")
-=======
      * @Groups("movies_read", "users_read", "type_read", "gender_read")
->>>>>>> keyword
+
      */
     private $state;
 
     /**
      * @ORM\Column(type="string", length=128)
-<<<<<<< HEAD
-     * @Groups("movies_read")
-     * @Groups("type_read")
-     * @Groups("gender_read")
-=======
      * @Groups("movies_read", "users_read", "type_read", "gender_read")
->>>>>>> keyword
+
      */
     private $support;
 
@@ -84,25 +74,17 @@ class Movie
     /**
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="movies", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-<<<<<<< HEAD
-     * @Groups("movies_read")
-     * @Groups("gender_read")
-=======
      * @Groups("movies_read", "users_read", "gender_read")
->>>>>>> keyword
+
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="movies", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-<<<<<<< HEAD
-     * @Groups("movies_read")
-     * @Groups("type_read")
-     * @Groups("gender_read")
-=======
+
      * @Groups("movies_read", "type_read", "gender_read")
->>>>>>> keyword
+
      */
     private $user;
 
@@ -276,8 +258,6 @@ class Movie
 
         return $this;
     }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> keyword
+

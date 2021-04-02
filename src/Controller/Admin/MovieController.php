@@ -27,7 +27,7 @@ class MovieController extends AbstractController
 
          dump($movies);
 
-        return $this->render('admin/movie/read.html.twig', [
+        return $this->render('admin/movie/movie_read.html.twig', [
             'movies' => $movies,
         ]);
     }

@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Mail;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;

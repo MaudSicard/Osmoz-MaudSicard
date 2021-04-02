@@ -25,13 +25,14 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups("movies_read", "users_read", "music_read", "book_read", "type_read")
+     * @Groups("movies_read", "music_read", "book_read", "type_read")
      * @Groups("gender_read")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups("users_read")
      */
     private $roles = [];
 
@@ -77,8 +78,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=64)
      * @Groups("music_read", "book_read", "movies_read", "users_read", "mails_read")
-     * @Groups("type_read")
-     * @Groups("gender_read")
      */
     private $nickname;
 
@@ -89,11 +88,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("users_read")
      */
     private $zipcode;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("users_read")
      */
     private $picture;
 

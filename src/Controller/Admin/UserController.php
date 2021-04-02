@@ -30,7 +30,7 @@ class UserController extends AbstractController
     /**
      * Read  one user
      * 
-     * @Route("back/read/{id}", name="back_user_show", methods={"GET"})
+     * @Route("back/read/{id}", name="back_user_read_item", methods={"GET"})
      */
     public function show(User $user): Response
     {

@@ -81,26 +81,16 @@ class Book
     /**
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="books", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-<<<<<<< HEAD
-     * @Groups("book_read")
-     * @Groups("gender_read")
-=======
      * @Groups("book_read", "gender_read", "users_read")
->>>>>>> keyword
+
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="books", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-<<<<<<< HEAD
-     * @Groups("book_read")
-     * @Groups("type_read")
-     * @Groups("gender_read")
-     * 
-=======
      * @Groups("book_read", "type_read", "gender_read")
->>>>>>> keyword
+
      */
     private $user;
 

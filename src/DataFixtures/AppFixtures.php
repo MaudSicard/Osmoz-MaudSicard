@@ -144,7 +144,6 @@ class AppFixtures extends Fixture
         $manager->persist($userMaud);
 
 
-
         for ($i = 0; $i < self::NB_BOOK_TYPE; $i++) {
             $type = new Type();
             $type->setName($faker->bookType($i));

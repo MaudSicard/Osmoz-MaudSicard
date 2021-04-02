@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Repository\MailRepository;
 
 /**
  * @ORM\Entity(repositoryClass=MailRepository::class)
@@ -16,23 +17,14 @@ class Mail
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-<<<<<<< HEAD
-     * @Groups("users_read")
-     * @Groups("mails_read")
-=======
      * @Groups("users_read", "mails_read")
->>>>>>> keyword
+
      */
     private $id;
-
     /**
      * @ORM\Column(type="string", length=255)
-<<<<<<< HEAD
-     * @Groups("users_read")
-     * @Groups("mails_read")
-=======
      * @Groups("users_read", "mails_read")
->>>>>>> keyword
+
      */
     private $content;
 
