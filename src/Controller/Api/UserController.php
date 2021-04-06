@@ -55,7 +55,7 @@ class UserController extends AbstractController
     ]);
     }
 
-        /**
+    /**
      * Read users by departement
      * 
      * @Route("/api/users/read/departement/{departement}", name="api_users_read_departement", methods="GET")
@@ -75,7 +75,33 @@ class UserController extends AbstractController
             return $this->json($message, Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($users, 200, ['Access-Control-Allow-Origin' =>'*'], ['groups' => [
+        return $this->json($users, 200, [], ['groups' => [
+            'users_read',
+        ]
+    ]);
+    }
+
+       /**
+     * Read users by email
+     * 
+     * @Route("/api/users/read/email/{email}", name="api_users_read_email", methods="GET")
+     */
+    public function readByEmail($email, User $user = null, UserRepository $userRepository): Response
+    {
+
+        $user = $userRepository->findUserByEmail($email);
+
+        if ($user === null) {
+
+            $message = [
+                'status' => Response::HTTP_NOT_FOUND,
+                'error' => 'User non trouvé.',
+            ];
+
+            return $this->json($message, Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->json($user, 200, [], ['groups' => [
             'users_read',
         ]
     ]);

@@ -102,6 +102,7 @@ class Book
 
     public function __construct()
     {
+        $this->createdAt = new \datetime();
         $this->gender = new ArrayCollection();
     }
 

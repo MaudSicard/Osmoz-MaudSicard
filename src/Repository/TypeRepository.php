@@ -56,9 +56,35 @@ class TypeRepository extends ServiceEntityRepository
     public function findAllTypeByCreatedAt()
     {
         return $this->createQueryBuilder('t')
-            ->orderBy('t.createdAt', 'ASC')
+            ->orderBy('t.createdAt', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
+
+      /**
+     * Types by user's departement
+     *
+     * @return void
+     */
+    public function findTypeByDepartement($id, $departement)
+    {
+        return $this->createQueryBuilder('t')
+            ->innerJoin('t.books', 'b')
+            ->innerJoin('t.movies', 'm')
+            ->innerJoin('t.music', 'c')
+            ->innerJoin('b.user', 'u')
+            ->innerJoin('m.user', 's')
+            ->innerJoin('c.user', 'r')
+            ->andWhere('t.id LIKE :id')
+            ->setParameter('id', $id)
+            ->orWhere('u.departement LIKE :departement')
+            ->orWhere('s.departement LIKE :departement')
+            ->orWhere('r.departement LIKE :departement')
+            ->setParameter('departement', $departement)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 }

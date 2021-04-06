@@ -27,7 +27,7 @@ class MovieRepository extends ServiceEntityRepository
     public function findAllOrderedByCreatedAtAsc()
     {
         $qb = $this->createQueryBuilder('m')
-            ->orderBy('m.createdAt', 'ASC')
+            ->orderBy('m.createdAt', 'DESC')
             ->setMaxResults(10);
             
         return $qb->getQuery()->getResult();
@@ -41,7 +41,7 @@ class MovieRepository extends ServiceEntityRepository
     public function findAllOrderedByCreatedAT()
     {
         $qb = $this->createQueryBuilder('m')
-            ->orderBy('m.createdAt', 'ASC');
+            ->orderBy('m.createdAt', 'DESC');
             
         return $qb->getQuery()->getResult();
     }
@@ -56,7 +56,7 @@ class MovieRepository extends ServiceEntityRepository
             ->innerJoin('b.user', 'u')
             ->andWhere('u.departement LIKE :departement')
             ->setParameter('departement', $departement)
-            ->andWhere('m.name LIKE :keyWord')
+            ->orWhere('m.name LIKE :keyWord')
             ->setParameter('keyWord', '%'.$keyWord.'%')
             ->getQuery()
             ->getResult()
@@ -71,7 +71,7 @@ class MovieRepository extends ServiceEntityRepository
     public function findMoviesHome()
     {
         $qb = $this->createQueryBuilder('m')
-            ->orderBy('m.createdAt', 'ASC')
+            ->orderBy('m.createdAt', 'DEASC')
             ->setMaxResults(5);
             
         return $qb->getQuery()->getResult();

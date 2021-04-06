@@ -29,7 +29,7 @@ class MailRepository extends ServiceEntityRepository
     public function findAllOrderedByCreatedAT()
     {
         $qb = $this->createQueryBuilder('m')
-            ->orderBy('m.createdAt', 'ASC');
+            ->orderBy('m.createdAt', 'DESC');
             
         return $qb->getQuery()->getResult();
     }

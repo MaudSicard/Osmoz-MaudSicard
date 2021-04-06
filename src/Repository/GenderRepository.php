@@ -55,9 +55,12 @@ class GenderRepository extends ServiceEntityRepository
     public function findAllGenderByCreatedAt()
     {
         return $this->createQueryBuilder('g')
-            ->orderBy('g.createdAt', 'ASC')
+            ->orderBy('g.createdAt', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
+
+   
+
 }

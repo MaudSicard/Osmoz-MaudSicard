@@ -31,21 +31,20 @@ class TypeController extends AbstractController
 
     /**
      * Read one type by id
-     * @Route("/api/type/read/{id<\d+>}", name="api_type_read_id", methods={"GET"})
+     * @Route("/api/type/read/departement", name="api_type_read_id", methods={"POST"})
      */
-    public function readById(Type $type = null): Response
+    public function readById(Request $request, TypeRepository $typeRepository): Response
     {
-        if ($type === null) {
+        $jsonContent = $request->getContent();
 
-            $message = [
-                'status' => Response::HTTP_NOT_FOUND,
-                'error' => 'Type non trouvé.',
-            ];
+        $json = json_decode($jsonContent);
 
-            return $this->json($message, Response::HTTP_NOT_FOUND);
-        }
-
-        return $this->json($type, 200, ['Access-Control-Allow-Origin' =>'*'],
+        $id = $json->id;
+        $departement = $json->departement;
+      
+        $type = $typeRepository->findTypeByDepartement($id, $departement);
+        
+        return $this->json($type, 200, [],
         ['groups' => 'type_read']);
     }
 }

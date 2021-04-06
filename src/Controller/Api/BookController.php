@@ -56,7 +56,7 @@ class BookController extends AbstractController
 
     /**
      * Read books by keyWord and localisation
-     * @Route("/api/book/keyword", name="api_book_read_keyword", methods={"GET"})
+     * @Route("/api/book/keyword", name="api_book_read_keyword", methods={"POST"})
      */
     public function readByKeyword(BookRepository $bookRepository, Request $request, SerializerInterface $serializer): Response
     {
@@ -73,6 +73,24 @@ class BookController extends AbstractController
         ['groups' => 'book_read']);
     }
 
+    /**
+     * Books by type and user's departement
+     *  @Route("/api/book/type/", name="api_book_read_type", methods={"POST"})
+     */
+    public function readByTypeAndDepartement($id, BookRepository $bookRepository, Request $request)
+    {
+        $jsonContent = $request->getContent();
+
+        $json = json_decode($jsonContent);
+
+        $id = $json->id;
+        $departement = $json->departement;
+
+        $book = $bookRepository->findBooksByDepartementAndType($id, $departement);
+
+        return $this->json($book, 200, [],
+        ['groups' => 'book_read']);
+    }
 
     /**
      * Add a book 
@@ -91,7 +109,6 @@ class BookController extends AbstractController
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $book->setCreatedAt(new \DateTime());
         $entityManager->persist($book);
         $entityManager->flush();
 

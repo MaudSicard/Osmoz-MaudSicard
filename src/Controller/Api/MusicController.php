@@ -51,7 +51,7 @@ class MusicController extends AbstractController
 
     /**
      * Read musics by keyword
-     * @Route("/api/music/keyword", name="api_music_keyword", methods={"GET"})
+     * @Route("/api/music/keyword", name="api_music_keyword", methods={"POST"})
      */
     public function readByKeyword(MusicRepository $musicRepository, Request $request, SerializerInterface $serializer): Response
     {

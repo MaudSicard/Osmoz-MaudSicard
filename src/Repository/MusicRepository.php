@@ -56,7 +56,7 @@ class MusicRepository extends ServiceEntityRepository
     public function findAllMusicByCreatedAt()
     {
         return $this->createQueryBuilder('m')
-            ->orderBy('m.createdAt', 'ASC')
+            ->orderBy('m.createdAt', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()

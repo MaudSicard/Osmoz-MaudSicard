@@ -76,7 +76,7 @@ class BookRepository extends ServiceEntityRepository
     public function findAllByCreatedAt()
     {
         return $this->createQueryBuilder('b')
-            ->orderBy('b.createdAt', 'ASC')
+            ->orderBy('b.createdAt', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -92,9 +92,9 @@ class BookRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('b')
             ->innerJoin('b.user', 'u')
-            ->andWhere('u.departement = :departement')
+            ->andWhere('u.departement LIKE :departement')
             ->setParameter('departement', $departement)
-            ->andWhere('b.name LIKE :keyWord')
+            ->orWhere('b.name LIKE :keyWord')
             ->setParameter('keyWord', '%'.$keyWord.'%')
             ->getQuery()
             ->getResult()
@@ -110,12 +110,29 @@ class BookRepository extends ServiceEntityRepository
     public function findBooksHome()
     {
         $qb = $this->createQueryBuilder('b')
-            ->orderBy('b.createdAt', 'ASC')
+            ->orderBy('b.createdAt', 'DESC')
             ->setMaxResults(5);
             
         return $qb->getQuery()->getResult();
     }
 
     
+    /**
+     * Books by type and by user's departement
+     */
+    public function findBooksByDepartementAndType($id, $departement)
+    {
+        return $this->createQueryBuilder('b')
+            ->orderBy('b.createdAt', 'DESC')
+            ->innerJoin('b.user', 'u')
+            ->andWhere('u.departement = :departement')
+            ->setParameter('departement', $departement)
+            ->innerJoin('b.type', 't')
+            ->andWhere('t.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 }
