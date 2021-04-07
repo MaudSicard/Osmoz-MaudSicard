@@ -48,4 +48,62 @@ class GenderController extends AbstractController
         return $this->json($gender, 200, [],
         ['groups' => 'gender_read']);
     }
+
+
+    /**
+     * Read books by gender and by id
+     * @Route("/api/gender/read/book/departement", name="api_gender_read_book_departement", methods={"POST"})
+     */
+    public function readBooksByIdAndDepartement(Request $request, GenderRepository $genderRepository): Response
+    {
+        $jsonContent = $request->getContent();
+
+        $json = json_decode($jsonContent);
+
+        $id = $json->id;
+        $departement = $json->departement;
+      
+        $gender = $genderRepository->findBooksGenderByDepartement($id, $departement);
+        
+        return $this->json($gender, 200, [],
+        ['groups' => 'gender_read']);
+    }
+
+    /**
+     * Read musics by gender and by id
+     * @Route("/api/gender/read/music/departement", name="api_gender_read_music_departement", methods={"POST"})
+     */
+    public function readMusicsByIdAndDepartement(Request $request, GenderRepository $genderRepository): Response
+    {
+        $jsonContent = $request->getContent();
+
+        $json = json_decode($jsonContent);
+
+        $id = $json->id;
+        $departement = $json->departement;
+      
+        $gender = $genderRepository->findMusicsGenderByDepartement($id, $departement);
+        
+        return $this->json($gender, 200, [],
+        ['groups' => 'gender_read']);
+    }
+
+    /**
+     * Read movies by gender and by id
+     * @Route("/api/gender/read/movie/departement", name="api_gender_read_movie_departement", methods={"POST"})
+     */
+    public function readMoviesByIdAndDepartement(Request $request, GenderRepository $genderRepository): Response
+    {
+        $jsonContent = $request->getContent();
+
+        $json = json_decode($jsonContent);
+
+        $id = $json->id;
+        $departement = $json->departement;
+      
+        $gender = $genderRepository->findMoviesGenderByDepartement($id, $departement);
+        
+        return $this->json($gender, 200, [],
+        ['groups' => 'gender_read']);
+    }
 }

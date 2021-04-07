@@ -88,14 +88,15 @@ class BookRepository extends ServiceEntityRepository
      *
      * @return void
      */
-    public function findBooksByKeyWord($keyWord, $departement)
+    public function findBooksByKeyWord($keyword, $departement)
     {
         return $this->createQueryBuilder('b')
             ->innerJoin('b.user', 'u')
-            ->andWhere('u.departement LIKE :departement')
+            ->andWhere('u.departement = :departement')
             ->setParameter('departement', $departement)
-            ->orWhere('b.name LIKE :keyWord')
-            ->setParameter('keyWord', '%'.$keyWord.'%')
+            ->orWhere('b.name LIKE :keyword')
+            ->orWhere('b.author LIKE :keyword')
+            ->setParameter('keyword', '%' . $keyword . '%')
             ->getQuery()
             ->getResult()
         ;

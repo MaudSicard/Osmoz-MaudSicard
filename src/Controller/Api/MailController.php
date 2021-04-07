@@ -35,7 +35,7 @@ class MailController extends AbstractController
         return $this->json(
             $mail,
             200,
-            ['Access-Control-Allow-Origin' =>'*'],
+            [],
             ['groups' => 'mails_read']
         );
     }

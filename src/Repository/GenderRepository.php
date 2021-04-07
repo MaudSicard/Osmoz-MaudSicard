@@ -61,6 +61,62 @@ class GenderRepository extends ServiceEntityRepository
         ;
     }
 
-   
+    /**
+     * Books by gender and user's departement
+     *
+     * @return void
+     */
+    public function findBooksGenderByDepartement($id, $departement)
+    {
+        return $this->createQueryBuilder('g')
+            ->innerJoin('g.books', 'b')
+            ->innerJoin('b.user', 'u')
+            ->andWhere('g.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('u.departement = :departement')
+            ->setParameter('departement', $departement)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    /**
+     * Movies by gender and user's departement
+     *
+     * @return void
+     */
+    public function findMoviesGenderByDepartement($id, $departement)
+    {
+        return $this->createQueryBuilder('g')
+            ->innerJoin('g.movies', 'm')
+            ->innerJoin('m.user', 'u')
+            ->andWhere('g.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('u.departement = :departement')
+            ->setParameter('departement', $departement)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+     /**
+     * Musics by gender and user's departement
+     *
+     * @return void
+     */
+    public function findMusicsGenderByDepartement($id, $departement)
+    {
+        return $this->createQueryBuilder('g')
+            ->innerJoin('g.music', 'm')
+            ->innerJoin('m.user', 'u')
+            ->andWhere('g.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('u.departement = :departement')
+            ->setParameter('departement', $departement)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 }

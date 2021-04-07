@@ -25,7 +25,7 @@ class UserController extends AbstractController
     {
         $users = $userRepository->findAll();
 
-        return $this->json($users, 200, ['Access-Control-Allow-Origin' =>'*'], ['groups' => [
+        return $this->json($users, 200, [], ['groups' => [
             'users_read'
         ]
         ]);
@@ -49,7 +49,7 @@ class UserController extends AbstractController
             return $this->json($message, Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($user, 200, ['Access-Control-Allow-Origin' =>'*'], ['groups' => [
+        return $this->json($user, 200, [], ['groups' => [
             'users_read',
         ]
     ]);

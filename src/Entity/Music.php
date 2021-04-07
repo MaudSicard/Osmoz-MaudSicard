@@ -75,7 +75,6 @@ class Music
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="music", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("music_read", "users_read", "gender_read")
-
      */
     private $type;
 
@@ -88,9 +87,7 @@ class Music
 
     /**
      * @ORM\Column(type="string", length=64)
-
      * @Groups("music_read", "users_read", "type_read", "gender_read")
-
      */
     private $support;
 

@@ -31,9 +31,29 @@ class TypeController extends AbstractController
 
     /**
      * Read one type by id
-     * @Route("/api/type/read/departement", name="api_type_read_id", methods={"POST"})
+     * @Route("/api/type/read/{id<\d+>}", name="api_type_read_id", methods={"GET"})
      */
-    public function readById(Request $request, TypeRepository $typeRepository): Response
+    public function readById(Type $type = null): Response
+    {
+        if ($type === null) {
+
+            $message = [
+                'status' => Response::HTTP_NOT_FOUND,
+                'error' => 'Genre non trouvé.',
+            ];
+
+            return $this->json($message, Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->json($type, 200, [],
+        ['groups' => 'type_read']);
+    }
+
+    /**
+     * Read books by type and by id
+     * @Route("/api/type/read/book/departement", name="api_type_read_book_departement", methods={"POST"})
+     */
+    public function readBooksByIdAndDepartement(Request $request, TypeRepository $typeRepository): Response
     {
         $jsonContent = $request->getContent();
 
@@ -42,7 +62,45 @@ class TypeController extends AbstractController
         $id = $json->id;
         $departement = $json->departement;
       
-        $type = $typeRepository->findTypeByDepartement($id, $departement);
+        $type = $typeRepository->findBooksTypeByDepartement($id, $departement);
+        
+        return $this->json($type, 200, [],
+        ['groups' => 'type_read']);
+    }
+
+    /**
+     * Read musics by type and by id
+     * @Route("/api/type/read/music/departement", name="api_type_read_music_departement", methods={"POST"})
+     */
+    public function readMusicsByIdAndDepartement(Request $request, TypeRepository $typeRepository): Response
+    {
+        $jsonContent = $request->getContent();
+
+        $json = json_decode($jsonContent);
+
+        $id = $json->id;
+        $departement = $json->departement;
+      
+        $type = $typeRepository->findMusicsTypeByDepartement($id, $departement);
+        
+        return $this->json($type, 200, [],
+        ['groups' => 'type_read']);
+    }
+
+    /**
+     * Read movies by type and by id
+     * @Route("/api/type/read/movie/departement", name="api_type_read_movie_departement", methods={"POST"})
+     */
+    public function readMoviesByIdAndDepartement(Request $request, TypeRepository $typeRepository): Response
+    {
+        $jsonContent = $request->getContent();
+
+        $json = json_decode($jsonContent);
+
+        $id = $json->id;
+        $departement = $json->departement;
+      
+        $type = $typeRepository->findMoviesTypeByDepartement($id, $departement);
         
         return $this->json($type, 200, [],
         ['groups' => 'type_read']);

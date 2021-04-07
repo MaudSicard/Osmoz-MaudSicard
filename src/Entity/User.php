@@ -18,15 +18,13 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("movies_read", "users_read", "music_read", "book_read", "type_read")
-     * @Groups("gender_read")
+     * @Groups("movies_read", "users_read", "music_read", "book_read", "type_read", "gender_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups("movies_read", "music_read", "book_read", "type_read")
-     * @Groups("gender_read")
+     * @Groups("movies_read", "music_read", "book_read", "type_read", "gender_read" )
      */
     private $email;
 
@@ -43,7 +41,8 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Mail::class, inversedBy="users")
+     * @ORM\ManyToMany(targetEntity=Mail::class, inversedBy="users", cascade={"remove"})
+     * @Groups("users_read")
      */
     private $mail;
 
@@ -82,13 +81,13 @@ class User implements UserInterface
     private $nickname;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=2)
      * @Groups("users_read")
      */
     private $departement;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=5)
      * @Groups("users_read")
      */
     private $zipcode;
@@ -340,24 +339,24 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getDepartement(): ?int
+    public function getDepartement(): ?string
     {
         return $this->departement;
     }
 
-    public function setDepartement(int $departement): self
+    public function setDepartement(string $departement): self
     {
         $this->departement = $departement;
 
         return $this;
     }
 
-    public function getZipcode(): ?int
+    public function getZipcode(): ?string
     {
         return $this->zipcode;
     }
 
-    public function setZipcode(int $zipcode): self
+    public function setZipcode(string $zipcode): self
     {
         $this->zipcode = $zipcode;
 

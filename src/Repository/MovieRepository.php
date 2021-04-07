@@ -50,14 +50,14 @@ class MovieRepository extends ServiceEntityRepository
      *
      * @return void
      */
-    public function findMoviesByKeyWord($keyWord, $departement)
+    public function findMoviesByKeyword($keyword, $departement)
     {
         return $this->createQueryBuilder('m')
             ->innerJoin('b.user', 'u')
-            ->andWhere('u.departement LIKE :departement')
+            ->andWhere('u.departement = :departement')
             ->setParameter('departement', $departement)
-            ->orWhere('m.name LIKE :keyWord')
-            ->setParameter('keyWord', '%'.$keyWord.'%')
+            ->orWhere('m.name LIKE :keyword')
+            ->setParameter('keyword', '%'.$keyword.'%')
             ->getQuery()
             ->getResult()
         ;

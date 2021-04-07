@@ -95,7 +95,7 @@ class AppFixtures extends Fixture
         $userChloe->setRoles(['ROLE_ADMIN']);
         $userChloe->setNickname('Chloé');
         $userChloe->setCreatedAt(new \DateTime());
-        $userChloe->setZipcode(27730);
+        $userChloe->setZipcode('27730');
         $userList[] = $userChloe;
         $manager->persist($userChloe);
 
@@ -105,7 +105,7 @@ class AppFixtures extends Fixture
         $userCharlotte->setPassword($encodedPassword);
         $userCharlotte->setRoles(['ROLE_ADMIN']);
         $userCharlotte->setNickname('Charlotte');
-        $userCharlotte->setZipcode(51500);
+        $userCharlotte->setZipcode('51500');
         $userCharlotte->setCreatedAt(new \DateTime());
         $userList[] = $userCharlotte;
         $manager->persist($userCharlotte);
@@ -117,7 +117,7 @@ class AppFixtures extends Fixture
         $userClem->setRoles(['ROLE_ADMIN']);
         $userClem->setNickname('Clem');
         $userClem->setCreatedAt(new \DateTime());
-        $userClem->setZipcode(33310);
+        $userClem->setZipcode('33310');
         $userList[] = $userClem;
         $manager->persist($userClem);
 
@@ -127,7 +127,7 @@ class AppFixtures extends Fixture
         $userMicka->setPassword($encodedPassword);
         $userMicka->setRoles(['ROLE_ADMIN']);
         $userMicka->setNickname('Micka');
-        $userMicka->setZipcode(01120);
+        $userMicka->setZipcode('01120');
         $userMicka->setCreatedAt(new \DateTime());
         $userList[] = $userMicka;
         $manager->persist($userMicka);
@@ -138,7 +138,7 @@ class AppFixtures extends Fixture
         $userMaud->setPassword($encodedPassword);
         $userMaud->setRoles(['ROLE_ADMIN']);
         $userMaud->setNickname('Maud');
-        $userMaud->setZipcode(13200);
+        $userMaud->setZipcode('13200');
         $userMaud->setCreatedAt(new \DateTime());
         $userList[] = $userMaud;
         $manager->persist($userMaud);

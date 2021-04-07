@@ -24,7 +24,6 @@ class Mail
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("users_read", "mails_read")
-
      */
     private $content;
 

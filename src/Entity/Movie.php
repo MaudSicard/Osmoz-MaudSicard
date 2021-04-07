@@ -44,14 +44,12 @@ class Movie
     /**
      * @ORM\Column(type="integer")
      * @Groups("movies_read", "users_read", "type_read", "gender_read")
-
      */
     private $state;
 
     /**
      * @ORM\Column(type="string", length=128)
      * @Groups("movies_read", "users_read", "type_read", "gender_read")
-
      */
     private $support;
 
@@ -82,9 +80,7 @@ class Movie
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="movies", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-
      * @Groups("movies_read", "type_read", "gender_read")
-
      */
     private $user;
 

@@ -87,15 +87,15 @@ class MusicRepository extends ServiceEntityRepository
      *
      * @return void
      */
-    public function findMusicsByKeyWord($keyWord, $departement)
+    public function findMusicsByKeyword($keyword, $departement)
     {
         return $this->createQueryBuilder('m')
             ->innerJoin('b.user', 'u')
-            ->andWhere('u.departement LIKE :departement')
+            ->andWhere('u.departement = :departement')
             ->setParameter('departement', $departement)
-            ->andWhere('m.name LIKE :keyWord')
-            ->orWhere('m.artist LIKE :keyWord')
-            ->setParameter('keyWord', '%'.$keyWord.'%')
+            ->orWhere('m.name LIKE :keyword')
+            ->orWhere('m.artist LIKE :keyword')
+            ->setParameter('keyword', '%'.$keyword.'%')
             ->getQuery()
             ->getResult()
         ;

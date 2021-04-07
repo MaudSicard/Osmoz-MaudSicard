@@ -17,13 +17,7 @@ class Book
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-<<<<<<< HEAD
-     * @Groups("type_read")
-     * @Groups("book_read","users_read")
-     * @Groups("gender_read")
-=======
      * @Groups("book_read", "users_read", "type_read", "gender_read")
->>>>>>> keyword
      */
     private $id;
 
@@ -36,7 +30,6 @@ class Book
     /**
      * @ORM\Column(type="string", length=64)
      * @Groups("book_read", "users_read", "type_read", "gender_read")
-
      */
     private $author;
 
@@ -56,7 +49,6 @@ class Book
     /**
      * @ORM\Column(type="integer")
      * @Groups("book_read", "users_read", "type_read", "gender_read")
-
      */
     private $state;
 

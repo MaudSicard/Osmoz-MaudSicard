@@ -62,25 +62,58 @@ class TypeRepository extends ServiceEntityRepository
         ;
     }
 
-      /**
-     * Types by user's departement
+    /**
+     * Books by type and user's departement
      *
      * @return void
      */
-    public function findTypeByDepartement($id, $departement)
+    public function findBooksTypeByDepartement($id, $departement)
     {
         return $this->createQueryBuilder('t')
             ->innerJoin('t.books', 'b')
-            ->innerJoin('t.movies', 'm')
-            ->innerJoin('t.music', 'c')
             ->innerJoin('b.user', 'u')
-            ->innerJoin('m.user', 's')
-            ->innerJoin('c.user', 'r')
-            ->andWhere('t.id LIKE :id')
+            ->andWhere('t.id = :id')
             ->setParameter('id', $id)
-            ->orWhere('u.departement LIKE :departement')
-            ->orWhere('s.departement LIKE :departement')
-            ->orWhere('r.departement LIKE :departement')
+            ->andWhere('u.departement = :departement')
+            ->setParameter('departement', $departement)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    /**
+     * Movies by type and user's departement
+     *
+     * @return void
+     */
+    public function findMoviesTypeByDepartement($id, $departement)
+    {
+        return $this->createQueryBuilder('t')
+            ->innerJoin('t.movies', 'm')
+            ->innerJoin('m.user', 'u')
+            ->andWhere('t.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('u.departement = :departement')
+            ->setParameter('departement', $departement)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+     /**
+     * Musics by type and user's departement
+     *
+     * @return void
+     */
+    public function findMusicsTypeByDepartement($id, $departement)
+    {
+        return $this->createQueryBuilder('t')
+            ->innerJoin('t.music', 'm')
+            ->innerJoin('m.user', 'u')
+            ->andWhere('t.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('u.departement = :departement')
             ->setParameter('departement', $departement)
             ->getQuery()
             ->getResult()

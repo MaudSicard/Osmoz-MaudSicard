@@ -24,7 +24,6 @@ class Gender
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("book_read", "music_read", "movies_read", "type_read", "gender_read", "users_read")
-
      */
     private $name;
 
