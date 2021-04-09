@@ -21,17 +21,18 @@ class MovieType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Titre du film : ',
                 'constraints' => [
                     new NotBlank(),
                 ]
             ])
             ->add('picture', TextType::class, [
-                'label' => 'image',     
+                'label' => 'Image : ',     
             ])
             ->add('gender', EntityType::class, [
                 'class' => Gender::class,
                 'choice_label' => 'name',
+                'label' => 'Genre : ', 
                 'query_builder' => function (GenderRepository $er) {
                     return $er->createQueryBuilder('g')
                         ->orderBy('g.name', 'ASC');
@@ -41,6 +42,7 @@ class MovieType extends AbstractType
             ])
             ->add('type', EntityType::class, [
                 'class' => Type::class,
+                'label' => 'Type : ', 
                 'choice_label' => 'name',
                 'query_builder' => function (TypeRepository $er) {
                     return $er->createQueryBuilder('t')
@@ -48,7 +50,7 @@ class MovieType extends AbstractType
                 },        
             ])
             ->add('status', ChoiceType::class, [
-                'label' =>'statuts',
+                'label' =>'Statut :',
                 'choices' => [
                     'dispo pour échange' => 1,
                     'dispo pour prêt' => 2,
@@ -59,7 +61,7 @@ class MovieType extends AbstractType
                 ],
             ])
             ->add('state', ChoiceType::class, [
-                'label' =>'état',
+                'label' =>'Etat : ',
                 'choices' => [
                     'excellent' => 1,
                     'bon' => 2,

@@ -17,7 +17,7 @@ class MailType extends AbstractType
     {
         $builder
             ->add('content', TextType::class, [
-                'label' => 'message',
+                'label' => 'Message : ',
                 'constraints' => [
                     new NotBlank(),
                 ]

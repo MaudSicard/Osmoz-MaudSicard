@@ -22,19 +22,19 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'email',
+                'label' => 'Email : ',
                 'constraints' => [
                     new NotBlank()
                 ]
             ])
             ->add('nickname', TextType::class, [
-                'label' => 'surnom',
+                'label' => 'Pseudo : ',
                 'constraints' => [
                     new NotBlank(),
                 ]
             ])
             ->add('zipcode', TextType::class, [
-                'label'=>"Code postal",
+                'label'=>"Code postal : ",
                 'constraints' => new Regex('/[0-9]{5}/'),
                 'help' => 'Un code postal doit avoir 5 chiffres',
             ])
@@ -48,6 +48,7 @@ class UserType extends AbstractType
                 'constraints' => [
                     new NotBlank(),
                 ],
+                'label' => 'Rôles : ',
                 'multiple' => true,
                 'expanded' => true,
             ])

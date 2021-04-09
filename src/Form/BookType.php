@@ -23,22 +23,23 @@ class BookType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Titre du livre',
+                'label' => 'Titre du livre : ',
                 'constraints' => [
                     new NotBlank(),
                 ]
             ])
             ->add('author', TextType::class, [
-              'label' => 'Auteur',
+              'label' => 'Auteur : ',
               'constraints' => [
                   new NotBlank(),
               ]
           ])
             ->add('picture', TextType::class, [
-                'label' => 'Image',
+                'label' => 'Image : ',
             ])
             ->add('gender', EntityType::class, [
                 'class' => Gender::class,
+                'label' => 'Genre : ',
                 'choice_label' => 'name',
                 'query_builder' => function (GenderRepository $er) {
                     return $er->createQueryBuilder('g')
@@ -49,6 +50,7 @@ class BookType extends AbstractType
             ])
             ->add('type', EntityType::class, [
                 'class' => Type::class,
+                'label' => 'Type : ',
                 'choice_label' => 'name',
                 'query_builder' => function (TypeRepository $er) {
                     return $er->createQueryBuilder('t')
@@ -56,7 +58,7 @@ class BookType extends AbstractType
                 },        
             ])
             ->add('status', ChoiceType::class, [
-                'label' =>'statuts',
+                'label' =>'Statut : ',
                 'choices' => [
                     'dispo pour échange' => 1,
                     'dispo pour prêt' => 2,
@@ -67,7 +69,7 @@ class BookType extends AbstractType
                 ],
             ])
             ->add('state', ChoiceType::class, [
-                'label' =>'état',
+                'label' =>'Etat : ',
                 'choices' => [
                     'excellent' => 1,
                     'bon' => 2,

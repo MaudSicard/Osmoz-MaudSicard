@@ -16,7 +16,7 @@ class GenderType extends AbstractType
     {
         $builder
         ->add('name', TextType::class, [
-            'label' => 'Nom du genre',
+            'label' => 'Nom du genre : ',
             'constraints' => [
                 new NotBlank(),
             ]
@@ -25,6 +25,7 @@ class GenderType extends AbstractType
             'constraints' => [
                 new NotBlank(),
             ],
+            'label' => 'Média : ',
             'choices' => [
                 'Livre' => 'book',
                 'Film' => 'movie',

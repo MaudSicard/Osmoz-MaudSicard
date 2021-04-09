@@ -16,7 +16,7 @@ class TypeType extends AbstractType
     {
         $builder
         ->add('name', TextType::class, [
-            'label' => 'Nom du type',
+            'label' => 'Nom du type : ',
             'constraints' => [
                 new NotBlank(),
             ]
@@ -25,6 +25,7 @@ class TypeType extends AbstractType
             'constraints' => [
                 new NotBlank(),
             ],
+            'label' => 'Média : ',
             'choices' => [
                 'Livre' => 'book',
                 'Film' => 'movie',

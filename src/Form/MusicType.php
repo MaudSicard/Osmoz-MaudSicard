@@ -21,25 +21,25 @@ class MusicType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Titre de l\'album',
+                'label' => 'Titre de l\'album : ',
                 'constraints' => [
                     new NotBlank(),
                 ]
             ])
             ->add('artist', TextType::class, [
-                'label' => 'Nom de l\'artiste',
+                'label' => 'Nom de l\'artiste : ',
                 'constraints' => [
                     new NotBlank(),
                 ]
             ])
             ->add('picture', TextType::class, [
-                'label' => 'Image',
+                'label' => 'Image : ',
     
             ])
             ->add('gender', EntityType::class, [
                 'class' => Gender::class,
                 'choice_label' => 'name',
-                'label' => 'Genre',
+                'label' => 'Genre : ',
                 'query_builder' => function (GenderRepository $er) {
                     return $er->createQueryBuilder('g')
                         ->orderBy('g.name', 'ASC');
@@ -49,6 +49,7 @@ class MusicType extends AbstractType
             ])
             ->add('type', EntityType::class, [
                 'class' => Type::class,
+                'label' => 'Type : ',
                 'choice_label' => 'name',
                 'query_builder' => function (TypeRepository $er) {
                     return $er->createQueryBuilder('t')
@@ -56,7 +57,7 @@ class MusicType extends AbstractType
                 },        
             ])
             ->add('status', ChoiceType::class, [
-                'label' =>'statuts',
+                'label' =>'Statut : ',
                 'choices' => [
                     'dispo pour échange' => 1,
                     'dispo pour prêt' => 2,
@@ -67,7 +68,7 @@ class MusicType extends AbstractType
                 ],
             ])
             ->add('state', ChoiceType::class, [
-                'label' =>'état',
+                'label' =>'Etat : ',
                 'choices' => [
                     'excellent' => 1,
                     'bon' => 2,

@@ -52,7 +52,24 @@ class MailRepository extends ServiceEntityRepository
         
         return $query.setParameter("user", $user)->getResult();
     }
-    // /**
+  
+    /**
+     * Find mail by sender or $recipient
+     * 
+     * @return Mail[] 
+     */
+    public function findMailBySenderRecipient($sender, $recipient)
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->orWhere ('m.senderId = :sender')
+            ->setParameter('sender', $sender)
+            ->orWhere ('m.recipientId = :recipient')
+            ->setParameter('recipient', $recipient);
+            
+        return $qb->getQuery()->getResult();
+    }
+
+
     //  * @return Mail[] Returns an array of Mail objects
     //  */
     /*

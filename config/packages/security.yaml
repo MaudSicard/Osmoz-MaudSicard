@@ -44,6 +44,7 @@ security:
     access_control:
         # - { path: ^/api/book/read, roles: ROLE_ADMIN }
           - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+          - { path: ^/admin/, roles: ROLE_ADMIN }
           - { path: ^/api/(book|movies|music|mail)/(create|put|patch|delete), roles: IS_AUTHENTICATED_FULLY }
         #  - { path: ^/api/(book|movie|music|user|mail)/(read|readItem|readById|ReadByKeyWord), roles: ANONYMOUS}
         # - { path: ^/profile, roles: ROLE_USER }

@@ -40,6 +40,33 @@ class MailController extends AbstractController
         );
     }
 
+     /**
+     * Read mails by sender and recipient
+     *
+     * @Route("/api/mail/read/$sender/$recipient", name="api_mail_read_sender_recipient", methods={"GET"})
+     */
+    public function readByRecipientSender($sender, $recipient, MailRepository $mailRepository): Response
+    {
+        $mail = $mailRepository->findMailBySenderRecipient($sender, $recipient);
+
+        if ($mail === null) {
+            $message = [
+                'status' => Response::HTTP_NOT_FOUND,
+                'error' => 'message non trouvé.',
+            ];
+
+            return $this->json($message, Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->json(
+            $mail,
+            200,
+            [],
+            ['groups' => 'mails_read']
+        );
+    }
+
+
         /**
      * Create mails
      * 

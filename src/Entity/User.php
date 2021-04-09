@@ -24,7 +24,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups("movies_read", "music_read", "book_read", "type_read", "gender_read" )
+     * @Groups("movies_read", "music_read", "book_read", "type_read" )
      */
     private $email;
 
@@ -76,7 +76,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups("music_read", "book_read", "movies_read", "users_read", "mails_read")
+     * @Groups("music_read", "book_read", "movies_read", "users_read", "mails_read", "gender_read")
      */
     private $nickname;
 
