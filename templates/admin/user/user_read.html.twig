@@ -1,21 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}utilisateurs{% endblock %}
+
 
 {% block body %}
 
 <h1>Liste des Utilisateurs</h1>
 
-<p><a href="{{ path('back_user_add') }}" class="btn btn-success">Ajouter un Utilisateur</a></p>
+{{ include('_flash_messages.html.twig') }}
 
-<table class="table table-striped">
+<p><a href="{{ path('admin_user_add') }}" class="btn btn-color">Ajouter un Utilisateur</a></p>
+
+<table class="table">
   {# En-têtes #}
   <thead>
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Email</th>
-      <th scope="col">Nickname</th>
-      <th scope="col">CreatedAt</th>
+      <th scope="col">Surnom</th>
+      <th scope="col">Département</th>
+      <th scope="col">Date  de création</th>
+      
+
     </tr>
   </thead>
   <tbody>
@@ -26,11 +32,16 @@
       <th scope="row">{{ user.id }}</th>
       <td>{{ user.email }}</td>
       <td>{{ user.nickname }}</td>
+       <td>{{ user.departement }}</td>
       <td>{{ user.createdAt|date('d-m-Y') }}</td>
       <td>
-      <a class="btn btn-sm btn-primary" href="{{ path('back_user_read_item', {id: user.id}) }}">Voir</a>
-      <a class="btn btn-sm btn-primary" href="{{ path('back_user_edit', {id: user.id}) }}">Modifier</a>
-      {{ include('admin/user/_delete_form.html.twig') }}
+      <form method="post" action="{{ path('admin_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Etes vous sûr de vouloir supprimer cet utilisateur');">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+        <a class="btn btn-sm btn-primary" href="{{ path('admin_user_read_id', {id: user.id}) }}">Voir</a>
+        <a class="btn btn-sm btn-primary" href="{{ path('admin_user_update', {id: user.id}) }}">Modifier</a>
+        <button class="btn btn-sm btn-danger">Supprimer</button>
+      </form>
     </td>
     {% endfor %}
 

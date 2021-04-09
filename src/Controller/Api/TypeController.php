@@ -39,7 +39,7 @@ class TypeController extends AbstractController
 
             $message = [
                 'status' => Response::HTTP_NOT_FOUND,
-                'error' => 'Genre non trouvé.',
+                'error' => 'Type non trouvé.',
             ];
 
             return $this->json($message, Response::HTTP_NOT_FOUND);

@@ -11,22 +11,42 @@ use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
-            ->add('nickname')
+            ->add('email', EmailType::class, [
+                'label' => 'email',
+                'constraints' => [
+                    new NotBlank()
+                ]
+            ])
+            ->add('nickname', TextType::class, [
+                'label' => 'surnom',
+                'constraints' => [
+                    new NotBlank(),
+                ]
+            ])
+            ->add('zipcode', TextType::class, [
+                'label'=>"Code postal",
+                'constraints' => new Regex('/[0-9]{5}/'),
+                'help' => 'Un code postal doit avoir 5 chiffres',
+            ])
+            
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Utilisateur' => 'ROLE_USER',
                     'Manager' => 'ROLE_MANAGER',
                     'Administrateur' => 'ROLE_ADMIN',
+                ],
+                'constraints' => [
+                    new NotBlank(),
                 ],
                 'multiple' => true,
                 'expanded' => true,

@@ -53,7 +53,7 @@ class MovieRepository extends ServiceEntityRepository
     public function findMoviesByKeyword($keyword, $departement)
     {
         return $this->createQueryBuilder('m')
-            ->innerJoin('b.user', 'u')
+            ->innerJoin('m.user', 'u')
             ->andWhere('u.departement = :departement')
             ->setParameter('departement', $departement)
             ->orWhere('m.name LIKE :keyword')
@@ -71,7 +71,7 @@ class MovieRepository extends ServiceEntityRepository
     public function findMoviesHome()
     {
         $qb = $this->createQueryBuilder('m')
-            ->orderBy('m.createdAt', 'DEASC')
+            ->orderBy('m.createdAt', 'DESC')
             ->setMaxResults(5);
             
         return $qb->getQuery()->getResult();

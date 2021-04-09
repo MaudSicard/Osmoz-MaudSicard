@@ -38,6 +38,8 @@ class MailController extends AbstractController
             
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'Message modifié');
+
             return $this->redirectToRoute('admin_mail_read');
         }
 
@@ -67,6 +69,8 @@ class MailController extends AbstractController
 
         $entityManager->remove($mail);
         $entityManager->flush();
+
+        $this->addFlash('success', 'Message supprimé');
 
         return $this->redirectToRoute('admin_mail_read');
     }

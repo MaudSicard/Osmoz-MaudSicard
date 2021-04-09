@@ -60,10 +60,12 @@ class GenderController extends AbstractController
 
         $json = json_decode($jsonContent);
 
-        $id = $json->id;
+        $idGender = $json->idGender;
+        $idType = $json->idType;
+        $keyword = $json->keyword;
         $departement = $json->departement;
       
-        $gender = $genderRepository->findBooksGenderByDepartement($id, $departement);
+        $gender = $genderRepository->findBooksGenderByDepartement($keyword, $idGender, $idType, $departement);
         
         return $this->json($gender, 200, [],
         ['groups' => 'gender_read']);
@@ -79,10 +81,12 @@ class GenderController extends AbstractController
 
         $json = json_decode($jsonContent);
 
-        $id = $json->id;
+        $idGender = $json->idGender;
+        $idType = $json->idType;
+        $keyword = $json->keyword;
         $departement = $json->departement;
       
-        $gender = $genderRepository->findMusicsGenderByDepartement($id, $departement);
+        $gender = $genderRepository->findMusicsGenderByDepartement($keyword, $idGender, $idType, $departement);
         
         return $this->json($gender, 200, [],
         ['groups' => 'gender_read']);
@@ -98,10 +102,12 @@ class GenderController extends AbstractController
 
         $json = json_decode($jsonContent);
 
-        $id = $json->id;
+        $idGender = $json->idGender;
+        $idType = $json->idType;
+        $keyword = $json->keyword;
         $departement = $json->departement;
       
-        $gender = $genderRepository->findMoviesGenderByDepartement($id, $departement);
+        $gender = $genderRepository->findMoviesGenderByDepartement($keyword, $idGender, $idType, $departement);
         
         return $this->json($gender, 200, [],
         ['groups' => 'gender_read']);

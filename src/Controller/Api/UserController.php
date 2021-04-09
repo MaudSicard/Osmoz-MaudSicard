@@ -107,6 +107,7 @@ class UserController extends AbstractController
     ]);
     }
 
+
     /** Create user
     * 
     * @Route("/api/users/create", name="api_users_create", methods="POST")
@@ -138,6 +139,32 @@ class UserController extends AbstractController
            Response::HTTP_CREATED
        );
    }
+
+   /**
+     * Update a User (PUT et PATCH)
+     *
+     * @Route("/api/users/put/{id<\d+>}", name="api_users_put", methods={"PUT"})
+     * @Route("/api/users/patch/{id<\d+>}", name="api_users_patch", methods={"PATCH"})
+     */
+    public function putAndPatch(User $user = null, EntityManagerInterface $entityManager, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
+    {
+        if ($user === null) {
+            return $this->json(['error' => 'Utilisateur non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+        $jsonContent = $request->getContent();
+        $serializer->deserialize(
+            $jsonContent,
+            User::class,
+            'json',
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $user]
+        );
+        $errors = $validator->validate($user);
+        if (count($errors) > 0) {
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        $entityManager->flush();
+        return $this->json(['message' => 'Utilisateur modifié.'], Response::HTTP_OK);
+    }
 
     /**
      * Delete movie

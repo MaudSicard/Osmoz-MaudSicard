@@ -50,6 +50,8 @@ class GenderController extends AbstractController
             $entityManager->persist($gender);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Film ajouté');
+
             return $this->redirectToRoute('admin_gender_read');
         }
 
@@ -74,6 +76,8 @@ class GenderController extends AbstractController
             
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'Genre modifié');
+
             return $this->redirectToRoute('admin_gender_read');
         }
 
@@ -86,7 +90,7 @@ class GenderController extends AbstractController
     /**
      * Delete a gender
      * 
-     * @Route("/admin/gender/delete/{id<\d+>}", name="admin_gender_delete", methods={"GET"})
+     * @Route("/admin/gender/delete/{id<\d+>}", name="admin_gender_delete", methods={"DELETE"})
      */
     public function delete(Gender $gender = null, EntityManagerInterface $entityManager, Request $request)
     {
@@ -103,6 +107,8 @@ class GenderController extends AbstractController
 
         $entityManager->remove($gender);
         $entityManager->flush();
+
+        $this->addFlash('success', 'Genre supprimé');
 
         return $this->redirectToRoute('admin_gender_read');
     }

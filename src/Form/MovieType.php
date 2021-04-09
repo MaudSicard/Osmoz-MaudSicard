@@ -6,19 +6,14 @@ use App\Entity\Type;
 use App\Entity\Movie;
 use App\Entity\Gender;
 use App\Repository\TypeRepository;
-use Doctrine\ORM\EntityRepository;
 use App\Repository\GenderRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-
 
 class MovieType extends AbstractType
 {
@@ -31,18 +26,8 @@ class MovieType extends AbstractType
                     new NotBlank(),
                 ]
             ])
-            ->add('picture', FileType::class, [
-                'label' => 'image',
-                'constraints' => [
-                        new File([
-                            'maxSize' => '4096k',
-                            'mimeTypes' => [
-                                'image/png',
-                                'image/jpeg',
-                            ],
-                            'mimeTypesMessage' => 'Le fichier n\'est pas au bon format (formats acceptés: .png, .jpg, .jpeg)',
-                        ]),
-                    ]
+            ->add('picture', TextType::class, [
+                'label' => 'image',     
             ])
             ->add('gender', EntityType::class, [
                 'class' => Gender::class,

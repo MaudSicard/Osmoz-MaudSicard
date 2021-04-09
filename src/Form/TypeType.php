@@ -30,14 +30,11 @@ class TypeType extends AbstractType
                 'Film' => 'movie',
                 'Music' => 'music',
             ],
-            // Plusieurs choix possibles
             'multiple' => true,
-            // Plusieurs éléments de form
             'expanded' => true,
         ])
         ;
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

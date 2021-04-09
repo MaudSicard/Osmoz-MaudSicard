@@ -3,11 +3,15 @@ html {
 }
 
 nav {
-    background-color: #FECC00;
+    background-color: #8DC6E2;
 }
 
-.container {
-    background-color: white;
+body {
+    height: 100vh;
+}
+
+.container-fluid {
+    background-color: #97DCED;
 }
 
 #breadcrumb {
@@ -23,7 +27,7 @@ nav {
 
 h1 {
     clear: both;
-    color: #333;
+    color: black;
     font-family: 'Montserrat';
     font-size: 2.5rem;
     font-weight: 600;
@@ -33,7 +37,7 @@ h1 {
 }
 
 h2 {
-    color: #999;
+    color: black;
     font-family: 'Montserrat';
     font-size: 1.1rem;
     font-weight: 500;
@@ -49,6 +53,22 @@ h3 {
 
 #header-margin {
     margin-bottom: 2rem;
+}
+
+.card {
+    background-color: #EEF7FB;
+}
+
+.card-header {
+    background-color: #FFC685;
+}
+
+.btn-block {
+    background-color: #FFe299;
+}
+
+.btn-color {
+    background-color: #FFe299;
 }
 
 #genres {
@@ -85,33 +105,4 @@ h3 {
     background: #f1f1f1 url('stars-bg.png') no-repeat;
     margin-right: 0.5rem;
     vertical-align: top;
-}
-
-#show h2 {
-    color: #333;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-align: left;
-    text-transform: uppercase;
-    margin-top: 2rem;
-}
-
-#show .infos {
-    color: black;
-    font-size: 0.9rem;
-}
-
-#show .infos label {
-    color: grey;
-    width: 200px;
-}
-
-#show .casting .actor {
-    font-weight: bold;
-    font-size: 0.95rem;
-}
-
-#show .casting .role {
-    color: grey;
-    font-size: 0.8rem;
 }

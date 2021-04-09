@@ -1,7 +1,9 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    Modifier un film
+
+    Modifier un utilisateur
+
 {% endblock %}
 
 {% block body %}
@@ -11,6 +13,6 @@
 
 {{ include('admin/user/_form.html.twig') }}
 
-<a href="{{ path('back_user_read') }}">Retour à la liste</a>
+<a href="{{ path('admin_user_read') }}">Retour à la liste</a>
 
 {% endblock %}

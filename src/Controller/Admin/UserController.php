@@ -18,7 +18,7 @@ class UserController extends AbstractController
     /**
      * Read all users
      * 
-     * @Route("back/users/read", name="back_user_read", methods={"GET"})
+     * @Route("admin/user/read", name="admin_user_read", methods={"GET"})
      */
     public function read(UserRepository $userRepository): Response
     {
@@ -28,13 +28,13 @@ class UserController extends AbstractController
     }
 
     /**
-     * Read  one user
+     * Read one user
      * 
-     * @Route("back/read/{id}", name="back_user_read_item", methods={"GET"})
+     * @Route("admin/user/read/{id}", name="admin_user_read_id", methods={"GET"})
      */
-    public function show(User $user): Response
+    public function readById(User $user): Response
     {
-        return $this->render('admin/user/user_show.html.twig', [
+        return $this->render('admin/user/user_read_id.html.twig', [
             'user' => $user,
         ]);
     }
@@ -42,7 +42,7 @@ class UserController extends AbstractController
     /**
      * 
      * 
-     * @Route("back/user/add", name="back_user_add", methods={"GET","POST"})
+     * @Route("admin/user/add", name="admin_user_add", methods={"GET","POST"})
      */
     public function create(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {    
@@ -60,7 +60,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('back_user_read');
+            return $this->redirectToRoute('admin_user_read');
         }
 
         return $this->render('admin/user/user_add.html.twig', [
@@ -72,7 +72,7 @@ class UserController extends AbstractController
     /**
      *  Edit user
      * 
-     * @Route("back/user/edit/{id}", name="back_user_edit", methods={"GET","POST"})
+     * @Route("admin/user/update/{id}", name="admin_user_update", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -91,7 +91,9 @@ class UserController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('back_user_read');
+            $this->addFlash('success', 'utilisateur modifié');
+
+            return $this->redirectToRoute('admin_user_read');
         }
 
         return $this->render('admin/user/user_edit.html.twig', [
@@ -103,7 +105,7 @@ class UserController extends AbstractController
     /**
      * Delete user
      * 
-     * @Route("back/user/delete/{id}", name="back_user_delete", methods={"DELETE"})
+     * @Route("admin/user/delete/{id}", name="admin_user_delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {
@@ -111,8 +113,10 @@ class UserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Utilisateur supprimé');
         }
 
-        return $this->redirectToRoute('back_user_read');
+        return $this->redirectToRoute('admin_user_read');
     }
 }

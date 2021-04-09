@@ -47,6 +47,8 @@ class MusicController extends AbstractController
             
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'Musique modifié');
+
             return $this->redirectToRoute('admin_music_read');
         }
 
@@ -60,7 +62,7 @@ class MusicController extends AbstractController
     /**
      * Delete a music
      * 
-     * @Route("/admin/music/delete/{id<\d+>}", name="admin_music_delete", methods={"GET"})
+     * @Route("/admin/music/delete/{id<\d+>}", name="admin_music_delete", methods={"DELETE"})
      */
     public function delete(Music $music = null, EntityManagerInterface $entityManager, Request $request)
     {
@@ -77,6 +79,8 @@ class MusicController extends AbstractController
 
         $entityManager->remove($music);
         $entityManager->flush();
+
+        $this->addFlash('success', 'Musique supprimé');
 
         return $this->redirectToRoute('admin_music_read');
     }

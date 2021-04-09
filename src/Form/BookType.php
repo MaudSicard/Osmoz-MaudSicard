@@ -34,18 +34,8 @@ class BookType extends AbstractType
                   new NotBlank(),
               ]
           ])
-            ->add('picture', FileType::class, [
+            ->add('picture', TextType::class, [
                 'label' => 'Image',
-                'constraints' => [
-                        new File([
-                            'maxSize' => '4096k',
-                            'mimeTypes' => [
-                                'image/png',
-                                'image/jpeg',
-                            ],
-                            'mimeTypesMessage' => 'Le fichier n\'est pas au bon format (formats acceptés: .png, .jpg, .jpeg)',
-                        ]),
-                    ]
             ])
             ->add('gender', EntityType::class, [
                 'class' => Gender::class,

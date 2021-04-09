@@ -50,6 +50,8 @@ class TypeController extends AbstractController
             $entityManager->persist($type);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Type ajouté');
+
             return $this->redirectToRoute('admin_type_read');
         }
 
@@ -74,6 +76,8 @@ class TypeController extends AbstractController
             
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'Type modifié');
+
             return $this->redirectToRoute('admin_type_read');
         }
 
@@ -86,7 +90,7 @@ class TypeController extends AbstractController
     /**
      * Delete a type
      * 
-     * @Route("/admin/type/delete/{id<\d+>}", name="admin_type_delete", methods={"GET"})
+     * @Route("/admin/type/delete/{id<\d+>}", name="admin_type_delete", methods={"DELETE"})
      */
     public function delete(Type $type = null, EntityManagerInterface $entityManager, Request $request)
     {
@@ -103,6 +107,8 @@ class TypeController extends AbstractController
 
         $entityManager->remove($type);
         $entityManager->flush();
+
+        $this->addFlash('success', 'Type supprimé');
 
         return $this->redirectToRoute('admin_type_read');
     }

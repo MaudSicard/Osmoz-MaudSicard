@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Type{% endblock %}
+{% block title %}Types{% endblock %}
 
 {% block body %}
     <h1>Liste des types</h1>
-    <a class="btn btn-sm btn-primary" href="{{ path('admin_type_create') }}">Créer</a>
-    <table class="table table-striped">
+
+{{ include('_flash_messages.html.twig') }}
+
+    <a class="btn btn-color" href="{{ path('admin_type_create') }}">Ajouter un type</a>
+    <table class="table">
         <thead>
             <tr>
                 <th scope="col">Id</th>
@@ -17,7 +20,7 @@
             <tr>
                 <th scope="row">{{ type.id }}</th>
                 <td>{{ type.name }}</td>
-                <<td>
+                <td>
                     <form action="{{ path('admin_type_delete', {id: type.id}) }}" onsubmit="return confirm('Supprimer le type #{{ type.id }} ?')" method="POST">
                         {# Fake HTTP Method, see https://symfony.com/doc/current/routing.html#matching-http-methods #}
                         <input type="hidden" name="_method" value="DELETE"/>

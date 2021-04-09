@@ -5,15 +5,11 @@
 {% block body %}
 
 
-<div class="container my-4">
-        <p class="display-4">
-            Bienvenue dans le backOffice <strong>Osmoz</strong>
-        </p>
-
+<div class="container-fluid">
     <div class="row mt-5">
         <div class="col-12 col-md-6">
-            <div class="card text-white mb-3">
-                <div class="card-header bg-primary">Liste des derniers Utilisateurs</div>
+            <div class="card text-dark mb-3">
+                <div class="card-header"><h2>Liste des derniers Utilisateurs</h2></div>
                     <div class="card-body">
                         <table class="table table-hover">
                             <thead>
@@ -30,14 +26,13 @@
                                 <th scope="row">{{ user.id }}</th>
                                     <td>{{ user.email }}</td>
                                     <td class="text-right">
-                                        <a href="" class="btn btn-sm btn-warning">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                        </a>
                                          <div class="btn-group">
-                                
- 
-{{ include('admin/user/_delete_form.html.twig') }}
-                                            </div>
+                                            <form method="post" action="{{ path('admin_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Etes vous sûr de vouloir supprimer cet utilisateur');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                                                <a class="btn btn-sm btn-primary" href="{{ path('admin_user_update', {'id': user.id}) }}">modifier</a>
+                                                <button class="btn btn-sm btn-danger">Supprimer</button>
+                                            </form>
                                         </div>
                                     </td>
                             </tr>                              
@@ -45,14 +40,14 @@
 
                         </tbody>
                         </table>
-                            <a href="{{ path('back_user_read') }}" class="btn btn-block btn-success">Voir plus</a>
+                            <a href="{{ path('admin_user_read') }}" class="btn btn-block">Voir plus</a>
                     </div>
                 </div>
             </div>
 
     <div class="col-12 col-md-6">
-        <div class="card text-white mb-3">
-            <div class="card-header bg-primary">Liste des derniers Films</div>
+        <div class="card text-dark mb-3">
+            <div class="card-header"><h2>Liste des derniers Films</h2></div>
                 <div class="card-body">
                     <table class="table table-hover">
                         <thead>
@@ -69,19 +64,13 @@
                                 <th scope="row">{{ movie.id }}</th>
                                 <td>{{ movie.name }}</td>
                                 <td class="text-right">
-                                    <a href="" class="btn btn-sm btn-warning">
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                    </a>
-                                   
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-danger dropdown-toggle"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="">Oui, je veux supprimer</a>
-                                            <a class="dropdown-item" href="#" data-toggle="dropdown">Oups !</a>
-                                        </div>
+                                        <form action="{{ path('admin_movie_delete', {id: movie.id}) }}" onsubmit="return confirm('Supprimer le film #{{ movie.id }} ?')" method="POST">
+                                            <input type="hidden" name="_method" value="DELETE"/>
+                                            <input type="hidden" name="token" value="{{ csrf_token('delete-movie') }}"/>
+                                            <a class="btn btn-sm btn-primary" href="{{ path('admin_movie_update', {id: movie.id}) }}">Modifier</a>
+                                            <button class="btn btn-sm btn-danger" type="submit">Supprimer</button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -89,7 +78,7 @@
 
                     </tbody>
                     </table>
-                        <a href="{{ path('back_movie_read') }}" class="btn btn-block btn-success">Voir plus</a>
+                        <a href="{{ path('admin_movie_read') }}" class="btn btn-block">Voir plus</a>
                 </div>
             </div>
         </div>
@@ -97,8 +86,8 @@
 
     <div class="row mt-5">
     <div class="col-12 col-md-6">
-        <div class="card text-white mb-3">
-            <div class="card-header bg-primary">Liste des derniers livres</div>
+        <div class="card text-dark mb-3">
+            <div class="card-header"><h2>Liste des derniers Livres</h2></div>
                 <div class="card-body">
                     <table class="table table-hover">
                         <thead>
@@ -115,19 +104,13 @@
                                 <th scope="row">{{ book.id }}</th>
                                 <td>{{ book.name }}</td>
                                 <td class="text-right">
-                                    <a href="" class="btn btn-sm btn-warning">
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                    </a>
-                                   
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-danger dropdown-toggle"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="">Oui, je veux supprimer</a>
-                                            <a class="dropdown-item" href="#" data-toggle="dropdown">Oups !</a>
-                                        </div>
+                                        <form action="{{ path('admin_book_delete', {id: book.id}) }}" onsubmit="return confirm('Supprimer le livre #{{ book.id }} ?')" method="POST">
+                                            <input type="hidden" name="_method" value="DELETE"/>
+                                            <input type="hidden" name="token" value="{{ csrf_token('delete-book') }}"/>
+                                            <a class="btn btn-sm btn-primary" href="{{ path('admin_book_update', {id: book.id}) }}">Modifier</a>
+                                            <button class="btn btn-sm btn-danger" type="submit">Supprimer</button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -135,14 +118,14 @@
 
                     </tbody>
                     </table>
-                        <a href="{{ path('admin_book_read') }}" class="btn btn-block btn-success">Voir plus</a>
+                        <a href="{{ path('admin_book_read') }}" class="btn btn-block">Voir plus</a>
                 </div>
             </div>
         </div>
 
     <div class="col-12 col-md-6">
-        <div class="card text-white mb-3">
-            <div class="card-header bg-primary">Liste des dernières Musiques</div>
+        <div class="card text-dark mb-3">
+            <div class="card-header"><h2>Liste des dernières Musiques</h2></div>
                 <div class="card-body">
                     <table class="table table-hover">
                         <thead>
@@ -158,20 +141,14 @@
                             <tr>
                                 <th scope="row">{{ music.id }}</th>
                                 <td>{{ music.name }}</td>
-                                <td class="text-right">
-                                    <a href="" class="btn btn-sm btn-warning">
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                    </a>
-                                   
+                                <td class="text-right">                                 
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-danger dropdown-toggle"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="">Oui, je veux supprimer</a>
-                                            <a class="dropdown-item" href="#" data-toggle="dropdown">Oups !</a>
-                                        </div>
+                                        <form action="{{ path('admin_music_delete', {id: music.id}) }}" onsubmit="return confirm('Supprimer le livre #{{ music.id }} ?')" method="POST">
+                                            <input type="hidden" name="_method" value="DELETE"/>
+                                            <input type="hidden" name="token" value="{{ csrf_token('delete-music') }}"/>
+                                            <a class="btn btn-sm btn-primary" href="{{ path('admin_music_update', {id: music.id}) }}">Modifier</a>
+                                            <button class="btn btn-sm btn-danger" type="submit">Supprimer</button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -179,13 +156,13 @@
 
                     </tbody>
                     </table>
-                        <a href="{{ path('admin_music_read') }}" class="btn btn-block btn-success">Voir plus</a>
+                        <a href="{{ path('admin_music_read') }}" class="btn btn-block">Voir plus</a>
                 </div>
             </div>
         </div>
     </div>
 
-</div>
+
 
 
 {% endblock %}

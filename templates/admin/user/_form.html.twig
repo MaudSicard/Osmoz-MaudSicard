@@ -1,10 +1,12 @@
+
 {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
 
     {{ form_row(form.email) }}
     {{ form_row(form.nickname)}}
+    {{ form_row(form.zipcode)}}
     {{ form_row(form.password) }}
     {{ form_row(form.roles) }}
 
-    <button class="btn btn-sm btn-primary">{{ button_label|default('Save') }}</button>
+    <button class="btn btn-sm btn-primary">{{ button_label|default('Enregistrer') }}</button>
 
 {{ form_end(form) }}

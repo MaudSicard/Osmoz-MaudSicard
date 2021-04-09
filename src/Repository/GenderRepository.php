@@ -66,14 +66,19 @@ class GenderRepository extends ServiceEntityRepository
      *
      * @return void
      */
-    public function findBooksGenderByDepartement($id, $departement)
+    public function findBooksGenderByDepartement($keyword, $idGender, $idType, $departement)
     {
         return $this->createQueryBuilder('g')
             ->innerJoin('g.books', 'b')
+            ->orWhere('b.author = :keyword')
+            ->orWhere('b.name = :keyword')
+            ->setParameter('keyword', $keyword)
+            ->orWhere('g.id = :idGender')
+            ->setParameter('idGender', $idGender)
+            ->orWhere('b.type = :idType')
+            ->setParameter('idType', $idType)
             ->innerJoin('b.user', 'u')
-            ->andWhere('g.id = :id')
-            ->setParameter('id', $id)
-            ->andWhere('u.departement = :departement')
+            ->orWhere('u.departement = :departement')
             ->setParameter('departement', $departement)
             ->getQuery()
             ->getResult()
@@ -86,13 +91,17 @@ class GenderRepository extends ServiceEntityRepository
      *
      * @return void
      */
-    public function findMoviesGenderByDepartement($id, $departement)
+    public function findMoviesGenderByDepartement($keyword, $idGender, $idType, $departement)
     {
         return $this->createQueryBuilder('g')
             ->innerJoin('g.movies', 'm')
+            ->orWhere('m.name = :keyword')
+            ->setParameter('keyword', $keyword)
+            ->orWhere('g.id = :idGender')
+            ->setParameter('idGender', $idGender)
+            ->orWhere('m.type = :idType')
+            ->setParameter('idType', $idType)
             ->innerJoin('m.user', 'u')
-            ->andWhere('g.id = :id')
-            ->setParameter('id', $id)
             ->andWhere('u.departement = :departement')
             ->setParameter('departement', $departement)
             ->getQuery()
@@ -105,13 +114,18 @@ class GenderRepository extends ServiceEntityRepository
      *
      * @return void
      */
-    public function findMusicsGenderByDepartement($id, $departement)
+    public function findMusicsGenderByDepartement($keyword, $idGender, $idType, $departement)
     {
         return $this->createQueryBuilder('g')
             ->innerJoin('g.music', 'm')
+            ->orWhere('m.artist = :keyword')
+            ->orWhere('m.name = :keyword')
+            ->setParameter('keyword', $keyword)
+            ->orWhere('g.id = :idGender')
+            ->setParameter('idGender', $idGender)
+            ->orWhere('m.type = :idType')
+            ->setParameter('idType', $idType)
             ->innerJoin('m.user', 'u')
-            ->andWhere('g.id = :id')
-            ->setParameter('id', $id)
             ->andWhere('u.departement = :departement')
             ->setParameter('departement', $departement)
             ->getQuery()

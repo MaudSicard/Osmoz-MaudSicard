@@ -23,7 +23,6 @@ class MailRepository extends ServiceEntityRepository
 
     /**
      * Find all mails ordered by createdAt
-     * 
      * @return Mail[] Returns an array of Mail objects
      */
     public function findAllOrderedByCreatedAT()
@@ -53,8 +52,6 @@ class MailRepository extends ServiceEntityRepository
         
         return $query.setParameter("user", $user)->getResult();
     }
-
-
     // /**
     //  * @return Mail[] Returns an array of Mail objects
     //  */

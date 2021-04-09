@@ -1,19 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Musique{% endblock %}
+{% block title %}Musiques{% endblock %}
 
 {% block body %}
     <h1>Liste des musiques</h1>
 
-    <table class="table table-striped">
+    {{ include('_flash_messages.html.twig') }}
+
+    <table class="table">
     <div class="table-responsive">
         <thead>
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Titre de l'album</th>
                 <th scope="col">Artiste</th>
-                <th scope="col">Type</th>
-                <th scope="col">Genre</th>
+                <th scope="col">Types</th>
+                <th scope="col">Genres</th>
+                <th scope="col">Statut</th>
                 <th scope="col">Utilisateur<th>
             </tr>
         </thead>
@@ -24,12 +27,12 @@
                 <td>{{ music.name }}</td>
                 <td>{{ music.artist }}</td>
                 <td>{{ music.type.name }}</td>
+                <td>{% for gender in music.gender %}{{ gender.name }}{% if not loop.last %} / {% endif %}{% endfor %}</td>
+                <td>{{ music.status }}</td>
                 <td>{{ music.user.email }}</td>
                 <td>
                     <form action="{{ path('admin_music_delete', {id: music.id}) }}" onsubmit="return confirm('Supprimer le livre #{{ music.id }} ?')" method="POST">
-                        {# Fake HTTP Method, see https://symfony.com/doc/current/routing.html#matching-http-methods #}
                         <input type="hidden" name="_method" value="DELETE"/>
-                        {# CSRF Token manuel see https://symfony.com/doc/current/security/csrf.html#generating-and-checking-csrf-tokens-manually #}
                         <input type="hidden" name="token" value="{{ csrf_token('delete-music') }}"/>
                         <a class="btn btn-sm btn-primary" href="{{ path('admin_music_update', {id: music.id}) }}">Modifier</a>
                         <button class="btn btn-sm btn-danger" type="submit">Supprimer</button>
