@@ -43,10 +43,17 @@ class MailController extends AbstractController
      /**
      * Read mails by sender and recipient
      *
-     * @Route("/api/mail/read/$sender/$recipient", name="api_mail_read_sender_recipient", methods={"GET"})
+     * @Route("/api/mail/read/sender/recipient", name="api_mail_read_sender_recipient", methods={"POST"})
      */
-    public function readByRecipientSender($sender, $recipient, MailRepository $mailRepository): Response
+    public function readByRecipientSender(MailRepository $mailRepository, Request $request): Response
     {
+        $jsonContent = $request->getContent();
+
+        $json = json_decode($jsonContent);
+
+        $sender = $json->sender;
+        $recipient = $json->recipient;
+
         $mail = $mailRepository->findMailBySenderRecipient($sender, $recipient);
 
         if ($mail === null) {

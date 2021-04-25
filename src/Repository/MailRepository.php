@@ -61,9 +61,9 @@ class MailRepository extends ServiceEntityRepository
     public function findMailBySenderRecipient($sender, $recipient)
     {
         $qb = $this->createQueryBuilder('m')
-            ->orWhere ('m.senderId = :sender')
+            ->orWhere ('m.sender_id = :sender')
             ->setParameter('sender', $sender)
-            ->orWhere ('m.recipientId = :recipient')
+            ->orWhere ('m.recipient_id = :recipient')
             ->setParameter('recipient', $recipient);
             
         return $qb->getQuery()->getResult();
