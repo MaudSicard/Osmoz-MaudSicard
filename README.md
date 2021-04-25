@@ -23,7 +23,7 @@ Pour cette version 1 :
 - création d'une barre de recherche avec filtres
 - création d'une partie admin
 
-## Technos utilisés et contributions
+## Technos utilisées et contributions
 
 React, Redux pour le front et Symfony pour le back
 
